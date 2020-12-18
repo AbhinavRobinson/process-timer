@@ -3,6 +3,10 @@
   -webkit-app-region: drag;
 }
 
+.disable {
+  display: none;
+}
+
 .text-center {
   text-align: center;
 }
