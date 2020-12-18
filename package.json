@@ -1,6 +1,6 @@
 {
-	"name": "aftest",
-	"version": "0.0.4",
+	"name": "prototype",
+	"version": "0.0.1",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
@@ -16,7 +16,6 @@
 		"type": "git"
 	},
 	"keywords": [],
-	"author": "Aniket Biprojit Chowdhury <aniket_chowdhury@hotmail.com>",
 	"license": "ISC",
 	"devDependencies": {
 		"@babel/preset-react": "^7.10.4",
@@ -87,13 +86,7 @@
 			"target": [
 				"dmg"
 			],
-			"icon": "build/icons/",
-			"publish": [
-				{
-					"provider": "github",
-					"token": "cb9557b9e2ae2e7dd67488135bb599f03c991e09"
-				}
-			]
+			"icon": "build/icons/"
 		}
 	}
 }
