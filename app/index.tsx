@@ -24,6 +24,17 @@ class App extends React.Component<{}, IAppState> {
 
 	render() {
 		const timeSpent = [100, 75, 50, 25]
+		const itemStyle = {
+			color: 'black',
+			background: '#ccc',
+			border: '2px solid #333',
+			maxWidth: '25px',
+			minHeight: '25px',
+			borderRadius: '25px',
+			padding: '5px',
+			margin: '5px 0',
+			textAlign: 'center'
+		}
 
 		return (
 			<div
@@ -51,60 +62,16 @@ class App extends React.Component<{}, IAppState> {
 							margin: 0,
 						}}
 					>
-						<li
-							style={{
-								color: 'white',
-								background: '#333',
-								maxWidth: '25px',
-								minHeight: '25px',
-								borderRadius: '25px',
-								padding: '5px',
-								textAlign: 'center',
-								margin: '5px 0',
-							}}
-						>
+						<li style={itemStyle}>
 							<span className='app-item'>{timeSpent[0]}</span>
 						</li>
-						<li
-							style={{
-								color: 'white',
-								background: '#333',
-								maxWidth: '25px',
-								minHeight: '25px',
-								borderRadius: '25px',
-								padding: '5px',
-								textAlign: 'center',
-								margin: '5px 0',
-							}}
-						>
+						<li style={itemStyle}>
 							<span className='app-item'>{timeSpent[1]}</span>
 						</li>
-						<li
-							style={{
-								color: 'white',
-								background: '#333',
-								maxWidth: '25px',
-								minHeight: '25px',
-								borderRadius: '25px',
-								padding: '5px',
-								textAlign: 'center',
-								margin: '5px 0',
-							}}
-						>
+						<li style={itemStyle}>
 							<span className='app-item'>{timeSpent[2]}</span>
 						</li>
-						<li
-							style={{
-								color: 'white',
-								background: '#333',
-								maxWidth: '25px',
-								minHeight: '25px',
-								borderRadius: '25px',
-								padding: '5px',
-								textAlign: 'center',
-								margin: '5px 0',
-							}}
-						>
+						<li style={itemStyle}>
 							<span className='app-item'>{timeSpent[3]}</span>
 						</li>
 					</ul>
@@ -121,7 +88,9 @@ class App extends React.Component<{}, IAppState> {
 						▶
 					</button>
 				</div>
-				{this.state.active_app}
+				<div className="active-app" style={{ display: 'none' }}>
+					{this.state.active_app}
+				</div>
 			</div>
 		)
 	}
