@@ -132,7 +132,7 @@ class App extends React.Component<{}, IAppState> {
 						</button>
 					) : (
 						<Fragment>
-							<p>Pause</p>
+							<p>⏸</p>
 							{this.state.running_time}
 						</Fragment>
 					)}
@@ -140,7 +140,7 @@ class App extends React.Component<{}, IAppState> {
 				<div className='active-app draggable' style={{ paddingTop: '20px' }}>
 					Active App: {this.state.active_app}
 				</div>
-				<div className='monitor-app draggable' style={{ paddingTop: '20px' }}>
+				<div className='monitor-app draggable disable' style={{ paddingTop: '20px' }}>
 					Monitor App: {this.state.monitor_app}
 				</div>
 				{/* <div className=''>{JSON.stringify(this.state)}</div> */}
