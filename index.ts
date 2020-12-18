@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut } from 'electron'
+import { app, BrowserWindow, globalShortcut, screen } from 'electron'
 import { format as formatUrl } from 'url'
 import * as path from 'path'
 import getFile from './run'
@@ -14,22 +14,28 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 
 function createMainWindow() {
 	// console.log(__static, '45tyui')
+	let display = screen.getPrimaryDisplay()
+
 	const window = new BrowserWindow({
 		webPreferences: {
 			nodeIntegration: true,
 			enableRemoteModule: true,
 			webSecurity: false,
 		},
-		width: 1440,
-		height: 900,
-		minHeight: 675,
-		minWidth: 1080,
+		width: 120,
+		height: 280,
+		x: display.bounds.width - 60,
+		// minHeight: 675,
+		// minWidth: 1080,
+		alwaysOnTop: true,
+		frame: false,
+
 		icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
 	})
 
-	if (isDevelopment) {
-		window.webContents.openDevTools()
-	}
+	// if (isDevelopment) {
+	// 	window.webContents.openDevTools()
+	// }
 
 	if (isDevelopment) {
 		// noinspection JSIgnoredPromiseFromCall
