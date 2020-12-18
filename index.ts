@@ -29,7 +29,7 @@ function createMainWindow() {
 		// minWidth: 1080,
 		alwaysOnTop: true,
 		frame: false,
-		transparent: true,
+		// transparent: true,
 		icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
 	})
 

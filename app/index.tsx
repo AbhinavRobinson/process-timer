@@ -11,6 +11,7 @@ interface IAppState {
 	backend_running: boolean
 	total_time: number
 	time_spent: number[]
+	running_time: number
 }
 
 class App extends React.Component<{}, IAppState> {
@@ -21,6 +22,7 @@ class App extends React.Component<{}, IAppState> {
 		backend_running: true,
 		total_time: 300,
 		time_spent: [100, 75, 50, 25],
+		running_time: 0,
 	}
 	async componentDidMount() {
 		setInterval(() => {
@@ -30,7 +32,23 @@ class App extends React.Component<{}, IAppState> {
 		}, 1000)
 	}
 
-	run_backend() {}
+	run_backend() {
+		const { total_time } = this.state
+		let time_spent = this.state.time_spent
+		time_spent.push(0)
+		this.setState({ time_spent })
+		const interval = setInterval(() => {
+			let { running_time, active_app, monitor_app } = this.state
+			if (active_app === monitor_app) {
+				running_time += 1
+				time_spent[time_spent.length - 1] = (running_time / total_time) * 100
+			}
+			this.setState({ running_time: running_time, time_spent })
+		}, 1000)
+		setTimeout(() => {
+			clearInterval(interval)
+		}, 300 * 1000)
+	}
 
 	render() {
 		// const timeSpent = [100, 75, 50, 25]
@@ -55,8 +73,8 @@ class App extends React.Component<{}, IAppState> {
 					borderRadius: '15px',
 					fontFamily: 'monospace',
 					WebkitUserSelect: 'none',
-					WebkitAppRegion: 'drag'
-					}}
+					// WebkitAppRegion: 'drag',
+				}}
 			>
 				<div
 					className='container'
@@ -104,7 +122,10 @@ class App extends React.Component<{}, IAppState> {
 						<Fragment>Pause</Fragment>
 					)}
 				</div>
-				<div className='active-app' style={{ display: 'none' }}>
+				<div
+					className='active-app'
+					//  style={{ display: 'none' }}
+				>
 					{this.state.active_app}
 				</div>
 			</div>
