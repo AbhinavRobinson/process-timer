@@ -68,20 +68,20 @@ class App extends React.Component<{}, IAppState> {
 			border: '2px solid #333',
 			maxWidth: '25px',
 			minHeight: '25px',
-			borderRadius: '25px',
+			maxHeight: '25px',
+			borderRadius: '50%',
 			padding: '5px',
-			margin: '5px 0',
+			margin: '5px 0'
 		}
 
 		return (
-			<div className='draggable'
+			<div 
 				style={{
 					maxWidth: '50px',
 					background: '#ccc',
 					padding: '10px',
 					borderRadius: '15px',
-					fontFamily: 'monospace',
-					WebkitUserSelect: 'none'
+					fontFamily: 'monospace'
 					}}
 			>
 				<div
@@ -134,10 +134,10 @@ class App extends React.Component<{}, IAppState> {
 						</Fragment>
 					)}
 				</div>
-				<div className='active-app' style={{ paddingTop: '20px' }}>
+				<div className='active-app draggable' style={{ paddingTop: '20px' }}>
 					Active App: {this.state.active_app}
 				</div>
-				<div className='monitor-app' style={{ paddingTop: '20px' }}>
+				<div className='monitor-app draggable' style={{ paddingTop: '20px' }}>
 					Monitor App: {this.state.monitor_app}
 				</div>
 				{/* <div className=''>{JSON.stringify(this.state)}</div> */}
