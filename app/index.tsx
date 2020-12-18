@@ -3,6 +3,7 @@ import { join } from 'path'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import getFile from '../run'
+import './index.css'
 
 interface IAppState {
 	static: string
@@ -74,6 +75,7 @@ class App extends React.Component<{}, IAppState> {
 
 		return (
 			<div
+				className='draggable'
 				style={{
 					maxWidth: '50px',
 					background: '#ccc',
