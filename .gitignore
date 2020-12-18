@@ -3,5 +3,5 @@ node_modules
 __pycache__
 dist
 **/node_modules
-**/dist
 **/build
+dist
