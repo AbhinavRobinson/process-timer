@@ -7,12 +7,16 @@ import getFile from '../run'
 interface IAppState {
 	static: string
 	active_app: string
+	monitor_app: string
+	backend_running: boolean
 }
 
 class App extends React.Component<{}, IAppState> {
 	state = {
 		static: __static,
 		active_app: '',
+		monitor_app: '',
+		backend_running: true,
 	}
 	async componentDidMount() {
 		setInterval(() => {
@@ -108,7 +112,11 @@ class App extends React.Component<{}, IAppState> {
 							<span className='app-item'>{timeSpent[3]}</span>
 						</li>
 					</ul>
-					<button
+					{this.state.backend_running?				<button
+						onClick={() => {
+							const { active_app } = this.state
+							this.setState({ monitor_app: active_app, backend_running:true })
+						}}
 						className='play-button'
 						style={{
 							maxWidth: '25px',
@@ -119,7 +127,9 @@ class App extends React.Component<{}, IAppState> {
 						}}
 					>
 						▶
-					</button>
+					</button>:<Fragment>
+						Pause
+					</Fragment>}
 				</div>
 				{this.state.active_app}
 			</div>
