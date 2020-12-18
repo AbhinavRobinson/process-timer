@@ -12,6 +12,7 @@ interface IAppState {
 	total_time: number
 	time_spent: number[]
 	running_time: number
+	active_time: number
 }
 
 class App extends React.Component<{}, IAppState> {
@@ -19,15 +20,16 @@ class App extends React.Component<{}, IAppState> {
 		static: __static,
 		active_app: '',
 		monitor_app: '',
-		backend_running: true,
-		total_time: 300,
-		time_spent: [100, 75, 50, 25],
+		backend_running: false,
+		total_time: 10, // seconds
+		time_spent: [],
 		running_time: 0,
+		active_time: 0,
 	}
 	async componentDidMount() {
 		setInterval(() => {
 			getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
-				this.setState({ active_app: data })
+				if (data !== 'Electron') this.setState({ active_app: data })
 			})
 		}, 1000)
 	}
@@ -38,16 +40,22 @@ class App extends React.Component<{}, IAppState> {
 		time_spent.push(0)
 		this.setState({ time_spent })
 		const interval = setInterval(() => {
-			let { running_time, active_app, monitor_app } = this.state
+			let { running_time, active_app, monitor_app, active_time } = this.state
+			running_time += 1
 			if (active_app === monitor_app) {
-				running_time += 1
-				time_spent[time_spent.length - 1] = (running_time / total_time) * 100
+				active_time += 1
+				time_spent[time_spent.length - 1] = Math.floor((active_time / total_time) * 100)
 			}
-			this.setState({ running_time: running_time, time_spent })
+			this.setState({ running_time: running_time, time_spent, active_time })
 		}, 1000)
 		setTimeout(() => {
 			clearInterval(interval)
-		}, 300 * 1000)
+			if (time_spent.length === 4) {
+				time_spent.splice(0, 1)
+			}
+			this.setState({ running_time: 0, time_spent, active_time: 0 })
+			this.run_backend()
+		}, total_time * 1000)
 	}
 
 	render() {
@@ -96,16 +104,17 @@ class App extends React.Component<{}, IAppState> {
 						{this.state.time_spent.map((elem) => {
 							return (
 								<li style={itemStyle}>
-									<span className='app-item'>{elem}</span>
+									<span className='app-item'>{`${elem} %`}</span>
 								</li>
 							)
 						})}
 					</ul>
-					{this.state.backend_running ? (
+					{!this.state.backend_running ? (
 						<button
 							onClick={() => {
 								const { active_app } = this.state
 								this.setState({ monitor_app: active_app, backend_running: true })
+								this.run_backend()
 							}}
 							className='play-button'
 							style={{
@@ -119,15 +128,19 @@ class App extends React.Component<{}, IAppState> {
 							▶
 						</button>
 					) : (
-						<Fragment>Pause</Fragment>
+						<Fragment>
+							<p>Pause</p>
+							{this.state.running_time}
+						</Fragment>
 					)}
 				</div>
-				<div
-					className='active-app'
-					//  style={{ display: 'none' }}
-				>
-					{this.state.active_app}
+				<div className='active-app' style={{ paddingTop: '20px' }}>
+					Active App: {this.state.active_app}
 				</div>
+				<div className='monitor-app' style={{ paddingTop: '20px' }}>
+					Monitor App: {this.state.monitor_app}
+				</div>
+				{/* <div className=''>{JSON.stringify(this.state)}</div> */}
 			</div>
 		)
 	}

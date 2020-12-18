@@ -12,4 +12,4 @@ def getForegroundWindowTitle():
         return None
 
 # while(True):
-print(getForegroundWindowTitle())
+print(getForegroundWindowTitle(),end="")
