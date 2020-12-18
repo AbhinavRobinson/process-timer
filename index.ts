@@ -1,6 +1,7 @@
 import { app, BrowserWindow, globalShortcut } from 'electron'
 import { format as formatUrl } from 'url'
 import * as path from 'path'
+import getFile from './run'
 
 const log = require('electron-log')
 const { autoUpdater } = require('electron-updater')
@@ -57,7 +58,13 @@ function createMainWindow() {
 
 	return window
 }
+const monitor = require('active-window')
 
 app.on('ready', () => {
 	createMainWindow()
+	// setInterval(() => {
+	// 	getFile('',(data)=>{
+
+	// 	})
+	// }, 5000)
 })
