@@ -74,15 +74,16 @@ class App extends React.Component<{}, IAppState> {
 		}
 
 		return (
-			<div className='draggable'
+			<div
+				// className='draggable'
 				style={{
 					maxWidth: '50px',
 					background: '#ccc',
 					padding: '10px',
 					borderRadius: '15px',
 					fontFamily: 'monospace',
-					WebkitUserSelect: 'none'
-					}}
+					// WebkitUserSelect: 'none',
+				}}
 			>
 				<div
 					className='container'
@@ -112,6 +113,7 @@ class App extends React.Component<{}, IAppState> {
 					{!this.state.backend_running ? (
 						<button
 							onClick={() => {
+								console.log('clicked')
 								const { active_app } = this.state
 								this.setState({ monitor_app: active_app, backend_running: true })
 								this.run_backend()
@@ -123,6 +125,7 @@ class App extends React.Component<{}, IAppState> {
 								background: '#ccc',
 								border: '2px solid #333',
 								borderRadius: '25px',
+								cursor:'pointer'
 							}}
 						>
 							▶
