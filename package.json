@@ -1,6 +1,6 @@
 {
-	"name": "aftest",
-	"version": "0.0.4",
+	"name": "prototype",
+	"version": "0.0.1",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
@@ -16,7 +16,6 @@
 		"type": "git"
 	},
 	"keywords": [],
-	"author": "Aniket Biprojit Chowdhury <aniket_chowdhury@hotmail.com>",
 	"license": "ISC",
 	"devDependencies": {
 		"@babel/preset-react": "^7.10.4",
