@@ -9,8 +9,8 @@ interface IAppState {
 	active_app: string
 	monitor_app: string
 	backend_running: boolean
-	total_time:number,
-	time_spent:number[]
+	total_time: number
+	time_spent: number[]
 }
 
 class App extends React.Component<{}, IAppState> {
@@ -19,8 +19,8 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: true,
-		total_time:300,
-		time_spent:[100, 75, 50, 25]
+		total_time: 300,
+		time_spent: [100, 75, 50, 25],
 	}
 	async componentDidMount() {
 		setInterval(() => {
@@ -30,9 +30,7 @@ class App extends React.Component<{}, IAppState> {
 		}, 1000)
 	}
 
-	run_backend(){
-
-	}
+	run_backend() {}
 
 	render() {
 		// const timeSpent = [100, 75, 50, 25]
@@ -44,7 +42,7 @@ class App extends React.Component<{}, IAppState> {
 			minHeight: '25px',
 			borderRadius: '25px',
 			padding: '5px',
-			margin: '5px 0'
+			margin: '5px 0',
 		}
 
 		return (
@@ -54,7 +52,7 @@ class App extends React.Component<{}, IAppState> {
 					background: '#ccc',
 					padding: '10px',
 					borderRadius: '15px',
-					fontFamily: 'monospace'
+					fontFamily: 'monospace',
 				}}
 			>
 				<div
@@ -62,7 +60,7 @@ class App extends React.Component<{}, IAppState> {
 					style={{
 						display: 'flex',
 						flexDirection: 'column',
-						alignItems: 'center'
+						alignItems: 'center',
 					}}
 				>
 					<ul
@@ -71,38 +69,39 @@ class App extends React.Component<{}, IAppState> {
 							listStyle: 'none',
 							padding: '0 0 5px 0',
 							margin: 0,
-							textAlign:'center',
-							
+							textAlign: 'center',
 						}}
 					>
-						{this.state.time_spent.map(elem=>{
-return <li style={itemStyle}>
-<span className='app-item'>{elem}</span>
-</li>
+						{this.state.time_spent.map((elem) => {
+							return (
+								<li style={itemStyle}>
+									<span className='app-item'>{elem}</span>
+								</li>
+							)
 						})}
-						
-	
 					</ul>
-					{this.state.backend_running?				<button
-						onClick={() => {
-							const { active_app } = this.state
-							this.setState({ monitor_app: active_app, backend_running:true })
-						}}
-						className='play-button'
-						style={{
-							maxWidth: '25px',
-							minHeight: '25px',
-							background: '#ccc',
-							border: '2px solid #333',
-							borderRadius: '25px',
-						}}
-					>
-						▶
-					</button>:<Fragment>
-						Pause
-					</Fragment>}
+					{this.state.backend_running ? (
+						<button
+							onClick={() => {
+								const { active_app } = this.state
+								this.setState({ monitor_app: active_app, backend_running: true })
+							}}
+							className='play-button'
+							style={{
+								maxWidth: '25px',
+								minHeight: '25px',
+								background: '#ccc',
+								border: '2px solid #333',
+								borderRadius: '25px',
+							}}
+						>
+							▶
+						</button>
+					) : (
+						<Fragment>Pause</Fragment>
+					)}
 				</div>
-				<div className="active-app" style={{ display: 'none' }}>
+				<div className='active-app' style={{ display: 'none' }}>
 					{this.state.active_app}
 				</div>
 			</div>
