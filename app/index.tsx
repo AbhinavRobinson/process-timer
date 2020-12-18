@@ -11,10 +11,19 @@ class App extends React.Component<{}, { static: string }> {
 	}
 
 	render() {
-		return <div>
-			v0.0.4
-		</div>
-		
+		const timeSpent = [0,0,0,0]
+
+		return (
+			<div className="container flex flex-column">
+				<ul className="app-list flex flex-column"> 
+					<li><span className="app-item">{timeSpent[0]}</span>%</li>
+					<li><span className="app-item">{timeSpent[1]}</span>%</li>
+					<li><span className="app-item">{timeSpent[2]}</span>%</li>
+					<li><span className="app-item">{timeSpent[3]}</span>%</li>
+				</ul>
+				<button className="play-button bg-dark">▶</button>	
+			</div>
+		)		
 	}
 }
 
