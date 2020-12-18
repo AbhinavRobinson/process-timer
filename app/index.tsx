@@ -32,7 +32,7 @@ class App extends React.Component<{}, IAppState> {
 			getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
 				if (data !== 'Electron') this.setState({ active_app: data })
 			})
-		}, 1000)
+		}, 2000)
 	}
 
 	run_backend() {
@@ -124,7 +124,7 @@ class App extends React.Component<{}, IAppState> {
 								background: '#ccc',
 								border: '2px solid #333',
 								borderRadius: '25px',
-								cursor:'pointer'
+								cursor: 'pointer',
 							}}
 						>
 							▶
