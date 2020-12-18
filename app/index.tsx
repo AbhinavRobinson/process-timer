@@ -9,6 +9,7 @@ interface IAppState {
 	active_app: string
 	monitor_app: string
 	backend_running: boolean
+	total_time:number
 }
 
 class App extends React.Component<{}, IAppState> {
@@ -17,6 +18,7 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: true,
+		total_time:300
 	}
 	async componentDidMount() {
 		setInterval(() => {
@@ -24,6 +26,10 @@ class App extends React.Component<{}, IAppState> {
 				this.setState({ active_app: data })
 			})
 		}, 1000)
+	}
+
+	run_backend(){
+		
 	}
 
 	render() {
