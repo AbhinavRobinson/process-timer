@@ -1,4 +1,3 @@
-from typing import Optional
 from ctypes import wintypes, windll, create_unicode_buffer
 
 def getForegroundWindowTitle():
@@ -12,8 +11,5 @@ def getForegroundWindowTitle():
     else:
         return None
 
-from time import sleep
-
-while(True):
-    print(getForegroundWindowTitle())
-    sleep(1)
+# while(True):
+print(getForegroundWindowTitle())

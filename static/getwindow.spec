@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['getwindow.py'],
-             pathex=['C:\\Users\\Aniket\\nims'],
+             pathex=['C:\\Users\\Aniket\\nims\\static'],
              binaries=[],
              datas=[],
              hiddenimports=[],
