@@ -34,6 +34,16 @@ class App extends React.Component<{}, IAppState> {
 
 	render() {
 		const timeSpent = [100, 75, 50, 25]
+		const itemStyle = {
+			color: 'black',
+			background: '#ccc',
+			border: '2px solid #333',
+			maxWidth: '25px',
+			minHeight: '25px',
+			borderRadius: '25px',
+			padding: '5px',
+			margin: '5px 0'
+		}
 
 		return (
 			<div
@@ -42,7 +52,7 @@ class App extends React.Component<{}, IAppState> {
 					background: '#ccc',
 					padding: '10px',
 					borderRadius: '15px',
-					fontFamily: 'monospace',
+					fontFamily: 'monospace'
 				}}
 			>
 				<div
@@ -50,7 +60,7 @@ class App extends React.Component<{}, IAppState> {
 					style={{
 						display: 'flex',
 						flexDirection: 'column',
-						alignItems: 'center',
+						alignItems: 'center'
 					}}
 				>
 					<ul
@@ -59,62 +69,20 @@ class App extends React.Component<{}, IAppState> {
 							listStyle: 'none',
 							padding: '0 0 5px 0',
 							margin: 0,
+							textAlign:'center',
+							
 						}}
 					>
-						<li
-							style={{
-								color: 'white',
-								background: '#333',
-								maxWidth: '25px',
-								minHeight: '25px',
-								borderRadius: '25px',
-								padding: '5px',
-								textAlign: 'center',
-								margin: '5px 0',
-							}}
-						>
+						<li style={itemStyle}>
 							<span className='app-item'>{timeSpent[0]}</span>
 						</li>
-						<li
-							style={{
-								color: 'white',
-								background: '#333',
-								maxWidth: '25px',
-								minHeight: '25px',
-								borderRadius: '25px',
-								padding: '5px',
-								textAlign: 'center',
-								margin: '5px 0',
-							}}
-						>
+						<li style={itemStyle}>
 							<span className='app-item'>{timeSpent[1]}</span>
 						</li>
-						<li
-							style={{
-								color: 'white',
-								background: '#333',
-								maxWidth: '25px',
-								minHeight: '25px',
-								borderRadius: '25px',
-								padding: '5px',
-								textAlign: 'center',
-								margin: '5px 0',
-							}}
-						>
+						<li style={itemStyle}>
 							<span className='app-item'>{timeSpent[2]}</span>
 						</li>
-						<li
-							style={{
-								color: 'white',
-								background: '#333',
-								maxWidth: '25px',
-								minHeight: '25px',
-								borderRadius: '25px',
-								padding: '5px',
-								textAlign: 'center',
-								margin: '5px 0',
-							}}
-						>
+						<li style={itemStyle}>
 							<span className='app-item'>{timeSpent[3]}</span>
 						</li>
 					</ul>
@@ -137,7 +105,9 @@ class App extends React.Component<{}, IAppState> {
 						Pause
 					</Fragment>}
 				</div>
-				{this.state.active_app}
+				<div className="active-app" style={{ display: 'none' }}>
+					{this.state.active_app}
+				</div>
 			</div>
 		)
 	}
