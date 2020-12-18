@@ -34,6 +34,7 @@ class App extends React.Component<{}, IAppState> {
 
 	render() {
 		// const timeSpent = [100, 75, 50, 25]
+
 		const itemStyle = {
 			color: 'black',
 			background: '#ccc',
@@ -53,7 +54,9 @@ class App extends React.Component<{}, IAppState> {
 					padding: '10px',
 					borderRadius: '15px',
 					fontFamily: 'monospace',
-				}}
+					WebkitUserSelect: 'none',
+					WebkitAppRegion: 'drag'
+					}}
 			>
 				<div
 					className='container'

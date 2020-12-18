@@ -3,6 +3,10 @@
   padding: 0 40px;
 }
 
+.draggable {
+  -webkit-app-region: drag;
+}
+
 .text-center {
   text-align: center;
 }
