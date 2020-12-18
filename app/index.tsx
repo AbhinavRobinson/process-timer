@@ -2,13 +2,18 @@ import { spawnSync } from 'child_process'
 import { join } from 'path'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
+import getFile from '../run'
 
 class App extends React.Component<{}, { static: string }> {
 	state = {
 		static: __static,
 	}
 	async componentDidMount() {
-		console.log(join(__static, 'dist', 'getwindow.exe'))
+		setInterval(() => {
+			getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
+				console.log('app: ', data)
+			})
+		}, 1000)
 	}
 
 	render() {
