@@ -9,7 +9,8 @@ interface IAppState {
 	active_app: string
 	monitor_app: string
 	backend_running: boolean
-	total_time:number
+	total_time:number,
+	time_spent:number[]
 }
 
 class App extends React.Component<{}, IAppState> {
@@ -18,7 +19,8 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: true,
-		total_time:300
+		total_time:300,
+		time_spent:[100, 75, 50, 25]
 	}
 	async componentDidMount() {
 		setInterval(() => {
@@ -29,11 +31,11 @@ class App extends React.Component<{}, IAppState> {
 	}
 
 	run_backend(){
-		
+
 	}
 
 	render() {
-		const timeSpent = [100, 75, 50, 25]
+		// const timeSpent = [100, 75, 50, 25]
 		const itemStyle = {
 			color: 'black',
 			background: '#ccc',
@@ -73,18 +75,13 @@ class App extends React.Component<{}, IAppState> {
 							
 						}}
 					>
-						<li style={itemStyle}>
-							<span className='app-item'>{timeSpent[0]}</span>
-						</li>
-						<li style={itemStyle}>
-							<span className='app-item'>{timeSpent[1]}</span>
-						</li>
-						<li style={itemStyle}>
-							<span className='app-item'>{timeSpent[2]}</span>
-						</li>
-						<li style={itemStyle}>
-							<span className='app-item'>{timeSpent[3]}</span>
-						</li>
+						{this.state.time_spent.map(elem=>{
+return <li style={itemStyle}>
+<span className='app-item'>{elem}</span>
+</li>
+						})}
+						
+	
 					</ul>
 					{this.state.backend_running?				<button
 						onClick={() => {
