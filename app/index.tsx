@@ -33,7 +33,7 @@ class App extends React.Component<{}, IAppState> {
 			borderRadius: '25px',
 			padding: '5px',
 			margin: '5px 0',
-			textAlign: 'center'
+			TextAlign: 'center'
 		}
 
 		return (
