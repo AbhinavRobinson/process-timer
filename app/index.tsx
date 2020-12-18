@@ -32,8 +32,7 @@ class App extends React.Component<{}, IAppState> {
 			minHeight: '25px',
 			borderRadius: '25px',
 			padding: '5px',
-			margin: '5px 0',
-			TextAlign: 'center'
+			margin: '5px 0'
 		}
 
 		return (
@@ -43,7 +42,7 @@ class App extends React.Component<{}, IAppState> {
 					background: '#ccc',
 					padding: '10px',
 					borderRadius: '15px',
-					fontFamily: 'monospace',
+					fontFamily: 'monospace'
 				}}
 			>
 				<div
@@ -51,7 +50,7 @@ class App extends React.Component<{}, IAppState> {
 					style={{
 						display: 'flex',
 						flexDirection: 'column',
-						alignItems: 'center',
+						alignItems: 'center'
 					}}
 				>
 					<ul
@@ -60,6 +59,8 @@ class App extends React.Component<{}, IAppState> {
 							listStyle: 'none',
 							padding: '0 0 5px 0',
 							margin: 0,
+							textAlign:'center',
+							
 						}}
 					>
 						<li style={itemStyle}>
