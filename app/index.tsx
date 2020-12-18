@@ -34,6 +34,7 @@ class App extends React.Component<{}, IAppState> {
 			})
 		}, 2000)
 	}
+	private global_timeout: NodeJS.Timeout
 
 	run_backend() {
 		const { total_time } = this.state
@@ -49,6 +50,7 @@ class App extends React.Component<{}, IAppState> {
 			}
 			this.setState({ running_time: running_time, time_spent, active_time })
 		}, 1000)
+		this.global_timeout = interval
 		setTimeout(() => {
 			clearInterval(interval)
 			if (time_spent.length === 4) {
@@ -131,7 +133,23 @@ class App extends React.Component<{}, IAppState> {
 						</button>
 					) : (
 						<Fragment>
-							<p>⏸</p>
+							<button
+								onClick={() => {
+									clearInterval(this.global_timeout)
+									this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+								}}
+								className='pause-button'
+								style={{
+									maxWidth: '25px',
+									minHeight: '25px',
+									background: '#ccc',
+									border: '2px solid #333',
+									borderRadius: '25px',
+									cursor: 'pointer',
+								}}
+							>
+								⏸
+							</button>
 							{this.state.running_time}
 						</Fragment>
 					)}
