@@ -10,7 +10,7 @@
 		"dev": "electron-webpack dev",
 		"build": "electron-webpack && electron-builder",
 		"release": "electron-webpack && electron-builder -m --publish always",
-		"release:win": "electron-webpack && electron-builder -wl --publish always"
+		"release:win": "electron-webpack && electron-builder -w"
 	},
 	"repository": {
 		"type": "git"
