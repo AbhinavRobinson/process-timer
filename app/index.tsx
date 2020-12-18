@@ -124,7 +124,7 @@ class App extends React.Component<{}, IAppState> {
 				</div>
 				<div
 					className='active-app'
-					//  style={{ display: 'none' }}
+					 style={{ display: 'none' }}
 				>
 					{this.state.active_app}
 				</div>
