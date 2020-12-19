@@ -30,7 +30,11 @@ class App extends React.Component<{}, IAppState> {
 	async componentDidMount() {
 		setInterval(() => {
 			getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
-				if (data !== 'Electron') this.setState({ active_app: data })
+				console.log(data)
+				if (data['title'] !== 'Electron') {
+					if (data['app'] === 'chrome.exe') this.setState({ active_app: data['title'] })
+					else this.setState({ active_app: data['app'] })
+				}
 			})
 		}, 2000)
 	}

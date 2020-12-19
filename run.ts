@@ -7,15 +7,22 @@ const { join } = require('path')
 
 // console.log(filepath)
 
-export default function getFile(filepath, callback: (string) => void) {
+interface JSONdata {
+	title: string
+	app: string
+	pid: number
+}
+
+export default function getFile(filepath, callback: (json_data: JSONdata) => void) {
 	// const pyprocess = spawn('python', [filepath])
 	const pyprocess = spawn(filepath, [])
 
 	pyprocess.stdout.on('data', function (data) {
-		callback(data.toString())
+		callback(JSON.parse(data.toString()))
 	})
 }
 
-// getFile('C:\\Users\\Aniket\\nims\\static\\dist\\getwindow.exe', (data) => {
+// getFile('C:\\Users\\Aniket\\nims\\static\\getwindow.py', (data) => {
 // 	console.log(data)
+// 	console.log(JSON.parse(data))
 // })
