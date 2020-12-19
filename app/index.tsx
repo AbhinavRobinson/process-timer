@@ -148,7 +148,7 @@ class App extends React.Component<{}, IAppState> {
 									cursor: 'pointer',
 								}}
 							>
-								⏸
+								||
 							</button>
 							{this.state.running_time}
 						</Fragment>
