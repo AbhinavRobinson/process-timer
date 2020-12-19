@@ -2,7 +2,7 @@ import { app, BrowserWindow, globalShortcut, screen } from 'electron'
 import { format as formatUrl } from 'url'
 import * as path from 'path'
 
-let mainWindow: null | BrowserWindow
+export let mainWindow: null | BrowserWindow
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 

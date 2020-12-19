@@ -1,7 +1,9 @@
 import { spawnSync } from 'child_process'
+import { ipcRenderer, remote } from 'electron'
 import { join } from 'path'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
+
 import getFile from '../run'
 import './index.css'
 
@@ -25,12 +27,20 @@ class App extends React.Component<{}, IAppState> {
 		total_time: 60, // seconds
 		time_spent: [],
 		running_time: 0,
-		active_time: 0
+		active_time: 0,
 	}
 	async componentDidMount() {
+		remote.getCurrentWindow().setBounds({
+			x: remote.screen.getPrimaryDisplay().bounds.width - 120,
+			y: remote.screen.getPrimaryDisplay().bounds.height / 2 - document.getElementById('outer').clientHeight,
+		})
 		setInterval(() => {
+			// console.log(document.getElementById('outer').clientHeight)
+			// remote.getCurrentWindow().setBounds({
+			// 	width: document.getElementById('outer').clientHeight + 60,
+			// })
 			getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
-				console.log(data)
+				// console.log(data)
 				if (data['title'] !== 'Electron') {
 					if (data['app'] === 'chrome.exe') this.setState({ active_app: data['title'] })
 					else this.setState({ active_app: data['app'] })
@@ -66,20 +76,19 @@ class App extends React.Component<{}, IAppState> {
 	}
 
 	getColorForPercentage(percentage: number) {
-		let red = 255;
-		let green = 255;
+		let red = 255
+		let green = 255
 		if (percentage >= 0 && percentage <= 0.5) {
-		  green = 510 * percentage;
+			green = 510 * percentage
 		} else if (percentage > 0.5 && percentage <= 1) {
-		  red = -510 * percentage + 510;
+			red = -510 * percentage + 510
 		}
-	  
-		return 'rgb(' + [red, green, 0].join(',') + ')';
-	  }
+
+		return 'rgb(' + [red, green, 0].join(',') + ')'
+	}
 
 	getStyle = (elem) => {
-
-		let color = this.getColorForPercentage(elem/100)
+		let color = this.getColorForPercentage(elem / 100)
 		const itemStyle = {
 			color: 'black',
 			background: color,
@@ -93,17 +102,16 @@ class App extends React.Component<{}, IAppState> {
 			transition: '250ms',
 			fontWeight: 900,
 			boxShadow: '0 0 25px #777',
-			fontSize: '1.2rem'
+			fontSize: '1.2rem',
 		}
 
 		return itemStyle
-
 	}
 
 	render() {
-
 		return (
 			<div
+				id='outer'
 				style={{
 					maxWidth: '50px',
 					background: '#ccc',
@@ -158,27 +166,27 @@ class App extends React.Component<{}, IAppState> {
 							▶
 						</button>
 					) : (
-							<Fragment>
-								<button
-									onClick={() => {
-										clearInterval(this.global_timeout)
-										this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
-									}}
-									className='pause-button'
-									style={{
-										maxWidth: '25px',
-										minHeight: '25px',
-										background: '#ccc',
-										border: '2px solid #333',
-										borderRadius: '25px',
-										cursor: 'pointer',
-									}}
-								>
-									||
+						<Fragment>
+							<button
+								onClick={() => {
+									clearInterval(this.global_timeout)
+									this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+								}}
+								className='pause-button'
+								style={{
+									maxWidth: '25px',
+									minHeight: '25px',
+									background: '#ccc',
+									border: '2px solid #333',
+									borderRadius: '25px',
+									cursor: 'pointer',
+								}}
+							>
+								||
 							</button>
-								{this.state.running_time}
-							</Fragment>
-						)}
+							{this.state.running_time}
+						</Fragment>
+					)}
 				</div>
 				<div className='active-app draggable' style={{ paddingTop: '20px' }}>
 					Active App: {this.state.active_app}
