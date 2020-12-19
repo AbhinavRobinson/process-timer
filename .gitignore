@@ -1,11 +1,6 @@
 node_modules
 .vscode
 __pycache__
-dist
 **/node_modules
 **/build
-<<<<<<< HEAD
 dist
-=======
-dist
->>>>>>> 9403c8e ((fix): various fixes)

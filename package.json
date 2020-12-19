@@ -1,5 +1,5 @@
 {
-	"name": "prototype",
+	"name": "Electron",
 	"version": "0.0.1",
 	"description": "",
 	"main": "index.js",
@@ -87,12 +87,7 @@
 			"target": [
 				"dmg"
 			],
-			"icon": "build/icons/",
-			"publish": [
-				{
-					"provider": "github"
-				}
-			]
+			"icon": "build/icons/"
 		}
 	}
 }

@@ -84,7 +84,6 @@ class App extends React.Component<{}, IAppState> {
 					padding: '10px',
 					borderRadius: '15px',
 					fontFamily: 'monospace',
-					// WebkitUserSelect: 'none',
 				}}
 			>
 				<div
@@ -149,7 +148,7 @@ class App extends React.Component<{}, IAppState> {
 									cursor: 'pointer',
 								}}
 							>
-								Pause
+								||
 							</button>
 							{this.state.running_time}
 						</Fragment>
