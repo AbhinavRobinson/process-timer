@@ -1,6 +1,8 @@
 from ctypes import wintypes, windll, create_unicode_buffer, byref
 import psutil
 
+import json
+
 
 def getForegroundWindowTitle():
     hWnd = windll.user32.GetForegroundWindow()
@@ -9,7 +11,7 @@ def getForegroundWindowTitle():
     windll.user32.GetWindowTextW(hWnd, buf, length + 1)
     pid = wintypes.DWORD()
 
-    active_window = windll.user32.GetWindowThreadProcessId(hWnd, byref(pid))
+    windll.user32.GetWindowThreadProcessId(hWnd, byref(pid))
     # print(pid)
     if buf.value:
         return buf.value, pid
@@ -19,4 +21,5 @@ def getForegroundWindowTitle():
 
 # while(True):
 title, pid = getForegroundWindowTitle()
-print({'title': title, 'app': psutil.Process(23056).name(), 'pid': pid.value})
+print(json.dumps({'title': title, 'app': psutil.Process(
+    pid.value).name(), 'pid': pid.value}))
