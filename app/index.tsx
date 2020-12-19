@@ -22,10 +22,10 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: false,
-		total_time: 10, // seconds
+		total_time: 300, // seconds
 		time_spent: [],
 		running_time: 0,
-		active_time: 0,
+		active_time: 0
 	}
 	async componentDidMount() {
 		setInterval(() => {
@@ -61,20 +61,39 @@ class App extends React.Component<{}, IAppState> {
 		}, total_time * 1000)
 	}
 
-	render() {
-		// const timeSpent = [100, 75, 50, 25]
+	getColorForPercentage(percentage: number) {
+		let red = 255;
+		let green = 255;
+		if (percentage >= 0 && percentage <= 0.5) {
+		  green = 510 * percentage;
+		} else if (percentage > 0.5 && percentage <= 1) {
+		  red = -510 * percentage + 510;
+		}
+	  
+		return 'rgb(' + [red, green, 0].join(',') + ')';
+	  }
 
+	getStyle = (elem) => {
+
+		let color = this.getColorForPercentage(elem/100)
 		const itemStyle = {
 			color: 'black',
 			background: '#ccc',
-			border: '2px solid #333',
+			border: '3px solid ' + color,
 			maxWidth: '25px',
 			minHeight: '25px',
 			maxHeight: '25px',
 			borderRadius: '50%',
 			padding: '5px',
 			margin: '5px 0',
+			transition: '100ms'
 		}
+
+		return itemStyle
+
+	}
+
+	render() {
 
 		return (
 			<div
@@ -105,7 +124,7 @@ class App extends React.Component<{}, IAppState> {
 					>
 						{this.state.time_spent.map((elem) => {
 							return (
-								<li style={itemStyle}>
+								<li style={this.getStyle(elem)}>
 									<span className='app-item'>{`${elem} %`}</span>
 								</li>
 							)
@@ -132,27 +151,27 @@ class App extends React.Component<{}, IAppState> {
 							▶
 						</button>
 					) : (
-						<Fragment>
-							<button
-								onClick={() => {
-									clearInterval(this.global_timeout)
-									this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
-								}}
-								className='pause-button'
-								style={{
-									maxWidth: '25px',
-									minHeight: '25px',
-									background: '#ccc',
-									border: '2px solid #333',
-									borderRadius: '25px',
-									cursor: 'pointer',
-								}}
-							>
-								||
+							<Fragment>
+								<button
+									onClick={() => {
+										clearInterval(this.global_timeout)
+										this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+									}}
+									className='pause-button'
+									style={{
+										maxWidth: '25px',
+										minHeight: '25px',
+										background: '#ccc',
+										border: '2px solid #333',
+										borderRadius: '25px',
+										cursor: 'pointer',
+									}}
+								>
+									||
 							</button>
-							{this.state.running_time}
-						</Fragment>
-					)}
+								{this.state.running_time}
+							</Fragment>
+						)}
 				</div>
 				<div className='active-app draggable' style={{ paddingTop: '20px' }}>
 					Active App: {this.state.active_app}
