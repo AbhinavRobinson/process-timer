@@ -13,7 +13,8 @@
 		"release:win": "electron-webpack && electron-builder -w"
 	},
 	"repository": {
-		"type": "git"
+		"type": "git",
+		"url": "https://github.com/AbhinavRobinson/process-timer"
 	},
 	"keywords": [],
 	"license": "ISC",

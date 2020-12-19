@@ -22,7 +22,7 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: false,
-		total_time: 300, // seconds
+		total_time: 60, // seconds
 		time_spent: [],
 		running_time: 0,
 		active_time: 0
@@ -82,15 +82,18 @@ class App extends React.Component<{}, IAppState> {
 		let color = this.getColorForPercentage(elem/100)
 		const itemStyle = {
 			color: 'black',
-			background: '#ccc',
-			border: '3px solid ' + color,
+			background: color,
 			maxWidth: '25px',
+			minWidth: '25px',
 			minHeight: '25px',
 			maxHeight: '25px',
 			borderRadius: '50%',
-			padding: '5px',
-			margin: '5px 0',
-			transition: '100ms'
+			padding: '12.5px',
+			margin: '10px 0',
+			transition: '250ms',
+			fontWeight: 900,
+			boxShadow: '0 0 25px #777',
+			fontSize: '1.2rem'
 		}
 
 		return itemStyle
@@ -129,7 +132,7 @@ class App extends React.Component<{}, IAppState> {
 						{this.state.time_spent.map((elem) => {
 							return (
 								<li style={this.getStyle(elem)}>
-									<span className='app-item'>{`${elem} %`}</span>
+									<span className='app-item'>{`${elem}`}</span>
 								</li>
 							)
 						})}
@@ -180,7 +183,7 @@ class App extends React.Component<{}, IAppState> {
 				<div className='active-app draggable' style={{ paddingTop: '20px' }}>
 					Active App: {this.state.active_app}
 				</div>
-				<div className='monitor-app draggable disable' style={{ paddingTop: '20px' }}>
+				<div className='monitor-app draggable' style={{ paddingTop: '20px' }}>
 					Monitor App: {this.state.monitor_app}
 				</div>
 				{/* <div className=''>{JSON.stringify(this.state)}</div> */}
