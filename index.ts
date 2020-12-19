@@ -3,10 +3,10 @@ import { format as formatUrl } from 'url'
 import * as path from 'path'
 import getFile from './run'
 
-const log = require('electron-log')
-const { autoUpdater } = require('electron-updater')
-autoUpdater.logger = log
-autoUpdater.logger.transports.file.level = 'info'
+// const log = require('electron-log')
+// const { autoUpdater } = require('electron-updater')
+// autoUpdater.logger = log
+// autoUpdater.logger.transports.file.level = 'info'
 
 let mainWindow: null | BrowserWindow
 
@@ -64,7 +64,7 @@ function createMainWindow() {
 
 	return window
 }
-const monitor = require('active-window')
+// const monitor = require('active-window')
 
 app.on('ready', () => {
 	createMainWindow()
