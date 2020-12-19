@@ -7,6 +7,8 @@ import ReactDOM from 'react-dom'
 import getFile from '../run'
 import './index.css'
 
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
 interface IAppState {
 	static: string
 	active_app: string
@@ -39,13 +41,27 @@ class App extends React.Component<{}, IAppState> {
 			// remote.getCurrentWindow().setBounds({
 			// 	width: document.getElementById('outer').clientHeight + 60,
 			// })
-			getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
-				// console.log(data)
-				if (data['title'] !== 'Electron') {
-					if (data['app'] === 'chrome.exe') this.setState({ active_app: data['title'] })
-					else this.setState({ active_app: data['app'] })
-				}
-			})
+			if (process.platform === 'win32') {
+				getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
+					// console.log(data)
+					if (data['title'] !== 'Electron') {
+						if (data['app'] === 'chrome.exe') this.setState({ active_app: data['title'] })
+						else this.setState({ active_app: data['app'] })
+					}
+				})
+			} else {
+				const monitor = require('./active-window')
+				monitor.getActiveWindow((data) => {
+					if (data['title'] !== '"Electron"') {
+						console.log(data)
+						if (data['app'] !== '"google-chrome", "Google-chrome"') {
+							this.setState({ active_app: data['app'] })
+						} else {
+							this.setState({ active_app: data['title'] })
+						}
+					}
+				})
+			}
 		}, 2000)
 	}
 	private global_timeout: NodeJS.Timeout
