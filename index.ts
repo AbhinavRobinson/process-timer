@@ -1,19 +1,12 @@
 import { app, BrowserWindow, globalShortcut, screen } from 'electron'
 import { format as formatUrl } from 'url'
 import * as path from 'path'
-import getFile from './run'
-
-// const log = require('electron-log')
-// const { autoUpdater } = require('electron-updater')
-// autoUpdater.logger = log
-// autoUpdater.logger.transports.file.level = 'info'
 
 let mainWindow: null | BrowserWindow
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 function createMainWindow() {
-	// console.log(__static, '45tyui')
 	let display = screen.getPrimaryDisplay()
 
 	const window = new BrowserWindow({
