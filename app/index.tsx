@@ -68,27 +68,27 @@ class App extends React.Component<{}, IAppState> {
 
 	run_backend() {
 		const { total_time } = this.state
-		let time_spent = this.state.time_spent
-		time_spent.push(100)
-		this.setState({ time_spent })
+		let health = this.state.time_spent
+		health.push(100)
+		this.setState({ time_spent: health })
 		const interval = setInterval(() => {
 			let { running_time, active_app, monitor_app, active_time } = this.state
 			running_time += 1
 			if (active_app === monitor_app) {
 				active_time += 1
 			}
-			time_spent[time_spent.length - 1] = Math.ceil((1 - (running_time - active_time) / total_time) * 100)
-			this.setState({ running_time: running_time, time_spent, active_time }, () => {
-				console.log(running_time, time_spent, active_time)
+			health[health.length - 1] = Math.ceil((1 - (running_time - active_time) / total_time) * 100)
+			this.setState({ running_time: running_time, time_spent: health, active_time }, () => {
+				console.log(running_time, health, active_time)
 			})
 		}, 1000)
 		this.global_timeout = interval
 		setTimeout(() => {
 			clearInterval(interval)
-			if (time_spent.length === 4) {
-				time_spent.splice(0, 1)
+			if (health.length === 4) {
+				health.splice(0, 1)
 			}
-			this.setState({ running_time: 0, time_spent, active_time: 0 })
+			this.setState({ running_time: 0, time_spent: health, active_time: 0 })
 			this.run_backend()
 		}, total_time * 1000)
 	}
