@@ -3,6 +3,21 @@
   -webkit-app-region: drag;
 }
 
+.itemStyle {
+  display: flex;
+  flex-direction: column;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  text-align: center;
+  overflow: hidden;
+  padding: 3px;
+  position: relative;
+  box-sizing: border-box;
+  margin: 15px;
+  box-shadow: 0 0 0 1px gray;
+}
+
 .disable {
   display: none;
 }
