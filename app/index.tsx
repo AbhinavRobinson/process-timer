@@ -26,7 +26,7 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: false,
-		total_time: 100, // seconds
+		total_time: 10, // seconds
 		time_spent: [],
 		running_time: 0,
 		active_time: 0,
@@ -107,23 +107,16 @@ class App extends React.Component<{}, IAppState> {
 
 	getStyle = (elem) => {
 		let color = this.getColorForPercentage(elem / 100)
-		const itemStyle = {
-			color: 'black',
-			background: color,
-			maxWidth: '25px',
-			minWidth: '25px',
-			minHeight: '25px',
-			maxHeight: '25px',
-			borderRadius: '50%',
-			padding: '12.5px',
-			margin: '10px 0',
-			transition: '250ms',
-			fontWeight: 900,
-			boxShadow: '0 0 25px #777',
-			fontSize: '1.2rem',
+		const fillStyle = {
+			backgroundColor: color,
+			height: '50%',
+			width: '100%',
+			position: 'absolute',
+			bottom: 0,
+			left: 0
 		}
 
-		return itemStyle
+		return fillStyle
 	}
 
 	render() {
@@ -157,8 +150,9 @@ class App extends React.Component<{}, IAppState> {
 					>
 						{this.state.time_spent.map((elem) => {
 							return (
-								<li style={this.getStyle(elem)}>
-									<span className='app-item'>{`${elem}`}</span>
+								<li className="itemStyle">
+									<div className="fill" style={this.getStyle(elem)}></div>
+									{/* <span className='app-item'>{`${elem}`}</span> */}
 								</li>
 							)
 						})}
