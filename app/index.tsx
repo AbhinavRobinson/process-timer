@@ -26,7 +26,7 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: false,
-		total_time: 10, // seconds
+		total_time: isDevelopment ? 10 : 60, // seconds
 		time_spent: [],
 		running_time: 0,
 		active_time: 0,
