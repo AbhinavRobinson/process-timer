@@ -69,7 +69,7 @@ class App extends React.Component<{}, IAppState> {
 	run_backend() {
 		const { total_time } = this.state
 		let time_spent = this.state.time_spent
-		time_spent.push(0)
+		time_spent.push(100)
 		this.setState({ time_spent })
 		const interval = setInterval(() => {
 			let { running_time, active_app, monitor_app, active_time } = this.state
