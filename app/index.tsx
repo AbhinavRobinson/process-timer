@@ -9,13 +9,18 @@ import './index.css'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
+interface IHealth {
+	health: number
+	percentage: number
+}
+
 interface IAppState {
 	static: string
 	active_app: string
 	monitor_app: string
 	backend_running: boolean
 	total_time: number
-	time_spent: number[]
+	time_spent: IHealth[]
 	running_time: number
 	active_time: number
 }
@@ -26,7 +31,7 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: false,
-		total_time: isDevelopment ? 10 : 60, // seconds
+		total_time: isDevelopment ? 60 : 60, // seconds
 		time_spent: [],
 		running_time: 0,
 		active_time: 0,
@@ -68,27 +73,33 @@ class App extends React.Component<{}, IAppState> {
 
 	run_backend() {
 		const { total_time } = this.state
-		let health = this.state.time_spent
-		health.push(100)
-		this.setState({ time_spent: health })
+		let health_array: IHealth[] = this.state.time_spent
+		health_array.push({
+			health: 100,
+			percentage: 0,
+		})
+		this.setState({ time_spent: health_array })
 		const interval = setInterval(() => {
 			let { running_time, active_app, monitor_app, active_time } = this.state
 			running_time += 1
 			if (active_app === monitor_app) {
 				active_time += 1
 			}
-			health[health.length - 1] = Math.ceil((1 - (running_time - active_time) / total_time) * 100)
-			this.setState({ running_time: running_time, time_spent: health, active_time }, () => {
-				console.log(running_time, health, active_time)
+
+			health_array[health_array.length - 1].health = Math.ceil((1 - (running_time - active_time) / total_time) * 100)
+			health_array[health_array.length - 1].percentage = Math.floor((running_time / total_time) * 100)
+
+			this.setState({ running_time: running_time, time_spent: health_array, active_time }, () => {
+				// console.log(running_time, health_array[health_array.length - 1].health, health_array[health_array.length - 1].percentage, active_time)
 			})
 		}, 1000)
 		this.global_timeout = interval
 		setTimeout(() => {
 			clearInterval(interval)
-			if (health.length === 4) {
-				health.splice(0, 1)
+			if (health_array.length === 4) {
+				health_array.splice(0, 1)
 			}
-			this.setState({ running_time: 0, time_spent: health, active_time: 0 })
+			this.setState({ running_time: 0, time_spent: health_array, active_time: 0 })
 			this.run_backend()
 		}, total_time * 1000)
 	}
@@ -105,15 +116,15 @@ class App extends React.Component<{}, IAppState> {
 		return 'rgb(' + [red, green, 0].join(',') + ')'
 	}
 
-	getStyle = (elem) => {
-		let color = this.getColorForPercentage(elem / 100)
-		const fillStyle = {
+	getStyle = (elem: IHealth) => {
+		let color = this.getColorForPercentage(elem.health / 100)
+		const fillStyle: React.CSSProperties = {
 			backgroundColor: color,
-			height: '50%',
+			height: `${elem.percentage}%`,
 			width: '100%',
 			position: 'absolute',
 			bottom: 0,
-			left: 0
+			left: 0,
 		}
 
 		return fillStyle
@@ -148,11 +159,22 @@ class App extends React.Component<{}, IAppState> {
 							textAlign: 'center',
 						}}
 					>
-						{this.state.time_spent.map((elem) => {
+						{this.state.time_spent.map((elem: IHealth) => {
 							return (
-								<li className="itemStyle">
-									<div className="fill" style={this.getStyle(elem)}></div>
-									{/* <span className='app-item'>{`${elem}`}</span> */}
+								<li
+									className='itemStyle'
+									style={
+										this.state.active_app === this.state.monitor_app
+											? {
+													boxShadow: '0 0 0 1px gray',
+											  }
+											: {
+													boxShadow: '0 0 0 1px red',
+											  }
+									}
+								>
+									<div className='fill' style={this.getStyle(elem)}></div>
+									{/* <span className='app-item'>{`${elem.health}`}</span> */}
 								</li>
 							)
 						})}
@@ -200,13 +222,14 @@ class App extends React.Component<{}, IAppState> {
 						</Fragment>
 					)}
 				</div>
-				<div className='active-app draggable' style={{ paddingTop: '20px' }}>
-					Active App: {this.state.active_app}
-				</div>
-				<div className='monitor-app draggable' style={{ paddingTop: '20px' }}>
+				{this.state.backend_running === false && (
+					<div className='active-app draggable' style={{ paddingTop: '20px' }}>
+						Active App: {this.state.active_app}
+					</div>
+				)}
+				{/* <div className='monitor-app draggable' style={{ paddingTop: '20px' }}>
 					Monitor App: {this.state.monitor_app}
-				</div>
-				{/* <div className=''>{JSON.stringify(this.state)}</div> */}
+				</div> */}
 			</div>
 		)
 	}
