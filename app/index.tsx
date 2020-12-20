@@ -26,7 +26,7 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: false,
-		total_time: 60, // seconds
+		total_time: 100, // seconds
 		time_spent: [],
 		running_time: 0,
 		active_time: 0,
@@ -53,7 +53,7 @@ class App extends React.Component<{}, IAppState> {
 				const monitor = require('./active-window')
 				monitor.getActiveWindow((data) => {
 					if (data['title'] !== '"Electron"') {
-						console.log(data)
+						// console.log(data)
 						if (data['app'] !== '"google-chrome", "Google-chrome"') {
 							this.setState({ active_app: data['app'] })
 						} else {
@@ -76,9 +76,11 @@ class App extends React.Component<{}, IAppState> {
 			running_time += 1
 			if (active_app === monitor_app) {
 				active_time += 1
-				time_spent[time_spent.length - 1] = Math.floor((active_time / total_time) * 100)
 			}
-			this.setState({ running_time: running_time, time_spent, active_time })
+			time_spent[time_spent.length - 1] = Math.ceil((1 - (running_time - active_time) / total_time) * 100)
+			this.setState({ running_time: running_time, time_spent, active_time }, () => {
+				console.log(running_time, time_spent, active_time)
+			})
 		}, 1000)
 		this.global_timeout = interval
 		setTimeout(() => {
