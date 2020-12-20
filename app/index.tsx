@@ -224,7 +224,7 @@ class App extends React.Component<{}, IAppState> {
 				</div>
 				{this.state.backend_running === false && (
 					<div className='active-app draggable' style={{ paddingTop: '20px' }}>
-						Active App: {this.state.active_app}
+						Selected App: {this.state.active_app}
 					</div>
 				)}
 				{/* <div className='monitor-app draggable' style={{ paddingTop: '20px' }}>
