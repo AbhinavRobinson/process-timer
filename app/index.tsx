@@ -12,6 +12,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 interface IHealth {
 	health: number
 	percentage: number
+	display_percentage: number
 }
 
 interface IAppState {
@@ -31,7 +32,7 @@ class App extends React.Component<{}, IAppState> {
 		active_app: '',
 		monitor_app: '',
 		backend_running: false,
-		total_time: isDevelopment ? 60 : 60, // seconds
+		total_time: isDevelopment ? 10 : 60, // seconds
 		time_spent: [],
 		running_time: 0,
 		active_time: 0,
@@ -77,6 +78,7 @@ class App extends React.Component<{}, IAppState> {
 		health_array.push({
 			health: 100,
 			percentage: 0,
+			display_percentage: 0,
 		})
 		this.setState({ time_spent: health_array })
 		const interval = setInterval(() => {
@@ -88,7 +90,7 @@ class App extends React.Component<{}, IAppState> {
 
 			health_array[health_array.length - 1].health = Math.ceil((1 - (running_time - active_time) / total_time) * 100)
 			health_array[health_array.length - 1].percentage = Math.floor((running_time / total_time) * 100)
-
+			health_array[health_array.length - 1].display_percentage = Math.floor((active_time / running_time) * 100)
 			this.setState({ running_time: running_time, time_spent: health_array, active_time }, () => {
 				// console.log(running_time, health_array[health_array.length - 1].health, health_array[health_array.length - 1].percentage, active_time)
 			})
@@ -173,8 +175,8 @@ class App extends React.Component<{}, IAppState> {
 											  }
 									}
 								>
+									<span style={{ zIndex: 4 }} className='app-item'>{`${elem.display_percentage}`}</span>
 									<div className='fill' style={this.getStyle(elem)}></div>
-									{/* <span className='app-item'>{`${elem.health}`}</span> */}
 								</li>
 							)
 						})}
@@ -227,9 +229,11 @@ class App extends React.Component<{}, IAppState> {
 						Selected App: {this.state.active_app}
 					</div>
 				)}
-				{/* <div className='monitor-app draggable' style={{ paddingTop: '20px' }}>
-					Monitor App: {this.state.monitor_app}
-				</div> */}
+				{isDevelopment && (
+					<div className='monitor-app draggable' style={{ paddingTop: '20px' }}>
+						Monitor App: {this.state.monitor_app}
+					</div>
+				)}
 			</div>
 		)
 	}
