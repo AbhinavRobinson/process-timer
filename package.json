@@ -8,13 +8,13 @@
 		"postinstall": "electron-builder install-app-deps",
 		"rebuild-deps": "electron-builder install-app-deps",
 		"dev": "electron-webpack dev",
-		"build": "electron-webpack",
+		"build": "electron-webpack && electron-builder",
 		"release": "electron-webpack && electron-builder -m --publish always",
 		"release:win": "electron-webpack && electron-builder -w"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/aniketbiprojit/process-timer"
+		"url": "https://github.com/AbhinavRobinson/process-timer"
 	},
 	"keywords": [],
 	"license": "ISC",
