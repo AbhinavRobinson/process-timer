@@ -1,8 +1,4 @@
-.draggable {
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
-}
-
+/* BUBBLE */
 .itemStyle {
   display: flex;
   flex-direction: column;
@@ -18,52 +14,46 @@
   box-shadow: 0 0 0 1px gray;
 }
 
-.disable {
-  display: none;
+/* MONITOR APP WITH BUBBLES */
+.outer {
+  max-width: 50px;
+  background: #ccc;
+  padding: 10px;
+  border-radius: 15px;
+  font-family: monospace;
 }
 
-.text-center {
+.outer .app-list {
+  list-style: none;
+  padding: 0 0 5px 0;
+  margin: 0;
   text-align: center;
 }
 
-.flex {
-  /* time to flex :) */
-  display: flex;
-
-  /* moves boxes to center (main-axis: defined by flex direction) */
-  justify-content: center;
-
-  /* aligns items vertically (cross-axis: defined by flex direction) */
-  align-items: center;
-
-  /* fit container */
-  height: 100%;
+.outer .play-button {
+  min-width: 35px;
+  min-height: 35px;
+  background: #ccc;
+  border: 2px solid #333;
+  border-radius: 50px;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
-.lead {
-  font-size: 20px;
+.outer .pause-button {
+  min-width: 35px;
+  min-height: 35px;
+  background: #ccc;
+  border: 2px solid #333;
+  border-radius: 50px;
+  cursor: pointer;
 }
 
-.sm {
-  font-size: 1rem;
-}
-
-.rg {
-  font-size: 1.25rem;
-}
-
-.md {
-  font-size: 2rem;
-}
-
-.lg {
-  font-size: 3rem;
-}
-
-.xl {
-  font-size: 4rem;
-}
-
-.xxl {
-  font-size: 8rem;
+.outer .read-button {
+  min-width: 35px;
+  min-height: 35px;
+  background: #ccc;
+  border: 2px solid #333;
+  border-radius: 50px;
+  cursor: pointer;
 }
