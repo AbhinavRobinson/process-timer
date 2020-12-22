@@ -31,19 +31,29 @@
 }
 
 .outer .play-button {
-  max-width: 25px;
-  min-height: 25px;
+  min-width: 33px;
+  min-height: 33px;
   background: #ccc;
   border: 2px solid #333;
-  border-radius: 25px;
+  border-radius: 50px;
+  margin-top: 10px;
   cursor: pointer;
 }
 
 .outer .pause-button {
-  max-width: 25px;
-  min-height: 25px;
+  min-width: 33px;
+  min-height: 33px;
   background: #ccc;
   border: 2px solid #333;
-  border-radius: 25px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.outer .read-button {
+  min-width: 33px;
+  min-height: 35px;
+  background: #ccc;
+  border: 2px solid #333;
+  border-radius: 50px;
   cursor: pointer;
 }
