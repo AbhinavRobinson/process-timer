@@ -207,7 +207,9 @@ class App extends React.Component<{}, IAppState> {
 					{/* SHOW MORE */}
 					<button
 						onClick={() => {
-							console.log('clicked')
+							new Notification('Dev\'s Note', {
+								body: 'This feature is currently under devolopment!'
+							})
 						}}
 						className='read-button my-1 xs'
 					>
