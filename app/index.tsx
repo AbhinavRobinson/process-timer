@@ -14,7 +14,6 @@ import './index.css'
 
 // components
 import DragRegion from './components/DragRegion'
-import { awaitExpression } from '@babel/types'
 
 // check dev mode
 const isDevelopment = process.env.NODE_ENV !== 'production'
