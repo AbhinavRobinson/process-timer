@@ -8,6 +8,7 @@ import getFile from '../run'
 import './utilities.css'
 import './index.css'
 
+import DragRegion from './components/DragRegion'
 
 // check dev mode
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -222,7 +223,7 @@ class App extends React.Component<{}, IAppState> {
 					</div>
 				)}
 
-				<div className="draggable xxs text-center">|||||</div>
+				<DragRegion />
 			</div>
 		)
 	}
