@@ -4,6 +4,10 @@ import { join } from 'path'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 
+// Font Awesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
+
 import getFile from '../run'
 import './utilities.css'
 import './index.css'
@@ -183,7 +187,7 @@ class App extends React.Component<{}, IAppState> {
 							}}
 							className='play-button'
 						>
-							▶
+							<FontAwesomeIcon icon={faPlay} />
 						</button>
 					) : (
 							<Fragment>
@@ -194,7 +198,7 @@ class App extends React.Component<{}, IAppState> {
 									}}
 									className='pause-button'
 								>
-									✔
+									<FontAwesomeIcon icon={faCheck} />
 							</button>
 								{this.state.running_time}
 							</Fragment>
@@ -207,7 +211,7 @@ class App extends React.Component<{}, IAppState> {
 						}}
 						className='read-button my-1 xs'
 					>
-						📖
+						<FontAwesomeIcon icon={faAngleDoubleRight} />
 					</button>
 
 				</div>
