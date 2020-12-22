@@ -14,6 +14,7 @@ import './index.css'
 
 // components
 import DragRegion from './components/DragRegion'
+import { dialog } from 'electron'
 
 // check dev mode
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -199,7 +200,7 @@ class App extends React.Component<{}, IAppState> {
 									className='pause-button'
 								>
 									<FontAwesomeIcon icon={faCheck} />
-							</button>
+								</button>
 								{this.state.running_time}
 							</Fragment>
 						)}
@@ -221,7 +222,12 @@ class App extends React.Component<{}, IAppState> {
 							new Notification('Stopping App', {
 								body: 'We are closing the app!'
 							});
-							window.close();
+							// if (dialog.showMessageBox({
+							// 	buttons: ["Yes", "No", "Cancel"],
+							// 	message: "Do you really want to quit?"
+							// })) {
+								window.close()
+							// }
 						}}
 						className='read-button xs'
 					>
