@@ -8,6 +8,7 @@ import getFile from '../run'
 import './utilities.css'
 import './index.css'
 
+// components
 import DragRegion from './components/DragRegion'
 
 // check dev mode
@@ -153,7 +154,7 @@ class App extends React.Component<{}, IAppState> {
 
 	render() {
 		return (
-			<div className='outer'>
+			<div className='outer' id='outer'>
 				<div className='container'>
 					<ul className='app-list'>
 						{this.state.time_spent.map((elem: IHealth) => {
@@ -198,6 +199,7 @@ class App extends React.Component<{}, IAppState> {
 								{this.state.running_time}
 							</Fragment>
 						)}
+
 					{/* SHOW MORE */}
 					<button
 						onClick={() => {
@@ -207,18 +209,19 @@ class App extends React.Component<{}, IAppState> {
 					>
 						📖
 					</button>
+
 				</div>
 
 				{/* SHOWS IN-FOCUS APP */}
 				{this.state.backend_running === false && (
-					<div className='active-app draggable py-2 disable'>
+					<div className='active-app my-1'>
 						Selected App: {this.state.active_app}
 					</div>
 				)}
 
 				{/* SHOWS MONITORING (SELECTED) APP */}
 				{isDevelopment && (
-					<div className='monitor-app draggable py-2 disable'>
+					<div className='monitor-app my-1'>
 						Monitor App: {this.state.monitor_app}
 					</div>
 				)}
