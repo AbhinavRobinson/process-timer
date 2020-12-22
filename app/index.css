@@ -14,3 +14,36 @@
   box-shadow: 0 0 0 1px gray;
 }
 
+/* MONITOR APP WITH BUBBLES */
+.outer {
+  max-width: 50px;
+  background: #ccc;
+  padding: 10px;
+  border-radius: 15px;
+  font-family: monospace;
+}
+
+.outer .app-list {
+  list-style: none;
+  padding: 0 0 5px 0;
+  margin: 0;
+  text-align: center;
+}
+
+.outer .play-button {
+  max-width: 25px;
+  min-height: 25px;
+  background: #ccc;
+  border: 2px solid #333;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.outer .pause-button {
+  max-width: 25px;
+  min-height: 25px;
+  background: #ccc;
+  border: 2px solid #333;
+  border-radius: 25px;
+  cursor: pointer;
+}

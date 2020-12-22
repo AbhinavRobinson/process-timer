@@ -131,7 +131,7 @@ class App extends React.Component<{}, IAppState> {
 	// Get color grad and fill bubble
 	getStyle = (elem: IHealth) => {
 		let color = this.getColorForPercentage(elem.health / 100)
-		
+
 		const fillStyle: React.CSSProperties = {
 			backgroundColor: color,
 			height: `${elem.percentage}%`,
@@ -146,45 +146,17 @@ class App extends React.Component<{}, IAppState> {
 
 	render() {
 		return (
-			<div
-				id='outer'
-				style={{
-					maxWidth: '50px',
-					background: '#ccc',
-					padding: '10px',
-					borderRadius: '15px',
-					fontFamily: 'monospace'
-				}}
-			>
-				<div
-					className='container'
-					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-					}}
-				>
-					<ul
-						className='app-list'
-						style={{
-							listStyle: 'none',
-							padding: '0 0 5px 0',
-							margin: 0,
-							textAlign: 'center',
-						}}
-					>
+			<div className='outer'>
+				<div className='container'>
+					<ul className='app-list'>
 						{this.state.time_spent.map((elem: IHealth) => {
 							return (
 								<li
 									className='itemStyle'
 									style={
 										this.state.active_app === this.state.monitor_app
-											? {
-													boxShadow: '0 0 0 1px gray',
-											  }
-											: {
-													boxShadow: '0 0 0 1px red',
-											  }
+											? {boxShadow: '0 0 0 1px gray'}
+											: {boxShadow: '0 0 0 1px red'}
 									}
 								>
 									<span style={{ zIndex: 4 }} className='app-item'>{`${elem.display_percentage}`}</span>
@@ -202,47 +174,35 @@ class App extends React.Component<{}, IAppState> {
 								this.run_backend()
 							}}
 							className='play-button'
-							style={{
-								maxWidth: '25px',
-								minHeight: '25px',
-								background: '#ccc',
-								border: '2px solid #333',
-								borderRadius: '25px',
-								cursor: 'pointer',
-							}}
 						>
 							▶
 						</button>
 					) : (
-						<Fragment>
-							<button
-								onClick={() => {
-									clearInterval(this.global_timeout)
-									this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
-								}}
-								className='pause-button'
-								style={{
-									maxWidth: '25px',
-									minHeight: '25px',
-									background: '#ccc',
-									border: '2px solid #333',
-									borderRadius: '25px',
-									cursor: 'pointer',
-								}}
-							>
-								||
+							<Fragment>
+								<button
+									onClick={() => {
+										clearInterval(this.global_timeout)
+										this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+									}}
+									className='pause-button'
+								>
+									✔
 							</button>
-							{this.state.running_time}
-						</Fragment>
-					)}
+								{this.state.running_time}
+							</Fragment>
+						)}
 				</div>
+
+				{/* SHOWS IN-FOCUS APP */}
 				{this.state.backend_running === false && (
-					<div className='active-app draggable' style={{ paddingTop: '20px' }}>
+					<div className='active-app draggable py-2'>
 						Selected App: {this.state.active_app}
 					</div>
 				)}
+
+				{/* SHOWS MONITORING (SELECTED) APP */}
 				{isDevelopment && (
-					<div className='monitor-app draggable' style={{ paddingTop: '20px' }}>
+					<div className='monitor-app draggable py-2'>
 						Monitor App: {this.state.monitor_app}
 					</div>
 				)}
