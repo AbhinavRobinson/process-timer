@@ -1,0 +1,56 @@
+/* MAKE COMPONENT DRAGGABLE */
+.draggable {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+/* DISABLE COMPONENT */
+.disable {
+  display: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  /* time to flex :) */
+  display: flex;
+
+  /* moves boxes to center (main-axis: defined by flex direction) */
+  justify-content: center;
+
+  /* aligns items vertically (cross-axis: defined by flex direction) */
+  align-items: center;
+
+  /* fit container */
+  height: 100%;
+}
+
+.lead {
+  font-size: 20px;
+}
+
+.sm {
+  font-size: 1rem;
+}
+
+.rg {
+  font-size: 1.25rem;
+}
+
+.md {
+  font-size: 2rem;
+}
+
+.lg {
+  font-size: 3rem;
+}
+
+.xl {
+  font-size: 4rem;
+}
+
+.xxl {
+  font-size: 8rem;
+}

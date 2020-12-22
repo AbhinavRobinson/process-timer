@@ -5,16 +5,22 @@ import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 
 import getFile from '../run'
+import './utilities.css'
 import './index.css'
 
+
+// check dev mode
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
+
+// create IHealth interface for app monitor
 interface IHealth {
 	health: number
 	percentage: number
 	display_percentage: number
 }
 
+// App monitor interface
 interface IAppState {
 	static: string
 	active_app: string
@@ -26,40 +32,41 @@ interface IAppState {
 	active_time: number
 }
 
+// Main Component
 class App extends React.Component<{}, IAppState> {
+
+	// Local states
 	state = {
 		static: __static,
 		active_app: '',
 		monitor_app: '',
 		backend_running: false,
-		total_time: isDevelopment ? 10 : 60, // seconds
+		total_time: isDevelopment ? 20 : 300, // seconds
 		time_spent: [],
 		running_time: 0,
 		active_time: 0,
 	}
+
+	// Get platform and initiate monitor
 	async componentDidMount() {
 		remote.getCurrentWindow().setBounds({
 			x: remote.screen.getPrimaryDisplay().bounds.width - 120,
 			y: remote.screen.getPrimaryDisplay().bounds.height / 2 - document.getElementById('outer').clientHeight,
 		})
 		setInterval(() => {
-			// console.log(document.getElementById('outer').clientHeight)
-			// remote.getCurrentWindow().setBounds({
-			// 	width: document.getElementById('outer').clientHeight + 60,
-			// })
+			// For Windows
 			if (process.platform === 'win32') {
 				getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
-					// console.log(data)
 					if (data['title'] !== 'Electron') {
 						if (data['app'] === 'chrome.exe') this.setState({ active_app: data['title'] })
 						else this.setState({ active_app: data['app'] })
 					}
 				})
 			} else {
+				// For MacOS and Linux
 				const monitor = require('./active-window')
 				monitor.getActiveWindow((data) => {
 					if (data['title'] !== '"Electron"') {
-						// console.log(data)
 						if (data['app'] !== '"google-chrome", "Google-chrome"') {
 							this.setState({ active_app: data['app'] })
 						} else {
@@ -70,8 +77,10 @@ class App extends React.Component<{}, IAppState> {
 			}
 		}, 2000)
 	}
+
 	private global_timeout: NodeJS.Timeout
 
+	// Timer logic
 	run_backend() {
 		const { total_time } = this.state
 		let health_array: IHealth[] = this.state.time_spent
@@ -106,6 +115,7 @@ class App extends React.Component<{}, IAppState> {
 		}, total_time * 1000)
 	}
 
+	// Color grad logic
 	getColorForPercentage(percentage: number) {
 		let red = 255
 		let green = 255
@@ -118,8 +128,10 @@ class App extends React.Component<{}, IAppState> {
 		return 'rgb(' + [red, green, 0].join(',') + ')'
 	}
 
+	// Get color grad and fill bubble
 	getStyle = (elem: IHealth) => {
 		let color = this.getColorForPercentage(elem.health / 100)
+		
 		const fillStyle: React.CSSProperties = {
 			backgroundColor: color,
 			height: `${elem.percentage}%`,
@@ -141,7 +153,7 @@ class App extends React.Component<{}, IAppState> {
 					background: '#ccc',
 					padding: '10px',
 					borderRadius: '15px',
-					fontFamily: 'monospace',
+					fontFamily: 'monospace'
 				}}
 			>
 				<div
