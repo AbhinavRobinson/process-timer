@@ -14,7 +14,7 @@ import './index.css'
 
 // components
 import DragRegion from './components/DragRegion'
-import { dialog } from 'electron'
+import { awaitExpression } from '@babel/types'
 
 // check dev mode
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -201,7 +201,7 @@ class App extends React.Component<{}, IAppState> {
 								>
 									<FontAwesomeIcon icon={faCheck} />
 								</button>
-								{this.state.running_time}
+								{/* {this.state.running_time} */}
 							</Fragment>
 						)}
 
@@ -217,17 +217,17 @@ class App extends React.Component<{}, IAppState> {
 						<FontAwesomeIcon icon={faAngleDoubleRight} />
 					</button>
 
+					{/* CLOSE APP */}
 					<button
 						onClick={() => {
-							new Notification('Stopping App', {
-								body: 'We are closing the app!'
+							remote.dialog.showMessageBox(null, {
+								buttons: ["&Yes, close nudge app.", "&No, keep nudge open."],
+								message: "Do you want to close Nudge?"
+							}).then((data) => {
+								if (data.response === 0) {
+									window.close()
+								}
 							});
-							// if (dialog.showMessageBox({
-							// 	buttons: ["Yes", "No", "Cancel"],
-							// 	message: "Do you really want to quit?"
-							// })) {
-								window.close()
-							// }
 						}}
 						className='read-button xs'
 					>
@@ -245,11 +245,13 @@ class App extends React.Component<{}, IAppState> {
 
 				{/* SHOWS MONITORING (SELECTED) APP */}
 				{isDevelopment && (
-					<div className='monitor-app my-1'>
+					<div className='monitor-app my-1 disable'>
 						Monitor App: {this.state.monitor_app}
 					</div>
 				)}
 
+				{/* DRAG REGION */}
+				<div className="my-1"></div>
 				<DragRegion />
 			</div>
 		)
