@@ -1,12 +1,12 @@
 import { spawnSync } from 'child_process'
-import { ipcRenderer, remote } from 'electron'
+import { app, ipcRenderer, remote } from 'electron'
 import { join } from 'path'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 
 // Font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faCheck, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faCheck, faAngleDoubleRight, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 import getFile from '../run'
 import './utilities.css'
@@ -214,6 +214,18 @@ class App extends React.Component<{}, IAppState> {
 						className='read-button my-1 xs'
 					>
 						<FontAwesomeIcon icon={faAngleDoubleRight} />
+					</button>
+
+					<button
+						onClick={() => {
+							new Notification('Stopping App', {
+								body: 'We are closing the app!'
+							});
+							window.close();
+						}}
+						className='read-button xs'
+					>
+						<FontAwesomeIcon icon={faTimes} />
 					</button>
 
 				</div>
