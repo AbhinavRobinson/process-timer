@@ -15,7 +15,6 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	}
 
 	render() {
-
 		return <Fragment>
 			<DragBar></DragBar>
 		</Fragment>

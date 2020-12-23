@@ -147,7 +147,7 @@ export class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
-		;(window as any).electron_store = electron_store
+		; (window as any).electron_store = electron_store
 		// console.log(electron_store.path)
 		if (electron_store.has('auth')) {
 			if (electron_store.get('auth') === false) {
@@ -301,18 +301,18 @@ export class App extends React.Component<{}, IAppState> {
 								<FontAwesomeIcon icon={faPlay} />
 							</button>
 						) : (
-							<Fragment>
-								<button
-									onClick={() => {
-										clearInterval(this.global_timeout)
-										this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
-									}}
-									className='pause-button'
-								>
-									<FontAwesomeIcon icon={faCheck} />
-								</button>
-							</Fragment>
-						)}
+								<Fragment>
+									<button
+										onClick={() => {
+											clearInterval(this.global_timeout)
+											this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+										}}
+										className='pause-button'
+									>
+										<FontAwesomeIcon icon={faCheck} />
+									</button>
+								</Fragment>
+							)}
 
 						<button
 							onClick={() => {
@@ -325,18 +325,9 @@ export class App extends React.Component<{}, IAppState> {
 
 						<button
 							onClick={() => {
-								remote.dialog
-									.showMessageBox(null, {
-										buttons: ['Yes, close nudge app.', 'No, keep nudge open.'],
-										message: 'Do you want to close Nudge?',
-									})
-									.then((data) => {
-										if (data.response === 0) {
-											window.close()
-										}
-									})
+								closeHandler()
 							}}
-							className='read-button xs'
+							className='read-button sm'
 						>
 							<FontAwesomeIcon icon={faTimes} />
 						</button>
@@ -352,4 +343,17 @@ export class App extends React.Component<{}, IAppState> {
 			</Fragment>
 		)
 	}
+}
+
+export function closeHandler() {
+	remote.dialog
+		.showMessageBox(null, {
+			buttons: ['Yes, close nudge app.', 'No, keep nudge open.'],
+			message: 'Do you want to close Nudge?',
+		})
+		.then((data) => {
+			if (data.response === 0) {
+				window.close()
+			}
+		})
 }
