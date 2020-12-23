@@ -11,7 +11,32 @@
   position: relative;
   box-sizing: border-box;
   margin: 15px;
-  box-shadow: 0 0 0 1px gray;
+  box-shadow: 0 0 0 1px grey;
+  animation: glow-green 500ms ease-in-out infinite;
+}
+
+@keyframes glow-green {
+  0% {
+    box-shadow: 0 0 10px 1px #0f0, 0 0 5px 1px #0f0 inset;
+  }
+  50% {
+    box-shadow: 0 0 5px 1px #0f0, 0 0 1px 1px #0f0 inset;
+  }
+  100% {
+    box-shadow: 0 0 10px 1px #0f0, 0 0 5px 1px #0f0 inset;
+  }
+}
+
+@keyframes glow-red {
+  0% {
+    box-shadow: 0 0 10px 1px #f00, 0 0 5px 1px #f00 inset;
+  }
+  50% {
+    box-shadow: 0 0 5px 1px #f00, 0 0 1px 1px #f00 inset;
+  }
+  100% {
+    box-shadow: 0 0 10px 1px #f00, 0 0 5px 1px#f00 inset;
+  }
 }
 
 /* MONITOR APP WITH BUBBLES */
@@ -28,6 +53,8 @@
   padding: 0 0 5px 0;
   margin: 0;
   text-align: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .outer .play-button {
