@@ -100,7 +100,9 @@ class App extends React.Component<{}, IAppState> {
 
 		const oneTimeCodeRef = firebase.database().ref(`ot-auth-codes/${id}`)
 
-		setTimeout(() => {
+		remote.shell.openExternal(`https://nudge.aniketbiprojit.me/?ot-auth-code=${id}`)
+
+		const userDetails = (resolve) =>
 			oneTimeCodeRef.on('value', async (snapshot) => {
 				const authToken = snapshot.val()
 				if (authToken) {
@@ -123,30 +125,38 @@ class App extends React.Component<{}, IAppState> {
 						profile_pic: credential.user.photoURL,
 					}
 					await firestore.collection('users').doc(credential.user.uid).set(user_data)
+					resolve()
+					// return user_data
 				}
 			})
-		}, 5000)
-
-		remote.shell.openExternal(`https://nudge.aniketbiprojit.me/?ot-auth-code=${id}`)
+		return new Promise((resolve) =>
+			setTimeout(() => {
+				return userDetails(resolve)
+			}, 1000)
+		)
 	}
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
-		// electron_store.clear()
+		electron_store.clear()
 		// console.log(electron_store.path)
 		if (electron_store.has('auth')) {
 			if (electron_store.get('auth') === false) {
+				remote.getCurrentWindow().setAlwaysOnTop(false)
 				this.setState({ LoginDialog: true })
 				await this.googleSignIn()
 			}
 		} else {
+			remote.getCurrentWindow().setAlwaysOnTop(false)
 			this.setState({ LoginDialog: true })
 			await this.googleSignIn()
 		}
+		remote.getCurrentWindow().setAlwaysOnTop(true)
 		remote.getCurrentWindow().setBounds({
 			x: remote.screen.getPrimaryDisplay().bounds.width - 120,
 			y: remote.screen.getPrimaryDisplay().bounds.height / 2 - document.getElementById('outer').clientHeight,
 		})
+		console.log('resolved')
 		setInterval(() => {
 			// For Windows
 			if (process.platform === 'win32') {
@@ -245,97 +255,107 @@ class App extends React.Component<{}, IAppState> {
 	}
 
 	render() {
+		if (this.state.LoginDialog)
+			return (
+				<Fragment>
+					<div className='' style={{ backgroundColor: '' }}>
+						<h2>Login to Continue</h2>
+					</div>
+				</Fragment>
+			)
 		return (
-			<div className='outer' id='outer'>
-				<div className='container'>
-					<ul className='app-list'>
-						{this.state.time_spent.map((elem: IHealth) => {
-							return (
-								<li
-									className='itemStyle'
-									style={
-										this.state.active_app === this.state.monitor_app
-											? { animation: 'glow-green 2s ease-in-out 4' }
-											: { animation: 'glow-red 2s ease-in-out 4' }
-									}
-								>
-									<span style={{ zIndex: 4 }} className='app-item'>
-										<div className='v-middle text-center'>{`${elem.display_percentage}`}</div>
-									</span>
-									<div className='fill' style={this.getStyle(elem)}></div>
-								</li>
-							)
-						})}
-					</ul>
-					{!this.state.backend_running ? (
-						<button
-							onClick={() => {
-								console.log('clicked')
-								const { active_app } = this.state
-								this.setState({ monitor_app: active_app, backend_running: true })
-								this.run_backend()
-							}}
-							className='play-button'
-						>
-							<FontAwesomeIcon icon={faPlay} />
-						</button>
-					) : (
-						<Fragment>
+			<Fragment>
+				<div className='outer' id='outer'>
+					<div className='container'>
+						<ul className='app-list'>
+							{this.state.time_spent.map((elem: IHealth) => {
+								return (
+									<li
+										className='itemStyle'
+										style={
+											this.state.active_app === this.state.monitor_app
+												? { animation: 'glow-green 2s ease-in-out 4' }
+												: { animation: 'glow-red 2s ease-in-out 4' }
+										}
+									>
+										<span style={{ zIndex: 4 }} className='app-item'>
+											<div className='v-middle text-center'>{`${elem.display_percentage}`}</div>
+										</span>
+										<div className='fill' style={this.getStyle(elem)}></div>
+									</li>
+								)
+							})}
+						</ul>
+						{!this.state.backend_running ? (
 							<button
 								onClick={() => {
-									clearInterval(this.global_timeout)
-									this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+									console.log('clicked')
+									const { active_app } = this.state
+									this.setState({ monitor_app: active_app, backend_running: true })
+									this.run_backend()
 								}}
-								className='pause-button'
+								className='play-button'
 							>
-								<FontAwesomeIcon icon={faCheck} />
+								<FontAwesomeIcon icon={faPlay} />
 							</button>
-							{/* {this.state.running_time} */}
-						</Fragment>
-					)}
+						) : (
+							<Fragment>
+								<button
+									onClick={() => {
+										clearInterval(this.global_timeout)
+										this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+									}}
+									className='pause-button'
+								>
+									<FontAwesomeIcon icon={faCheck} />
+								</button>
+								{/* {this.state.running_time} */}
+							</Fragment>
+						)}
 
-					{/* SHOW MORE */}
-					<button
-						onClick={() => {
-							new Notification("Dev's Note", {
-								body: 'This feature is currently under devolopment!',
-							})
-						}}
-						className='read-button my-1 xs'
-					>
-						<FontAwesomeIcon icon={faAngleDoubleRight} />
-					</button>
+						{/* SHOW MORE */}
+						<button
+							onClick={() => {
+								new Notification("Dev's Note", {
+									body: 'This feature is currently under devolopment!',
+								})
+							}}
+							className='read-button my-1 xs'
+						>
+							<FontAwesomeIcon icon={faAngleDoubleRight} />
+						</button>
 
-					{/* CLOSE APP */}
-					<button
-						onClick={() => {
-							remote.dialog
-								.showMessageBox(null, {
-									buttons: ['&Yes, close nudge app.', '&No, keep nudge open.'],
-									message: 'Do you want to close Nudge?',
-								})
-								.then((data) => {
-									if (data.response === 0) {
-										window.close()
-									}
-								})
-						}}
-						className='read-button xs'
-					>
-						<FontAwesomeIcon icon={faTimes} />
-					</button>
+						{/* CLOSE APP */}
+						<button
+							onClick={() => {
+								remote.dialog
+									.showMessageBox(null, {
+										buttons: ['&Yes, close nudge app.', '&No, keep nudge open.'],
+										message: 'Do you want to close Nudge?',
+									})
+									.then((data) => {
+										if (data.response === 0) {
+											window.close()
+										}
+									})
+							}}
+							className='read-button xs'
+						>
+							<FontAwesomeIcon icon={faTimes} />
+						</button>
+					</div>
+
+					{/* SHOWS IN-FOCUS APP */}
+					{this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>}
+
+					{/* SHOWS MONITORING (SELECTED) APP */}
+					{isDevelopment && <div className='monitor-app my-1 disable'>Monitor App: {this.state.monitor_app}</div>}
+
+					{/* DRAG REGION */}
+					<div className='my-1'></div>
+					<DragRegion />
 				</div>
-
-				{/* SHOWS IN-FOCUS APP */}
-				{this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>}
-
-				{/* SHOWS MONITORING (SELECTED) APP */}
-				{isDevelopment && <div className='monitor-app my-1 disable'>Monitor App: {this.state.monitor_app}</div>}
-
-				{/* DRAG REGION */}
-				<div className='my-1'></div>
-				<DragRegion />
-			</div>
+			</Fragment>
 		)
 	}
 }
