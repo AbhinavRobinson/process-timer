@@ -1,10 +1,13 @@
 import { app, ipcMain } from 'electron'
 import { MainWindowClass } from './windows/MainWindowClass'
+import { SideBarClass } from './windows/SideBarClass'
 
 export const isDevelopment = process.env.NODE_ENV !== 'production'
 
 class Application {
 	public AppContainer: MainWindowClass
+	public SideBarConainer: SideBarClass
+
 	constructor() {
 		this.init()
 	}
@@ -24,7 +27,10 @@ class Application {
 	}
 
 	openSideBar() {
-		console.log('emit received')
+		if (!this.SideBarConainer) {
+			this.SideBarConainer = new SideBarClass()
+			this.SideBarConainer.init()
+		}
 	}
 }
 

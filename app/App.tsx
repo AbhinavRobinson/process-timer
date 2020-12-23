@@ -1,4 +1,4 @@
-import { remote } from 'electron'
+import { ipcRenderer, remote } from 'electron'
 import { join } from 'path'
 import React, { Fragment } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -307,9 +307,7 @@ export class App extends React.Component<{}, IAppState> {
 
 						<button
 							onClick={() => {
-								new Notification("Dev's Note", {
-									body: 'This feature is currently under devolopment!',
-								})
+								ipcRenderer.send('open_sidebar')
 							}}
 							className='read-button my-1 xs'
 						>

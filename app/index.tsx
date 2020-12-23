@@ -9,6 +9,7 @@ import './utilities.css'
 import './index.css'
 
 import { App } from './App'
+import { SideBar } from './SideBar'
 
 class Main extends Component {
 	async componentDidMount() {
@@ -29,7 +30,8 @@ class Main extends Component {
 			<Fragment>
 				<Router>
 					<Switch>
-						<Route path='/' render={() => <App />} />
+						<Route path='/sidebar' render={() => <SideBar />} />
+						<Route exact path='/' render={() => <App />} />
 					</Switch>
 				</Router>
 			</Fragment>
