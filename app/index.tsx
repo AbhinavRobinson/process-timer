@@ -51,6 +51,7 @@ interface IAppState {
 	time_spent: IHealth[]
 	running_time: number
 	active_time: number
+	LoginDialog: boolean
 }
 
 // Main Component
@@ -64,7 +65,8 @@ class App extends React.Component<{}, IAppState> {
 		total_time: isDevelopment ? 20 : 300, // seconds
 		time_spent: [],
 		running_time: 0,
-		active_time: 0
+		active_time: 0,
+		LoginDialog: true,
 	}
 
 	async initUser(credential) {
@@ -80,7 +82,7 @@ class App extends React.Component<{}, IAppState> {
 		if (credential.user.displayName) {
 			electron_store.set('name', credential.user.displayName)
 		}
-		// this.setState({ LoginDialog: false })
+		this.setState({ LoginDialog: false })
 
 		// ipcRenderer.emit('update_user')
 
@@ -130,14 +132,16 @@ class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
-		electron_store.clear()
+		// electron_store.clear()
 		// console.log(electron_store.path)
 		if (electron_store.has('auth')) {
 			if (electron_store.get('auth') === false) {
-				this.googleSignIn()
+				this.setState({ LoginDialog: true })
+				await this.googleSignIn()
 			}
 		} else {
-			this.googleSignIn()
+			this.setState({ LoginDialog: true })
+			await this.googleSignIn()
 		}
 		remote.getCurrentWindow().setBounds({
 			x: remote.screen.getPrimaryDisplay().bounds.width - 120,
@@ -178,7 +182,7 @@ class App extends React.Component<{}, IAppState> {
 		health_array.push({
 			health: 100,
 			percentage: 0,
-			display_percentage: 0
+			display_percentage: 0,
 		})
 
 		this.setState({ time_spent: health_array })
@@ -256,9 +260,7 @@ class App extends React.Component<{}, IAppState> {
 									}
 								>
 									<span style={{ zIndex: 4 }} className='app-item'>
-										<div className="v-middle text-center">
-											{`${elem.display_percentage}`}
-										</div>
+										<div className='v-middle text-center'>{`${elem.display_percentage}`}</div>
 									</span>
 									<div className='fill' style={this.getStyle(elem)}></div>
 								</li>
