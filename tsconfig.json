@@ -3,9 +3,9 @@
 	"compilerOptions": {
 		"jsx": "react",
 		"strictNullChecks": false,
-		"noUnusedLocals": false,
+		"noUnusedLocals": true,
 		"noImplicitAny": false,
-		"esModuleInterop":true
+		"esModuleInterop": true
 	},
 	"exclude": ["headless"]
 }

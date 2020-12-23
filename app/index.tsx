@@ -137,7 +137,7 @@ class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
-		// electron_store.clear()
+		;(window as any).electron_store = electron_store
 		// console.log(electron_store.path)
 		if (electron_store.has('auth')) {
 			if (electron_store.get('auth') === false) {
