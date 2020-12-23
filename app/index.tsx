@@ -1,5 +1,4 @@
-import { spawnSync } from 'child_process'
-import { app, ipcRenderer, remote } from 'electron'
+import { remote } from 'electron'
 import { join } from 'path'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
