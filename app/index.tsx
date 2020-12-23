@@ -1,3 +1,4 @@
+// Electron dependencies
 import { spawnSync } from 'child_process'
 import { app, ipcRenderer, remote } from 'electron'
 import { join } from 'path'
@@ -5,9 +6,10 @@ import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 
 // Font Awesome
-const { FontAwesomeIcon } = require('@fortawesome/react-fontawesome')
-const { faPlay, faCheck, faAngleDoubleRight, faTimes } = require('@fortawesome/free-solid-svg-icons')
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay, faCheck, faAngleDoubleRight, faTimes } from '@fortawesome/free-solid-svg-icons'
 
+// Local imports
 import getFile from '../run'
 import './utilities.css'
 import './index.css'
@@ -16,6 +18,7 @@ import './index.css'
 import DragRegion from './components/DragRegion'
 import firebase from 'firebase'
 
+// Firestore plugin
 import Store from 'electron-store'
 const electron_store = new Store()
 
