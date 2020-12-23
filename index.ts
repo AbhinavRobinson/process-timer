@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, screen } from 'electron'
+import { app, BrowserWindow, screen } from 'electron'
 import { format as formatUrl } from 'url'
 import * as path from 'path'
 
@@ -54,7 +54,7 @@ class MainWindowClass {
 }
 
 class Application {
-	private AppContainer: MainWindowClass
+	public AppContainer: MainWindowClass
 	constructor() {
 		app.on('ready', () => {
 			this.AppContainer = new MainWindowClass()

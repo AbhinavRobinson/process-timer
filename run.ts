@@ -1,7 +1,7 @@
-const { execFile } = require('child_process')
+// const { execFile } = require('child_process')
 
 const { spawn } = require('child_process')
-const { join } = require('path')
+// const { join } = require('path')
 
 // const filepath = join('C:\\Users\\Aniket\\nims\\static\\getwindow.py')
 

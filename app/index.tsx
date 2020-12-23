@@ -1,6 +1,4 @@
-// Electron dependencies
-import { spawnSync } from 'child_process'
-import { app, ipcRenderer, remote } from 'electron'
+import { remote } from 'electron'
 import { join } from 'path'
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
@@ -141,7 +139,7 @@ class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
-		// electron_store.clear()
+		;(window as any).electron_store = electron_store
 		// console.log(electron_store.path)
 		if (electron_store.has('auth')) {
 			if (electron_store.get('auth') === false) {
