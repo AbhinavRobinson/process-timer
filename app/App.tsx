@@ -327,7 +327,7 @@ export class App extends React.Component<{}, IAppState> {
 							onClick={() => {
 								remote.dialog
 									.showMessageBox(null, {
-										buttons: ['&Yes, close nudge app.', '&No, keep nudge open.'],
+										buttons: ['Yes, close nudge app.', 'No, keep nudge open.'],
 										message: 'Do you want to close Nudge?',
 									})
 									.then((data) => {

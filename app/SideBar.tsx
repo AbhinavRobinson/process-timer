@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
+import DragBar from './components/DragBar'
 
-interface ISideBarProps {}
+interface ISideBarProps { }
 
-interface ISideBarState {}
+interface ISideBarState { }
 
 export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	constructor(props: ISideBarProps) {
@@ -14,6 +15,9 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	}
 
 	render() {
-		return <Fragment>SideBar</Fragment>
+
+		return <Fragment>
+			<DragBar></DragBar>
+		</Fragment>
 	}
 }

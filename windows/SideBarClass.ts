@@ -15,7 +15,7 @@ export class SideBarClass {
 			width: 500,
 			height: 300,
 			alwaysOnTop: true,
-			// frame: false,
+			frame: false,
 			// transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,
 			icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
 		})
