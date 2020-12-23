@@ -13,6 +13,7 @@ export class MainWindowClass {
 				nodeIntegration: true,
 				enableRemoteModule: true,
 				webSecurity: false,
+				devTools: isDevelopment,
 			},
 			width: 300,
 			height: 500,
