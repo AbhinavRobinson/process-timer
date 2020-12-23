@@ -5,8 +5,8 @@ import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 
 // Font Awesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faCheck, faAngleDoubleRight, faTimes } from '@fortawesome/free-solid-svg-icons'
+const { FontAwesomeIcon } = require('@fortawesome/react-fontawesome')
+const { faPlay, faCheck, faAngleDoubleRight, faTimes } = require('@fortawesome/free-solid-svg-icons')
 
 import getFile from '../run'
 import './utilities.css'
@@ -17,7 +17,6 @@ import DragRegion from './components/DragRegion'
 
 // check dev mode
 const isDevelopment = process.env.NODE_ENV !== 'production'
-
 
 // create IHealth interface for app monitor
 interface IHealth {
@@ -40,7 +39,6 @@ interface IAppState {
 
 // Main Component
 class App extends React.Component<{}, IAppState> {
-
 	// Local states
 	state = {
 		static: __static,
@@ -190,25 +188,25 @@ class App extends React.Component<{}, IAppState> {
 							<FontAwesomeIcon icon={faPlay} />
 						</button>
 					) : (
-							<Fragment>
-								<button
-									onClick={() => {
-										clearInterval(this.global_timeout)
-										this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
-									}}
-									className='pause-button'
-								>
-									<FontAwesomeIcon icon={faCheck} />
-								</button>
-								{/* {this.state.running_time} */}
-							</Fragment>
-						)}
+						<Fragment>
+							<button
+								onClick={() => {
+									clearInterval(this.global_timeout)
+									this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+								}}
+								className='pause-button'
+							>
+								<FontAwesomeIcon icon={faCheck} />
+							</button>
+							{/* {this.state.running_time} */}
+						</Fragment>
+					)}
 
 					{/* SHOW MORE */}
 					<button
 						onClick={() => {
-							new Notification('Dev\'s Note', {
-								body: 'This feature is currently under devolopment!'
+							new Notification("Dev's Note", {
+								body: 'This feature is currently under devolopment!',
 							})
 						}}
 						className='read-button my-1 xs'
@@ -219,38 +217,31 @@ class App extends React.Component<{}, IAppState> {
 					{/* CLOSE APP */}
 					<button
 						onClick={() => {
-							remote.dialog.showMessageBox(null, {
-								buttons: ["&Yes, close nudge app.", "&No, keep nudge open."],
-								message: "Do you want to close Nudge?"
-							}).then((data) => {
-								if (data.response === 0) {
-									window.close()
-								}
-							});
+							remote.dialog
+								.showMessageBox(null, {
+									buttons: ['&Yes, close nudge app.', '&No, keep nudge open.'],
+									message: 'Do you want to close Nudge?',
+								})
+								.then((data) => {
+									if (data.response === 0) {
+										window.close()
+									}
+								})
 						}}
 						className='read-button xs'
 					>
 						<FontAwesomeIcon icon={faTimes} />
 					</button>
-
 				</div>
 
 				{/* SHOWS IN-FOCUS APP */}
-				{this.state.backend_running === false && (
-					<div className='active-app my-1'>
-						Selected App: {this.state.active_app}
-					</div>
-				)}
+				{this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>}
 
 				{/* SHOWS MONITORING (SELECTED) APP */}
-				{isDevelopment && (
-					<div className='monitor-app my-1 disable'>
-						Monitor App: {this.state.monitor_app}
-					</div>
-				)}
+				{isDevelopment && <div className='monitor-app my-1 disable'>Monitor App: {this.state.monitor_app}</div>}
 
 				{/* DRAG REGION */}
-				<div className="my-1"></div>
+				<div className='my-1'></div>
 				<DragRegion />
 			</div>
 		)
