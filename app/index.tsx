@@ -261,8 +261,10 @@ class App extends React.Component<{}, IAppState> {
 		if (this.state.LoginDialog)
 			return (
 				<Fragment>
-					<div className='' style={{ backgroundColor: '' }}>
-						<h2>Login to Continue</h2>
+					<div className='flex' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', alignContent: 'center' }}>
+						<div className='' style={{ backgroundColor: 'white', width: '200px', height: '300px' }}>
+							<h2>Login to Continue</h2>
+						</div>
 					</div>
 				</Fragment>
 			)
