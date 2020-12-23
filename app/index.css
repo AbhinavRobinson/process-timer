@@ -13,6 +13,7 @@
   margin: 15px;
   box-shadow: 0 0 0 1px grey;
   animation: glow-green 500ms ease-in-out infinite;
+  -webkit-user-select: none;
 }
 
 @keyframes glow-green {
