@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import DragBar from './components/DragBar'
+import DragBar from '../../components/DragBar'
 
 interface ISideBarProps {}
 

@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { App } from './App'
-import { SideBar } from './SideBar'
+import { SideBar } from './screens/SideBar/SideBar'
 
 import './css/index.css'
 import './css/utilities.css'
