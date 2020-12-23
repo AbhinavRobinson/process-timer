@@ -66,7 +66,7 @@ class App extends React.Component<{}, IAppState> {
 		time_spent: [],
 		running_time: 0,
 		active_time: 0,
-		LoginDialog: true,
+		LoginDialog: false,
 	}
 
 	async initUser(credential) {
