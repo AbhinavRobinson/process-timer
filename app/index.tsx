@@ -64,7 +64,7 @@ class App extends React.Component<{}, IAppState> {
 		total_time: isDevelopment ? 20 : 300, // seconds
 		time_spent: [],
 		running_time: 0,
-		active_time: 0,
+		active_time: 0
 	}
 
 	async initUser(credential) {
@@ -178,7 +178,7 @@ class App extends React.Component<{}, IAppState> {
 		health_array.push({
 			health: 100,
 			percentage: 0,
-			display_percentage: 0,
+			display_percentage: 0
 		})
 
 		this.setState({ time_spent: health_array })
@@ -251,11 +251,15 @@ class App extends React.Component<{}, IAppState> {
 									className='itemStyle'
 									style={
 										this.state.active_app === this.state.monitor_app
-											? { boxShadow: '0 0 0 1px gray' }
-											: { boxShadow: '0 0 0 1px red' }
+											? { animation: 'glow-green 2s ease-in-out 4' }
+											: { animation: 'glow-red 2s ease-in-out 4' }
 									}
 								>
-									<span style={{ zIndex: 4 }} className='app-item'>{`${elem.display_percentage}`}</span>
+									<span style={{ zIndex: 4 }} className='app-item'>
+										<div className="v-middle text-center">
+											{`${elem.display_percentage}`}
+										</div>
+									</span>
 									<div className='fill' style={this.getStyle(elem)}></div>
 								</li>
 							)
