@@ -108,6 +108,7 @@ class App extends React.Component<{}, IAppState> {
 				const authToken = snapshot.val()
 				if (authToken) {
 					const credential = await firebase.auth().signInWithCustomToken(authToken)
+					remote.getCurrentWindow().setAlwaysOnTop(true)
 					this.initUser(credential)
 					// this.setState({ LoginDialog: false })
 					electron_store.set('auth', true)
