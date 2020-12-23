@@ -9,10 +9,12 @@
   display: none;
 }
 
+/* CENTERS TEXT ... DUH */
 .text-center {
   text-align: center;
 }
 
+/* VERTICALLY CENTERS TEXT (CASE SPECIFIC) */
 .v-middle {
   transform: translateY(12.5%);
 }

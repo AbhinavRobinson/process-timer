@@ -5,11 +5,11 @@ import ReactDOM from 'react-dom'
 
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
-import './utilities.css'
-import './index.css'
-
 import { App } from './App'
 import { SideBar } from './SideBar'
+
+import './css/index.css'
+import './css/utilities.css'
 
 class Main extends Component {
 	async componentDidMount() {

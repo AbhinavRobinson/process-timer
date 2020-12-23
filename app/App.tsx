@@ -1,10 +1,28 @@
 import { ipcRenderer, remote } from 'electron'
 import { join } from 'path'
 import React, { Fragment } from 'react'
+
+/**
+ * Font Awesome Imports
+ */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faCheck, faAngleDoubleRight, faTimes } from '@fortawesome/free-solid-svg-icons'
+
+/**
+ * Checks active app in windows
+ */
 import getFile from '../run'
+
+/**
+ * DragRegion adds draggable section
+ * Login adds login screen
+ */
 import DragRegion from './components/DragRegion'
+import Login from './screens/Login/Login'
+
+/**
+ * Firestore imports
+ */
 import firebase from 'firebase'
 import Store from 'electron-store'
 const electron_store = new Store()
@@ -246,16 +264,7 @@ export class App extends React.Component<{}, IAppState> {
 	}
 
 	render() {
-		if (this.state.LoginDialog)
-			return (
-				<Fragment>
-					<div className='flex' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', alignContent: 'center' }}>
-						<div className='' style={{ backgroundColor: 'white', width: '200px', height: '300px' }}>
-							<h2>Login to Continue</h2>
-						</div>
-					</div>
-				</Fragment>
-			)
+		if (this.state.LoginDialog) return <Login />
 		return (
 			<Fragment>
 				<div className='outer' id='outer'>
