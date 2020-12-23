@@ -2,8 +2,6 @@ import { app, BrowserWindow, globalShortcut, screen } from 'electron'
 import { format as formatUrl } from 'url'
 import * as path from 'path'
 
-// export let
-
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 class MainWindowClass {
