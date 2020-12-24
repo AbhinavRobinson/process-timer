@@ -12,7 +12,7 @@ export class SocketContainerClass {
 	}
 
 	private init() {
-		this.io = socket('http://localhost:8080/')
+		this.io = socket('ws://localhost:8080/')
 		this.io.on('connect', () => {
 			try {
 				io.Socket.emit('store_uid', {

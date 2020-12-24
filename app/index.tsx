@@ -10,9 +10,12 @@ import { SideBar } from './screens/SideBar/SideBar'
 
 import './css/index.css'
 import './css/utilities.css'
+import Container from 'typedi'
+import { SocketContainerClass } from './SocketContainer'
 
 class Main extends Component {
 	async componentDidMount() {
+		Container.get(SocketContainerClass)
 		if (firebase.apps.length === 0)
 			firebase.initializeApp({
 				apiKey: 'AIzaSyDCXLT3OhYO1gMndDKAoPWAtRFY1DWZWTM',
