@@ -49,6 +49,7 @@
 		"@fortawesome/free-solid-svg-icons": "^5.15.1",
 		"@fortawesome/react-fontawesome": "^0.1.14",
 		"@types/firebase": "^3.2.1",
+		"@types/socket.io-client": "^1.4.34",
 		"active-window": "^0.1.0",
 		"electron-log": "^4.2.4",
 		"electron-store": "^6.0.1",
@@ -60,8 +61,11 @@
 		"react-dom": "^16.13.1",
 		"react-router": "^4.3.1",
 		"react-router-dom": "^5.2.0",
+		"reflect-metadata": "^0.1.13",
 		"sass-loader": "^10.1.0",
-		"source-map-support": "^0.5.19"
+		"socket.io-client": "^3.0.4",
+		"source-map-support": "^0.5.19",
+		"typedi": "^0.8.0"
 	},
 	"electronWebpack": {
 		"main": {
