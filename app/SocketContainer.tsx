@@ -12,10 +12,10 @@ export class SocketContainerClass {
 	}
 
 	private init() {
-		this.io = socket('ws://localhost:8080/')
+		this.io = socket('ws://3.7.127.192:8080/')
 		this.io.on('connect', () => {
 			try {
-				io.Socket.emit('store_uid', {
+				this.io.emit('store_uid', {
 					user_id: electron_store.get('user_uid'),
 				})
 			} catch (error) {}
