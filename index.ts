@@ -30,6 +30,16 @@ class Application {
 		if (!this.SideBarConainer) {
 			this.SideBarConainer = new SideBarClass()
 			this.SideBarConainer.init()
+
+			this.AppContainer.InnerWindow.on('closed', () => {
+				if (this.SideBarConainer) {
+					try {
+						this.SideBarConainer.close()
+					} catch (err) {
+						console.info('Already closed')
+					}
+				}
+			})
 		}
 	}
 }

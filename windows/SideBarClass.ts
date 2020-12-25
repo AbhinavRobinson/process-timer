@@ -34,4 +34,10 @@ export class SideBarClass {
 			)
 		}
 	}
+
+	close() {
+		if (this.InnerWindow !== null) {
+			this.InnerWindow.close()
+		}
+	}
 }
