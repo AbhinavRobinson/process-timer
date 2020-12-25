@@ -63,6 +63,7 @@ export interface IAppState {
 	running_time: number
 	active_time: number
 	LoginDialog: boolean
+	closeHandler: boolean
 }
 
 // Main Component
@@ -78,6 +79,7 @@ export class App extends React.Component<{}, IAppState> {
 		running_time: 0,
 		active_time: 0,
 		LoginDialog: false,
+		closeHandler: false,
 	}
 
 	async initUser(credential) {
@@ -328,7 +330,13 @@ export class App extends React.Component<{}, IAppState> {
 
 						<button
 							onClick={() => {
-								closeHandler()
+								if (!this.state.closeHandler) {
+									this.setState({ closeHandler: true })
+
+									closeHandler(() => {
+										this.setState({ closeHandler: false })
+									})
+								}
 							}}
 							className='read-button sm'
 						>
@@ -348,7 +356,7 @@ export class App extends React.Component<{}, IAppState> {
 	}
 }
 
-export function closeHandler() {
+export function closeHandler(callback: VoidFunction) {
 	remote.dialog
 		.showMessageBox(null, {
 			buttons: ['Yes, close nudge app.', 'No, keep nudge open.'],
@@ -357,6 +365,9 @@ export function closeHandler() {
 		.then((data) => {
 			if (data.response === 0) {
 				window.close()
+			}
+			if (data.response) {
+				callback()
 			}
 		})
 }
