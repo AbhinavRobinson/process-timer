@@ -7,7 +7,8 @@ export class PeerContainer {
 	private peer: Peer
 	init() {
 		this.peer = new Peer(Container.get(SocketContainerClass).io.id, {
-			host: `https://nudge.aniketbiprojit.me/peer`,
+			host: `nudge.aniketbiprojit.me`,
+			path: '/peer',
 			secure: true,
 		})
 		this.peer.on('connection', () => {
