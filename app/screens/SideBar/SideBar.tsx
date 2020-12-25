@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import Container from 'typedi'
 import { ApiMainLinks } from '../../api'
 import DragBar from '../../components/DragBar'
-import { PeerContainer } from '../../PeerContainer'
+// import { PeerContainer } from '../../PeerContainer'
 
 interface ISideBarProps {}
 
