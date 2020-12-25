@@ -25,6 +25,8 @@ import Login from './screens/Login/Login'
  */
 import firebase from 'firebase'
 import Store from 'electron-store'
+import Container from 'typedi'
+import { SocketContainerClass } from './SocketContainer'
 const electron_store = new Store()
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -147,7 +149,8 @@ export class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
-		; (window as any).electron_store = electron_store
+		Container.get(SocketContainerClass)
+		;(window as any).electron_store = electron_store
 		// console.log(electron_store.path)
 		if (electron_store.has('auth')) {
 			if (electron_store.get('auth') === false) {
@@ -301,18 +304,18 @@ export class App extends React.Component<{}, IAppState> {
 								<FontAwesomeIcon icon={faPlay} />
 							</button>
 						) : (
-								<Fragment>
-									<button
-										onClick={() => {
-											clearInterval(this.global_timeout)
-											this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
-										}}
-										className='pause-button'
-									>
-										<FontAwesomeIcon icon={faCheck} />
-									</button>
-								</Fragment>
-							)}
+							<Fragment>
+								<button
+									onClick={() => {
+										clearInterval(this.global_timeout)
+										this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+									}}
+									className='pause-button'
+								>
+									<FontAwesomeIcon icon={faCheck} />
+								</button>
+							</Fragment>
+						)}
 
 						<button
 							onClick={() => {

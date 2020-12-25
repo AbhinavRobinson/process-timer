@@ -11,11 +11,13 @@ import { SideBar } from './screens/SideBar/SideBar'
 import './css/index.css'
 import './css/utilities.css'
 import Container from 'typedi'
-import { SocketContainerClass } from './SocketContainer'
 
 class Main extends Component {
+	constructor(props) {
+		super(props)
+		Container.set('url', '3.7.127.192:8080')
+	}
 	async componentDidMount() {
-		Container.get(SocketContainerClass)
 		if (firebase.apps.length === 0)
 			firebase.initializeApp({
 				apiKey: 'AIzaSyDCXLT3OhYO1gMndDKAoPWAtRFY1DWZWTM',
