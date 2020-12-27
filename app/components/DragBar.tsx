@@ -9,22 +9,24 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const DragBar = (): JSX.Element => (
 	<div
-		className='topbar grid grid-5'
+		className='topbar grid draggable'
 		style={{
 			minWidth: '100%',
 			margin: 0,
 			backgroundColor: 'black',
-			alignItems: 'center',
+			gridTemplateColumns: '9fr 1fr',
+			gap: 0
 		}}
 	>
 		<div
-			className='draggable xxs text-center'
+			className='text-center'
 			style={{
 				height: '100%',
-				width: '80%',
-				gridColumn: '1/5',
+				color: 'white',
+				padding: '0 10px',
+				placeSelf: 'start center'
 			}}
-		></div>
+		>Connect with Buddy</div>
 		<div
 			className='close-button rg text-center'
 			style={{
@@ -34,7 +36,7 @@ const DragBar = (): JSX.Element => (
 				height: '100%',
 			}}
 			onClick={() => {
-				CloseHandler('Do you want to close this window?')
+				CloseHandler("question",'Do you want to close this window?')
 			}}
 		>
 			<FontAwesomeIcon icon={faTimes} />
