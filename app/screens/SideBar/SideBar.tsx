@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import Container from 'typedi'
 import { ApiMainLinks } from '../../api'
 import DragBar from '../../components/DragBar'
+import { PeerContainer } from '../../PeerContainer'
+import { SocketContainerClass } from '../../SocketContainer'
 // import { PeerContainer } from '../../PeerContainer'
 // import { PeerContainer } from '../../PeerContainer'
 
@@ -28,7 +30,8 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	}
 
 	async componentDidMount() {
-		// Container.get(PeerContainer).init()
+		Container.get(SocketContainerClass).init()
+		Container.get(PeerContainer).init()
 		const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
 		console.log(active_users)
 		const active_user_ids = []

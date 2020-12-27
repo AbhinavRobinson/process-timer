@@ -21,6 +21,8 @@ export class SocketContainerClass {
 				this.io.emit('store_uid', {
 					user_id: electron_store.get('user_uid'),
 				})
+
+				// this.io.
 			} catch (error) {}
 		})
 	}

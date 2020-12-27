@@ -24,8 +24,8 @@ import Login from './screens/Login/Login'
  * Firestore imports
  */
 import firebase from 'firebase'
-import Container from 'typedi'
-import { SocketContainerClass } from './SocketContainer'
+// import Container from 'typedi'
+// import { SocketContainerClass } from './SocketContainer'
 
 import Store from 'electron-store'
 const electron_store = new Store()
@@ -152,7 +152,7 @@ export class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
-		if (remote.getCurrentWindow().id === 1) Container.get(SocketContainerClass).init()
+		// if (remote.getCurrentWindow().id === 1)
 		;(window as any).electron_store = electron_store
 		// console.log(electron_store.path)
 		if (electron_store.has('auth')) {
