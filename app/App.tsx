@@ -337,7 +337,7 @@ export class App extends React.Component<{}, IAppState> {
 								if (!this.state.closeHandler) {
 									this.setState({ closeHandler: true })
 
-									CloseHandler("Do you want to close Nudge?", () => {
+									CloseHandler("warning","Do you want to close Nudge?", () => {
 										this.setState({ closeHandler: false })
 									})
 								}
