@@ -25,17 +25,27 @@ interface ISideBarState {
 		[socketid: string]: UserDataType
 	}
 	active_user_ids: Array<string>
+	received_data: string
 }
 
 export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	state = {
 		active_users: {},
 		active_user_ids: [],
+		received_data: '',
 	}
-
+	private socket
 	async componentDidMount() {
 		Container.get(SocketContainerClass).init()
 		Container.get(PeerContainer).init()
+		this.socket = Container.get(SocketContainerClass).io
+		this.socket.on('chat_response', (data) => {
+			// console.log(data)
+			if (data && data.data && data.data.calling) {
+				console.warn(data.data.calling, data, 'calling_log')
+				// this.answer()
+			}
+		})
 		const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
 		console.log(active_users)
 		// const active_user_ids = []
@@ -60,6 +70,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		return (
 			<Fragment>
 				<DragBar></DragBar>
+				<div className='received_data'>{this.state.received_data}</div>
 				<App></App>
 				{Object.keys(this.state.active_users).map((key) => {
 					const active_user = this.state.active_users[key]
@@ -75,7 +86,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 							</p>
 							<button
 								onClick={() => {
-									this.start(active_user, key)
+									this.call(active_user, key)
 								}}
 							>
 								Start
@@ -87,25 +98,26 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		)
 	}
 
-	start(user: UserDataType, key: string) {
+	answer(user: UserDataType, key: string) {}
+
+	call(user: UserDataType, key: string) {
 		ipcRenderer.emit('start_timer')
 		ipcRenderer.on('time_data', (data) => {
 			this.send_connect(user, key, {
-				some: data,
+				timer: data,
 			})
 		})
 		this.send_connect(user, key, {
-			some: 'data',
+			calling: { user, key },
 		})
 	}
 	send_connect(user: UserDataType, key: string, data: any = 'hi') {
-		const socket = Container.get(SocketContainerClass).io
-		socket.emit('chat_message', {
+		this.socket.emit('chat_message', {
 			data: data,
 			key: key,
 		})
 
-		socket.on('chat_response', (data) => {
+		this.socket.on('chat_response', (data) => {
 			console.log(data)
 		})
 	}

@@ -155,7 +155,9 @@ export class App extends React.Component<{}, IAppState> {
 	// Get platform and initiate monitor
 	async componentDidMount() {
 		ipcRenderer.addListener('start_timer', () => {
+			const { active_app } = this.state
 			this.stop_backend()
+			this.setState({ monitor_app: active_app, backend_running: true })
 			this.run_backend()
 		})
 		// if (remote.getCurrentWindow().id === 1)
