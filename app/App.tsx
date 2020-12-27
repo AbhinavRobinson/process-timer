@@ -154,6 +154,12 @@ export class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
+		ipcRenderer.addListener('start_timer', () => {
+			const { active_app } = this.state
+			this.stop_backend()
+			this.setState({ monitor_app: active_app, backend_running: true })
+			this.run_backend()
+		})
 		// if (remote.getCurrentWindow().id === 1)
 		;(window as any).electron_store = electron_store
 		// console.log(electron_store.path)
@@ -313,8 +319,7 @@ export class App extends React.Component<{}, IAppState> {
 							<Fragment>
 								<button
 									onClick={() => {
-										clearInterval(this.global_timeout)
-										this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+										this.stop_backend()
 									}}
 									className='pause-button'
 								>
@@ -357,5 +362,10 @@ export class App extends React.Component<{}, IAppState> {
 				</div>
 			</Fragment>
 		)
+	}
+
+	private stop_backend() {
+		clearInterval(this.global_timeout)
+		this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
 	}
 }
