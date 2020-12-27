@@ -152,13 +152,7 @@ export class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
-		if (electron_store.has('socket')) {
-			if (electron_store.get('socket') != true) {
-				Container.get(SocketContainerClass).init()
-				electron_store.set('socket', true)
-			}
-		}
-
+		if (remote.getCurrentWindow().id === 1) Container.get(SocketContainerClass).init()
 		;(window as any).electron_store = electron_store
 		// console.log(electron_store.path)
 		if (electron_store.has('auth')) {
