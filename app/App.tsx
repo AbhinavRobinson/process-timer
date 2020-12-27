@@ -334,7 +334,7 @@ export class App extends React.Component<{}, IAppState> {
 								if (!this.state.closeHandler) {
 									this.setState({ closeHandler: true })
 
-									closeHandler(() => {
+									closeHandler("Do you want to close Nudge?", () => {
 										this.setState({ closeHandler: false })
 									})
 								}
@@ -357,11 +357,11 @@ export class App extends React.Component<{}, IAppState> {
 	}
 }
 
-export function closeHandler(callback: VoidFunction) {
+export function closeHandler(textmessage : string, callback ?: VoidFunction) {
 	remote.dialog
 		.showMessageBox(null, {
-			buttons: ['Yes, close nudge app.', 'No, keep nudge open.'],
-			message: 'Do you want to close Nudge?',
+			buttons: ['Sure.', 'No.'],
+			message: textmessage
 		})
 		.then((data) => {
 			if (data.response === 0) {
