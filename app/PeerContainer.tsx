@@ -11,8 +11,10 @@ export class PeerContainer {
 			path: '/peer',
 			secure: true,
 		})
-		this.peer.on('connection', () => {
-			console.log('connected')
+		this.peer.on('connection', (conn) => {
+			conn.on('data', () => {
+				console.log('data')
+			})
 		})
 	}
 }

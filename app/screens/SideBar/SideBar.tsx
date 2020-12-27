@@ -9,16 +9,18 @@ import { SocketContainerClass } from '../../SocketContainer'
 
 interface ISideBarProps {}
 
+type UserDataType = {
+	user_id: string
+	user_details: {
+		name: string
+		email: string
+		profile_pic: string
+	}
+}
+
 interface ISideBarState {
 	active_users: {
-		[socketid: string]: {
-			user_id: string
-			user_details: {
-				name: string
-				email: string
-				profile_pic: string
-			}
-		}
+		[socketid: string]: UserDataType
 	}
 	active_user_ids: Array<string>
 }
@@ -34,13 +36,13 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		Container.get(PeerContainer).init()
 		const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
 		console.log(active_users)
-		const active_user_ids = []
+		// const active_user_ids = []
 
-		Object.keys(this.state.active_users).map((key) => {
-			const active_user = this.state.active_users[key]
-			active_user_ids.push(active_user)
-		})
-		console.log(active_user_ids, active_users)
+		// Object.keys(this.state.active_users).map((key) => {
+		// 	const active_user = this.state.active_users[key]
+		// 	active_user_ids.push(active_user)
+		// })
+		// console.log(active_user_ids, active_users)
 		this.setState({ active_users })
 		setInterval(async () => {
 			const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
@@ -56,12 +58,20 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 					const active_user = this.state.active_users[key]
 
 					return (
-						<p>
-							{active_user.user_details.name} {active_user.user_id}
+						<p
+							onClick={() => {
+								this.connect(active_user, key)
+							}}
+						>
+							{active_user.user_details.name} {active_user.user_id} {key}
 						</p>
 					)
 				})}
 			</Fragment>
 		)
+	}
+	connect(active_user: UserDataType, key: string) {
+		console.log(active_user)
+		// throw new Error('Method not implemented.')
 	}
 }
