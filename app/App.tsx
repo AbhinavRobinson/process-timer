@@ -196,6 +196,7 @@ export class App extends React.Component<{}, IAppState> {
 					}
 				})
 			}
+			ipcRenderer.emit('time_data', this.state.time_spent)
 		}, 2000)
 	}
 

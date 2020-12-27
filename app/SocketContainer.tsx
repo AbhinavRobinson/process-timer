@@ -22,8 +22,14 @@ export class SocketContainerClass {
 					user_id: electron_store.get('user_uid'),
 				})
 
+				this.io.on('chat_response', (data) => {
+					console.log(data, 1)
+				})
 				// this.io.
 			} catch (error) {}
+		})
+		this.io.io.on('chat_response', (data) => {
+			console.log(data, 1)
 		})
 	}
 }

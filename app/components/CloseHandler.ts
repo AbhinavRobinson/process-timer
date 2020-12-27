@@ -1,4 +1,4 @@
-import { remote } from 'electron';
+import { remote } from 'electron'
 
 export function CloseHandler(textmessage: string, callback?: VoidFunction) {
 	remote.dialog
@@ -9,10 +9,10 @@ export function CloseHandler(textmessage: string, callback?: VoidFunction) {
 		})
 		.then((data) => {
 			if (data.response === 0) {
-				window.close();
+				window.close()
 			}
 			if (data.response) {
-				callback();
+				callback()
 			}
-		});
+		})
 }
