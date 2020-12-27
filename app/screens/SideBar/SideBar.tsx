@@ -41,8 +41,14 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		this.socket = Container.get(SocketContainerClass).io
 		this.socket.on('chat_response', (data) => {
 			// console.log(data)
+			if (data && data.data && data.data.timer) {
+				console.log(data.data.timer, 'timer')
+				this.setState({ received_data: JSON.stringify(data.data.timer) })
+			}
 			if (data && data.data && data.data.calling) {
-				console.warn(data.data.calling, data, 'calling_log')
+				const key = data.sent_by
+				const calling_user = this.state.active_users[key]
+				this.answer(key, calling_user)
 				// this.answer()
 			}
 		})
@@ -98,7 +104,14 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		)
 	}
 
-	answer(user: UserDataType, key: string) {}
+	answer(user: UserDataType, key: string) {
+		ipcRenderer.emit('start_timer')
+		ipcRenderer.on('time_data', (data) => {
+			this.send_connect(user, key, {
+				timer: data,
+			})
+		})
+	}
 
 	call(user: UserDataType, key: string) {
 		ipcRenderer.emit('start_timer')
