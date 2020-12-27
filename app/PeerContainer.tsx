@@ -4,7 +4,7 @@ import { SocketContainerClass } from './SocketContainer'
 
 @Service()
 export class PeerContainer {
-	private peer: Peer
+	public peer: Peer
 	init() {
 		this.peer = new Peer(Container.get(SocketContainerClass).io.id, {
 			host: `nudge.aniketbiprojit.me`,
@@ -12,9 +12,10 @@ export class PeerContainer {
 			secure: true,
 		})
 		this.peer.on('connection', (conn) => {
-			conn.on('data', () => {
-				console.log('data')
+			conn.on('data', (data) => {
+				console.log(data, 1)
 			})
+			console.log('connected')
 		})
 	}
 }

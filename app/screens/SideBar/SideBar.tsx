@@ -38,16 +38,20 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		console.log(active_users)
 		// const active_user_ids = []
 
-		// Object.keys(this.state.active_users).map((key) => {
-		// 	const active_user = this.state.active_users[key]
-		// 	active_user_ids.push(active_user)
-		// })
-		// console.log(active_user_ids, active_users)
 		this.setState({ active_users })
 		setInterval(async () => {
 			const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
 			this.setState({ active_users })
 		}, 5 * 1000) // Update after 30 seconds
+	}
+
+	onChatResponse() {
+		Container.get(PeerContainer).peer.on('connection', (conn) => {
+			conn.on('data', (data) => {
+				console.log(data, 2)
+			})
+			console.log('connected')
+		})
 	}
 
 	render() {
