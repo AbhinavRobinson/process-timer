@@ -1,5 +1,5 @@
 import React from 'react'
-import { closeHandler } from '../App'
+import { closeHandler } from "./closeHandler"
 
 /**
  * Font Awesome Imports
