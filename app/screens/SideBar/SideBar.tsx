@@ -1,6 +1,8 @@
+import { ipcRenderer } from 'electron'
 import React, { Component, Fragment } from 'react'
 import Container from 'typedi'
 import { ApiMainLinks } from '../../api'
+import { App } from '../../App'
 import DragBar from '../../components/DragBar'
 import { PeerContainer } from '../../PeerContainer'
 import { SocketContainerClass } from '../../SocketContainer'
@@ -58,26 +60,48 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		return (
 			<Fragment>
 				<DragBar></DragBar>
+				<App></App>
 				{Object.keys(this.state.active_users).map((key) => {
 					const active_user = this.state.active_users[key]
 
 					return (
-						<p
-							onClick={() => {
-								this.send_connect(active_user, key)
-							}}
-						>
-							{active_user.user_details.name} {active_user.user_id} {key}
-						</p>
+						<Fragment>
+							<p
+								onClick={() => {
+									this.send_connect(active_user, key)
+								}}
+							>
+								{active_user.user_details.name} {active_user.user_id} {key}
+							</p>
+							<button
+								onClick={() => {
+									this.start(active_user, key)
+								}}
+							>
+								Start
+							</button>
+						</Fragment>
 					)
 				})}
 			</Fragment>
 		)
 	}
-	send_connect(user: UserDataType, key: string) {
+
+	start(user: UserDataType, key: string) {
+		ipcRenderer.emit('start_timer')
+		ipcRenderer.on('time_data', (data) => {
+			this.send_connect(user, key, {
+				some: data,
+			})
+		})
+		this.send_connect(user, key, {
+			some: 'data',
+		})
+	}
+	send_connect(user: UserDataType, key: string, data: any = 'hi') {
 		const socket = Container.get(SocketContainerClass).io
 		socket.emit('chat_message', {
-			data: 'hi' + user.user_details.name,
+			data: data,
 			key: key,
 		})
 

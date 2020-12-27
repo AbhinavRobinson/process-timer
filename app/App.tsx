@@ -154,6 +154,10 @@ export class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
+		ipcRenderer.addListener('start_timer', () => {
+			this.stop_backend()
+			this.run_backend()
+		})
 		// if (remote.getCurrentWindow().id === 1)
 		;(window as any).electron_store = electron_store
 		// console.log(electron_store.path)
@@ -313,8 +317,7 @@ export class App extends React.Component<{}, IAppState> {
 							<Fragment>
 								<button
 									onClick={() => {
-										clearInterval(this.global_timeout)
-										this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+										this.stop_backend()
 									}}
 									className='pause-button'
 								>
@@ -337,7 +340,7 @@ export class App extends React.Component<{}, IAppState> {
 								if (!this.state.closeHandler) {
 									this.setState({ closeHandler: true })
 
-									CloseHandler("Do you want to close Nudge?", () => {
+									CloseHandler('Do you want to close Nudge?', () => {
 										this.setState({ closeHandler: false })
 									})
 								}
@@ -357,5 +360,10 @@ export class App extends React.Component<{}, IAppState> {
 				</div>
 			</Fragment>
 		)
+	}
+
+	private stop_backend() {
+		clearInterval(this.global_timeout)
+		this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
 	}
 }
