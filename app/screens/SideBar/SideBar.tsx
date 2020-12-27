@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import Container from 'typedi'
 import { ApiMainLinks } from '../../api'
 import DragBar from '../../components/DragBar'
+import { PeerContainer } from '../../PeerContainer'
 // import { PeerContainer } from '../../PeerContainer'
 
 interface ISideBarProps {}
@@ -29,6 +30,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	async componentDidMount() {
 		// Container.get(PeerContainer).init()
 		const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
+		console.log(active_users)
 		const active_user_ids = []
 
 		Object.keys(this.state.active_users).map((key) => {
@@ -40,7 +42,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		setInterval(async () => {
 			const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
 			this.setState({ active_users })
-		}, 30 * 1000) // Update after 30 seconds
+		}, 5 * 1000) // Update after 30 seconds
 	}
 
 	render() {
@@ -49,6 +51,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 				<DragBar></DragBar>
 				{Object.keys(this.state.active_users).map((key) => {
 					const active_user = this.state.active_users[key]
+
 					return (
 						<p>
 							{active_user.user_details.name} {active_user.user_id}

@@ -10,11 +10,11 @@ export class SocketContainerClass {
 	public io: SocketIOClient.Socket
 	private readonly url = `ws://${Container.get('url')}/`
 
-	constructor() {
-		this.init()
-	}
+	// constructor() {
+	// 	this.init()
+	// }
 
-	private init() {
+	init() {
 		this.io = socket(this.url)
 		this.io.on('connect', () => {
 			try {

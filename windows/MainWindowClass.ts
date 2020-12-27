@@ -3,6 +3,9 @@ import { format as formatUrl } from 'url'
 import * as path from 'path'
 import { isDevelopment } from '../index'
 
+import Store from 'electron-store'
+const electron_store = new Store()
+
 export class MainWindowClass {
 	public InnerWindow: BrowserWindow
 	constructor() {
@@ -26,6 +29,7 @@ export class MainWindowClass {
 	}
 
 	async init() {
+		electron_store.set('socket', false)
 		if (isDevelopment) {
 			this.InnerWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
 		} else {
