@@ -24,6 +24,9 @@ class Application {
 		ipcMain.on('open_sidebar', (e) => {
 			this.openSideBar()
 		})
+
+		// TODO add a close_sidebar call: should be callable globally
+
 	}
 
 	openSideBar() {
