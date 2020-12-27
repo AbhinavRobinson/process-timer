@@ -1,5 +1,5 @@
 import React from 'react'
-import { closeHandler } from "./closeHandler"
+import { CloseHandler } from "./CloseHandler"
 
 /**
  * Font Awesome Imports
@@ -17,7 +17,7 @@ const DragBar = (): JSX.Element => (
 		<div className='draggable xxs text-center' style={{height: '100%', width:'80%', gridColumn:'1/5'}}></div>
 		<div className="close-button rg text-center" style={{backgroundColor:'orange',color: 'white', placeSelf: "center stretch", height:'100%'}}
 		onClick={()=>{
-			closeHandler("Do you want to close this window?")
+			CloseHandler("Do you want to close this window?")
 		}}><FontAwesomeIcon icon={faTimes} /></div>
 	</div>
 )

@@ -16,9 +16,11 @@ import getFile from '../run'
 /**
  * DragRegion adds draggable section
  * Login adds login screen
+ * CloseHandler closes current window
  */
 import DragRegion from './components/DragRegion'
 import Login from './screens/Login/Login'
+import { CloseHandler } from './components/CloseHandler'
 
 /**
  * Firestore imports
@@ -28,7 +30,6 @@ import firebase from 'firebase'
 // import { SocketContainerClass } from './SocketContainer'
 
 import Store from 'electron-store'
-import { closeHandler } from './components/closeHandler'
 const electron_store = new Store()
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -335,7 +336,7 @@ export class App extends React.Component<{}, IAppState> {
 								if (!this.state.closeHandler) {
 									this.setState({ closeHandler: true })
 
-									closeHandler("Do you want to close Nudge?", () => {
+									CloseHandler("Do you want to close Nudge?", () => {
 										this.setState({ closeHandler: false })
 									})
 								}
