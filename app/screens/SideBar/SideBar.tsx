@@ -74,8 +74,16 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 			</Fragment>
 		)
 	}
-	connect(active_user: UserDataType, key: string) {
-		console.log(active_user)
+	connect(user: UserDataType, key: string) {
+		const conn = Container.get(PeerContainer).peer.connect(key)
+
+		conn.on('open', () => {
+			console.log('sent')
+			conn.send('hi' + user.user_details.name)
+		})
+		conn.on('error', (err) => {
+			console.error('disconnected', err)
+		})
 		// throw new Error('Method not implemented.')
 	}
 }
