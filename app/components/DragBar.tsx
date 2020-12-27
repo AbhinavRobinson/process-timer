@@ -9,7 +9,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const DragBar = (): JSX.Element => (
 	<div
-		className='topbar grid'
+		className='topbar grid draggable'
 		style={{
 			minWidth: '100%',
 			margin: 0,
@@ -19,7 +19,7 @@ const DragBar = (): JSX.Element => (
 		}}
 	>
 		<div
-			className='draggable text-center'
+			className='text-center'
 			style={{
 				height: '100%',
 				color: 'white',
