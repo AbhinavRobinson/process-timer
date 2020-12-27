@@ -64,7 +64,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 					return (
 						<p
 							onClick={() => {
-								this.connect(active_user, key)
+								this.send_connect(active_user, key)
 							}}
 						>
 							{active_user.user_details.name} {active_user.user_id} {key}
@@ -74,16 +74,15 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 			</Fragment>
 		)
 	}
-	connect(user: UserDataType, key: string) {
-		const conn = Container.get(PeerContainer).peer.connect(key)
+	send_connect(user: UserDataType, key: string) {
+		const socket = Container.get(SocketContainerClass).io
+		socket.emit('chat_message', {
+			data: 'hi' + user.user_details.name,
+			key: key,
+		})
 
-		conn.on('open', () => {
-			console.log('sent')
-			conn.send('hi' + user.user_details.name)
+		socket.on('chat_response', (data) => {
+			console.log(data)
 		})
-		conn.on('error', (err) => {
-			console.error('disconnected', err)
-		})
-		// throw new Error('Method not implemented.')
 	}
 }
