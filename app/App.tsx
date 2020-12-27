@@ -16,9 +16,11 @@ import getFile from '../run'
 /**
  * DragRegion adds draggable section
  * Login adds login screen
+ * CloseHandler closes current window
  */
 import DragRegion from './components/DragRegion'
 import Login from './screens/Login/Login'
+import { CloseHandler } from './components/CloseHandler'
 
 /**
  * Firestore imports
@@ -335,7 +337,7 @@ export class App extends React.Component<{}, IAppState> {
 								if (!this.state.closeHandler) {
 									this.setState({ closeHandler: true })
 
-									closeHandler(() => {
+									CloseHandler("Do you want to close Nudge?", () => {
 										this.setState({ closeHandler: false })
 									})
 								}
@@ -356,20 +358,4 @@ export class App extends React.Component<{}, IAppState> {
 			</Fragment>
 		)
 	}
-}
-
-export function closeHandler(callback: VoidFunction) {
-	remote.dialog
-		.showMessageBox(null, {
-			buttons: ['Yes, close nudge app.', 'No, keep nudge open.'],
-			message: 'Do you want to close Nudge?',
-		})
-		.then((data) => {
-			if (data.response === 0) {
-				window.close()
-			}
-			if (data.response) {
-				callback()
-			}
-		})
 }

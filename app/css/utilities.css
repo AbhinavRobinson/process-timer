@@ -33,6 +33,39 @@
   height: 100%;
 }
 
+.grid {
+  display: grid;
+
+  /* divide space in fractions for each child within container */
+  /* repeat(2, 1fr) == 1fr 1fr */
+  grid-template-columns: repeat(2, 1fr);
+
+  /* space between grid items */
+  gap: 20px;
+
+  /* center items */
+  justify-content: center;
+  align-items: center;
+
+  /* fit grid to container */
+  height: 100%;
+}
+
+.grid-3 {
+  /* 3 items in one row */
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  /* 4 items in one row */
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-5 {
+  /* 5 items in one row */
+  grid-template-columns: repeat(5, 1fr);
+}
+
 .container {
   display: flex;
 	flex-direction: column;
