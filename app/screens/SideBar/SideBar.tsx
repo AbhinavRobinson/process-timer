@@ -2,14 +2,16 @@ import { ipcRenderer } from 'electron'
 import React, { Component, Fragment } from 'react'
 import Container from 'typedi'
 import { ApiMainLinks } from '../../api'
+
 import { App } from '../../App'
+import Video from '../../components/Video'
+
 import DragBar from '../../components/DragBar'
 import { PeerContainer } from '../../PeerContainer'
 import { SocketContainerClass } from '../../SocketContainer'
 // import { PeerContainer } from '../../PeerContainer'
-// import { PeerContainer } from '../../PeerContainer'
 
-interface ISideBarProps {}
+interface ISideBarProps { }
 
 type UserDataType = {
 	user_id: string
@@ -77,7 +79,12 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 			<Fragment>
 				<DragBar></DragBar>
 				<div className='received_data'>{this.state.received_data}</div>
-				<App></App>
+				<div className="disable-view-only">
+					<App></App>
+				</div>
+				{/* <div className="disable-view-only"> */}
+				{Video(10, 10)}
+				{/* </div> */}
 				{Object.keys(this.state.active_users).map((key) => {
 					const active_user = this.state.active_users[key]
 
