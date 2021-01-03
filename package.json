@@ -52,6 +52,7 @@
 		"@types/firebase": "^3.2.1",
 		"@types/socket.io-client": "^1.4.34",
 		"active-window": "^0.1.0",
+		"agora-electron-sdk": "^3.2.1-rc.71-build.1123",
 		"axios": "^0.21.1",
 		"electron-log": "^4.2.4",
 		"electron-store": "^6.0.1",
