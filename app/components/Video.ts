@@ -87,4 +87,4 @@ async function leaveCall() {
 	await rtc.client.leave()
 }
 
-export default startBasicCall
+export default { startBasicCall, leaveCall }

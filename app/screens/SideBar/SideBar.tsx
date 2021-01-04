@@ -4,7 +4,7 @@ import Container from 'typedi'
 import { ApiMainLinks } from '../../api'
 
 import { App } from '../../App'
-import startBasicCall from '../../components/Video'
+import Video from '../../components/Video'
 
 import DragBar from '../../components/DragBar'
 import { PeerContainer } from '../../PeerContainer'
@@ -83,8 +83,14 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 					<App></App>
 				</div>
 				{/* <div className="disable-view-only"> */}
-				<button onClick={() => { startBasicCall() }
-				}></button>
+				<button onClick={() => {
+					Video.startBasicCall()
+				}
+				}>START</button>
+				<button onClick={() => {
+					Video.leaveCall()
+				}
+				}>STOP</button>
 				{/* </div> */}
 				{Object.keys(this.state.active_users).map((key) => {
 					const active_user = this.state.active_users[key]
