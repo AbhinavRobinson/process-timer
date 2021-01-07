@@ -15,7 +15,7 @@ import Container from 'typedi'
 class Main extends Component {
 	constructor(props) {
 		super(props)
-		Container.set('url', '3.7.127.192:8080')
+		Container.set('url', 'socket.nudge.aniketbiprojit.me')
 	}
 	async componentDidMount() {
 		if (firebase.apps.length === 0)

@@ -8,7 +8,7 @@ const electron_store = new Store()
 @Service()
 export class SocketContainerClass {
 	public io: SocketIOClient.Socket
-	private readonly url = `ws://${Container.get('url')}/`
+	private readonly url = `wss://${Container.get('url')}/`
 
 	// constructor() {
 	// 	this.init()
