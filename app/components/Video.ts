@@ -1,7 +1,7 @@
 /**
  * ! Remove Token from Github later
  */
-import Token from '../../Token.json'
+import Token from '../../token.json'
 
 import AgoraRTC from 'agora-rtc-sdk'
 
