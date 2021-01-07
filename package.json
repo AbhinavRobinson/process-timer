@@ -1,11 +1,11 @@
 {
 	"name": "Electron",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "",
 	"main": "index.js",
 	"author": {
-        "email": "abhinavrobinson@gmail.com"
-    },
+		"email": "abhinavrobinson@gmail.com"
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"postinstall": "electron-builder install-app-deps",
