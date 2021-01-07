@@ -4,11 +4,12 @@ import Container from 'typedi'
 import { ApiMainLinks } from '../../api'
 
 import { App } from '../../App'
-import Video from '../../components/Video'
+// import Video from '../../components/Video'
 
 import DragBar from '../../components/DragBar'
 import { PeerContainer } from '../../PeerContainer'
 import { SocketContainerClass } from '../../SocketContainer'
+import Call from '../../Call'
 // import { PeerContainer } from '../../PeerContainer'
 
 interface ISideBarProps { }
@@ -83,14 +84,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 					<App></App>
 				</div>
 				{/* <div className="disable-view-only"> */}
-				<button onClick={() => {
-					Video.startBasicCall()
-				}
-				}>START</button>
-				<button onClick={() => {
-					Video.leaveCall()
-				}
-				}>STOP</button>
+				<Call />
 				{/* </div> */}
 				{Object.keys(this.state.active_users).map((key) => {
 					const active_user = this.state.active_users[key]

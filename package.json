@@ -3,6 +3,9 @@
 	"version": "0.0.5",
 	"description": "",
 	"main": "index.js",
+	"author": {
+        "email": "abhinavrobinson@gmail.com"
+    },
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"postinstall": "electron-builder install-app-deps",
@@ -53,6 +56,7 @@
 		"@types/socket.io-client": "^1.4.34",
 		"active-window": "^0.1.0",
 		"agora-rtc-sdk": "^3.3.1",
+		"agora-rtc-sdk-ng": "^4.2.1",
 		"axios": "^0.21.1",
 		"electron-log": "^4.2.4",
 		"electron-store": "^6.0.1",
@@ -85,7 +89,7 @@
 			"category": "Utility",
 			"icon": "build/icons/",
 			"target": [
-				"AppImage"
+				"deb"
 			]
 		},
 		"win": {
