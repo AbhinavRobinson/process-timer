@@ -6,7 +6,7 @@ export const isDevelopment = process.env.NODE_ENV !== 'production'
 
 class Application {
 	public AppContainer: MainWindowClass
-	public SideBarConainer: SideBarClass
+	public SideBarContainer: SideBarClass
 
 	constructor() {
 		this.init()
@@ -17,6 +17,7 @@ class Application {
 			this.AppContainer = new MainWindowClass()
 			await this.AppContainer.init()
 			this.handleEvents()
+			app.dock.hide()
 		})
 	}
 
@@ -26,18 +27,17 @@ class Application {
 		})
 
 		// TODO add a close_sidebar call: should be callable globally
-
 	}
 
 	openSideBar() {
-		if (!this.SideBarConainer) {
-			this.SideBarConainer = new SideBarClass()
-			this.SideBarConainer.init()
+		if (!this.SideBarContainer) {
+			this.SideBarContainer = new SideBarClass()
+			this.SideBarContainer.init()
 
 			this.AppContainer.InnerWindow.on('closed', () => {
-				if (this.SideBarConainer) {
+				if (this.SideBarContainer) {
 					try {
-						this.SideBarConainer.close()
+						this.SideBarContainer.close()
 					} catch (err) {
 						console.info('Already closed')
 					}
