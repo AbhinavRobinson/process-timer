@@ -1,4 +1,17 @@
 /**
+ * ^^^^^^^^^^^
+ * ^^^^^^^^^^^
+ * DEPRECIATED
+ * ^^^^^^^^^^^
+ * ^^^^^^^^^^^
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  * ! Remove Token from Github later
  */
 // import Token from '../../token.json'
