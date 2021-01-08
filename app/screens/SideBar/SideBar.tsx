@@ -1,18 +1,22 @@
+// IMPORT DEPENDENCIES
+
 import { ipcRenderer } from 'electron'
 import React, { Component, Fragment } from 'react'
 import Container from 'typedi'
 import { ApiMainLinks } from '../../api'
 
+// IMPORT COMPONENTS
 import { App } from '../../App'
+
+// DEPRECIATED >> Using Call Component instead!
 // import Video from '../../components/Video'
 
 import DragBar from '../../components/DragBar'
 import { PeerContainer } from '../../PeerContainer'
 import { SocketContainerClass } from '../../SocketContainer'
 import Call from '../../Call'
-// import { PeerContainer } from '../../PeerContainer'
 
-interface ISideBarProps { }
+interface ISideBarProps {}
 
 type UserDataType = {
 	user_id: string
@@ -80,7 +84,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 			<Fragment>
 				<DragBar></DragBar>
 				<div className='received_data'>{this.state.received_data}</div>
-				<div className="disable-view-only">
+				<div className='disable-view-only'>
 					<App></App>
 				</div>
 				{/* <div className="disable-view-only"> */}
