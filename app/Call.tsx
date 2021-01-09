@@ -11,8 +11,8 @@ const client = AgoraRTC.createClient({ codec: 'h264', mode: 'rtc' })
 function Call() {
 	const [appid, setAppid] = useState('')
 	// USE DYNAMIC TOKEN INSTEAD
-	// const [token, setToken] = useState('')
-	const [token] = useState('')
+	const [token, setToken] = useState('')
+	// const [token] = useState('')
 	const [channel, setChannel] = useState('')
 	const { localAudioTrack, localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
 
