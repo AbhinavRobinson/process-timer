@@ -15,10 +15,11 @@ function Call() {
 	// const [token] = useState('')
 	const [channel, setChannel] = useState('')
 	const { localAudioTrack, localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
-
+	localAudioTrack
 	// GET APP ID << TEST APP ID
 	useEffect(() => {
 		setAppid(Token.Agora.APP_ID)
+		setToken(Token.Agora.TOKEN)
 	}, [])
 
 	// USE DYNAMIC TOKEN INSTEAD
@@ -27,7 +28,7 @@ function Call() {
 	return (
 		<div className='call'>
 			<form className='call-form'>
-				<label>
+				{/* <label>
 					AppID:
 					<input
 						type='text'
@@ -36,8 +37,8 @@ function Call() {
 							setAppid(event.target.value)
 						}}
 					/>
-				</label>
-				<label>
+				</label> */}
+				{/* <label>
 					Token(Optional):
 					<input
 						type='text'
@@ -46,7 +47,7 @@ function Call() {
 							setToken(event.target.value)
 						}}
 					/>
-				</label>
+				</label> */}
 				<label>
 					Channel:
 					<input

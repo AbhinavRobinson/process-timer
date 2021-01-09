@@ -38,7 +38,7 @@ export default function useAgora(
 	}
 
 	async function join(appid: string, channel: string, token?: string, uid?: string | number | null) {
-		if (!client) return
+		if (!client) return null
 
 		// still sets state true even if mic or camera not connected
 		setJoinState(true)
@@ -67,7 +67,7 @@ export default function useAgora(
 
 	useEffect(() => {
 		if (!client) {
-			return
+			return null
 		} else {
 			setRemoteUsers(client.remoteUsers)
 
