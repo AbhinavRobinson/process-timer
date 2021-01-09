@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AgoraRTC from 'agora-rtc-sdk-ng'
 import useAgora from './hooks/useAgora'
 import MediaPlayer from './components/MediaPlayer'
@@ -17,7 +17,9 @@ function Call() {
 	const { localAudioTrack, localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
 
 	// GET APP ID << TEST APP ID
-	setAppid(Token.Agora.APP_ID)
+	useEffect(() => {
+		setAppid(Token.Agora.APP_ID)
+	}, [])
 
 	// USE DYNAMIC TOKEN INSTEAD
 	// setToken(Token.Agora.Token)
