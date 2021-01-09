@@ -27,14 +27,26 @@ function Call() {
 	return (
 		<div className='call'>
 			<form className='call-form'>
-				{/* <label>
-          AppID:
-          <input type='text' name='appid' onChange={(event) => { setAppid(event.target.value) }}/>
-        </label>
-        <label>
-          Token(Optional):
-          <input type='text' name='token' onChange={(event) => { setToken(event.target.value) }} />
-        </label> */}
+				<label>
+					AppID:
+					<input
+						type='text'
+						name='appid'
+						onChange={(event) => {
+							setAppid(event.target.value)
+						}}
+					/>
+				</label>
+				<label>
+					Token(Optional):
+					<input
+						type='text'
+						name='token'
+						onChange={(event) => {
+							setToken(event.target.value)
+						}}
+					/>
+				</label>
 				<label>
 					Channel:
 					<input
