@@ -88,7 +88,7 @@ function Call() {
 						{localVideoTrack && `localTrack`}
 						{joinState && localVideoTrack ? `(${client.uid})` : ''}
 					</p>
-					<MediaPlayer videoTrack={localVideoTrack} audioTrack={localAudioTrack}></MediaPlayer>
+					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
 				</div>
 				{remoteUsers.map((user) => (
 					<div className='remote-player-wrapper' key={user.uid}>
