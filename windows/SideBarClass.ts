@@ -23,11 +23,11 @@ export class SideBarClass {
 
 	init() {
 		if (isDevelopment) {
-			this.InnerWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}/#sidebar`)
+			this.InnerWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
 		} else {
 			this.InnerWindow.loadURL(
 				formatUrl({
-					pathname: path.join(__dirname, 'index.html/#sidebar'),
+					pathname: path.join(__dirname, 'index.html'),
 					protocol: 'file',
 					slashes: true,
 				})

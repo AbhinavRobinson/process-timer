@@ -12,6 +12,8 @@ import './css/index.css'
 import './css/utilities.css'
 import Container from 'typedi'
 
+const { ipcRenderer } = require('electron')
+
 class Main extends Component {
 	constructor(props) {
 		super(props)
@@ -35,8 +37,9 @@ class Main extends Component {
 			<Fragment>
 				<Router>
 					<Switch>
-						<Route path='/sidebar' render={() => <SideBar />} />
-						<Route exact path='/' render={() => <App />} />
+						<Route exact path='/'>
+							{ipcRenderer.sendSync('sidebar_open_check') ? <SideBar /> : <App />}
+						</Route>
 					</Switch>
 				</Router>
 			</Fragment>
