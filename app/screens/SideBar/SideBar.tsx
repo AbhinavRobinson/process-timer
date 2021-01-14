@@ -92,7 +92,6 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 				{/* </div> */}
 				{Object.keys(this.state.active_users).map((key) => {
 					const active_user = this.state.active_users[key]
-
 					return (
 						<Fragment>
 							<p
@@ -100,7 +99,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 									this.send_connect(active_user, key)
 								}}
 							>
-								{active_user.user_details.name} {active_user.user_id} {key}
+								{active_user.user_details.name}
 							</p>
 							<button
 								onClick={() => {

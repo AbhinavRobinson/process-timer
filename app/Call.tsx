@@ -86,8 +86,8 @@ function Call() {
 			<div className='player-container'>
 				<div className='local-player-wrapper'>
 					<p className='local-player-text'>
-						{localVideoTrack && `localTrack`}
-						{joinState && localVideoTrack ? `(${client.uid})` : ''}
+						{/* {localVideoTrack && `localTrack`} */}
+						{joinState && localVideoTrack ? 'Online' : 'Offine'}
 					</p>
 					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
 				</div>
