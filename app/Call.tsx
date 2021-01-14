@@ -87,7 +87,7 @@ function Call() {
 				<div className='local-player-wrapper'>
 					<p className='local-player-text'>
 						{/* {localVideoTrack && `localTrack`} */}
-						{joinState && localVideoTrack ? 'Online' : 'Offine'}
+						{joinState && localVideoTrack ? 'Connected' : 'Disconnected'}
 					</p>
 					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
 				</div>
