@@ -5,13 +5,9 @@ import React, { Component, Fragment } from 'react'
 import Container from 'typedi'
 import { ApiMainLinks } from '../../api'
 
-// IMPORT COMPONENTS
-import { App } from '../../App'
-
 // DEPRECIATED >> Using Call Component instead!
 // import Video from '../../components/Video'
 
-import DragBar from '../../components/DragBar'
 import { PeerContainer } from '../../PeerContainer'
 import { SocketContainerClass } from '../../SocketContainer'
 import Call from '../../Call'
@@ -82,13 +78,11 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	render() {
 		return (
 			<Fragment>
-				<DragBar></DragBar>
 				<div className='received_data'>{this.state.received_data}</div>
-				<div className='disable-view-only'>
-					<App></App>
-				</div>
+
 				{/* <div className="disable-view-only"> */}
 				<Call />
+
 				{/* </div> */}
 				{Object.keys(this.state.active_users).map((key) => {
 					const active_user = this.state.active_users[key]
