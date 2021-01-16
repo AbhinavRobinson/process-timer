@@ -1,69 +1,57 @@
-import { app, BrowserWindow, globalShortcut, screen } from 'electron'
-import { format as formatUrl } from 'url'
-import * as path from 'path'
+import { app, ipcMain } from 'electron'
+import { MainWindowClass } from './windows/MainWindowClass'
+import { SideBarClass } from './windows/SideBarClass'
 
-export let mainWindow: null | BrowserWindow
+export const isDevelopment = process.env.NODE_ENV !== 'production'
 
-const isDevelopment = process.env.NODE_ENV !== 'production'
+class Application {
+	public AppContainer: MainWindowClass
+	public SideBarContainer: SideBarClass
+	private isSideBarOpen: boolean
 
-function createMainWindow() {
-	let display = screen.getPrimaryDisplay()
-
-	const window = new BrowserWindow({
-		webPreferences: {
-			nodeIntegration: true,
-			enableRemoteModule: true,
-			webSecurity: false,
-		},
-		width: 300,
-		height: 500,
-		x: display.bounds.width - 200,
-		// minHeight: 675,
-		// minWidth: 1080,
-		alwaysOnTop: true,
-		frame: false,
-		transparent: true,
-		icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
-	})
-
-	// if (isDevelopment) {
-	// 	window.webContents.openDevTools()
-	// }
-
-	if (isDevelopment) {
-		// noinspection JSIgnoredPromiseFromCall
-		window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
-	} else {
-		// noinspection JSIgnoredPromiseFromCall
-		window.loadURL(
-			formatUrl({
-				pathname: path.join(__dirname, 'index.html'),
-				protocol: 'file',
-				slashes: true,
-			})
-		)
+	constructor() {
+		this.init()
 	}
 
-	window.on('closed', () => {
-		mainWindow = null
-	})
-
-	window.webContents.on('devtools-opened', () => {
-		window.focus()
-		setImmediate(() => {
-			window.focus()
+	async init() {
+		app.on('ready', async () => {
+			this.AppContainer = new MainWindowClass()
+			await this.AppContainer.init()
+			this.handleEvents()
+			app.dock.hide()
 		})
-	})
+		this.isSideBarOpen = false
+	}
 
-	return window
+	handleEvents() {
+		ipcMain.on('open_sidebar', (_) => {
+			this.openSideBar()
+		})
+		ipcMain.on('sidebar_open_check', (e) => {
+			e.returnValue = this.isSideBarOpen
+		})
+
+		// TODO add a close_sidebar call: should be callable globally
+	}
+
+	openSideBar() {
+		this.isSideBarOpen = true
+		if (!this.SideBarContainer) {
+			this.SideBarContainer = new SideBarClass()
+			this.SideBarContainer.init()
+
+			this.AppContainer.InnerWindow.on('closed', () => {
+				this.isSideBarOpen = false
+				if (this.SideBarContainer) {
+					try {
+						this.SideBarContainer.close()
+					} catch (err) {
+						console.info('Already closed')
+					}
+				}
+			})
+		}
+	}
 }
-// const monitor = require('active-window')
 
-app.on('ready', () => {
-	createMainWindow()
-	// setInterval(() => {
-	// 	getFile('',(data)=>{
-
-	// 	})
-	// }, 5000)
-})
+export const application = new Application()

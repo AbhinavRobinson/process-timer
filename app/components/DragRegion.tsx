@@ -1,10 +1,8 @@
-import React from "react";
+import React from 'react'
 
-import '../utilities.css'
-import '../index.css'
+/**
+ * @returns a small drag region
+ */
+const DragRegion = (): JSX.Element => <div className='draggable dragregion'></div>
 
-const DragRegion = () => (
-    <div className="draggable xxs text-center">|||||</div>
-);
-
-export default DragRegion; 
+export default DragRegion
