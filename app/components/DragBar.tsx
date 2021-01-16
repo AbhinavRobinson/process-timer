@@ -7,6 +7,10 @@ import { CloseHandler } from './CloseHandler'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ * @deprecated
+ * @returns a dragbar
+ */
 const DragBar = (): JSX.Element => (
 	<div className='container'>
 		<div

@@ -6,6 +6,10 @@ export interface VideoPlayerProps {
 	audioTrack: ILocalAudioTrack | IRemoteAudioTrack | undefined
 }
 
+/**
+ * Internal Agora Handler Function
+ * @returns window with video
+ */
 const MediaPlayer = (props: VideoPlayerProps) => {
 	const container = useRef<HTMLDivElement>(null)
 	useEffect(() => {

@@ -1,5 +1,8 @@
 import React from 'react'
 
-const DragRegion = () : JSX.Element => <div className='draggable xxs text-center'>|||||</div>
+/**
+ * @returns a small drag region
+ */
+const DragRegion = (): JSX.Element => <div className='draggable xxs text-center dragregion'>|||||</div>
 
 export default DragRegion
