@@ -306,15 +306,13 @@ export class App extends React.Component<{}, IAppState> {
 						</ul>
 						{!this.state.backend_running ? (
 							<button
-								onClick={() => {
-									var confirm = MessageHandler('Do you want to start with ' + this.state.active_app)
-									if (!confirm) {
-										return null
-									}
-
+								onClick={async () => {
 									const { active_app } = this.state
-									this.setState({ monitor_app: active_app, backend_running: true })
-									this.run_backend()
+									var confirm = await MessageHandler(`Do you want to start with ${active_app}`)
+									if (confirm === 0) {
+										this.setState({ monitor_app: active_app, backend_running: true })
+										this.run_backend()
+									}
 								}}
 								className='play-button'
 							>
