@@ -23,6 +23,7 @@ export class SideBarClass {
 		this.InnerWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
 		this.InnerWindow.setAlwaysOnTop(true, 'floating')
 		this.InnerWindow.setFullScreenable(false)
+		this.InnerWindow.setTitle('Video Call')
 	}
 
 	init() {
