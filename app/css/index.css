@@ -73,7 +73,7 @@
 	min-width: 45px;
 	min-height: 45px;
 	margin: 0;
-	background: #93b5db;
+	background: #87a3ff;
 	border: 0px solid #fff;
 	border-radius: 10px;
 	cursor: pointer;
@@ -86,7 +86,7 @@
 	min-height: 45px;
 	margin: 0;
 	margin-top: 10px;
-	background: #93b5db;
+	background: #87a3ff;
 	border: 0px solid #fff;
 	border-radius: 10px;
 	cursor: pointer;
@@ -99,7 +99,7 @@
 	min-height: 45px;
 	margin: 0;
 	margin-top: 10px;
-	background: #93b5db;
+	background: #87a3ff;
 	border: 0px solid #fff;
 	border-radius: 10px;
 	cursor: pointer;
@@ -109,7 +109,7 @@
 
 .dragregion {
 	margin: 0;
-	background: #b4b4b4;
+	background: #cecece;
 	border-radius: 999px;
 	min-height: 10px;
 }

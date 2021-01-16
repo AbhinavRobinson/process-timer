@@ -20,6 +20,7 @@ export default async function MessageHandler(textMessage: string, callback?: Voi
 					callback()
 				} catch (e) {
 					var error = e
+					error
 				} finally {
 					return data.response
 				}
@@ -29,6 +30,7 @@ export default async function MessageHandler(textMessage: string, callback?: Voi
 					callback()
 				} catch (e) {
 					var error = e
+					error
 				} finally {
 					return data.response
 				}
