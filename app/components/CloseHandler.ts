@@ -1,12 +1,20 @@
 import { remote } from 'electron'
 
-export function CloseHandler(type : string,textmessage: string, callback?: VoidFunction) {
+/** Confirms to close the App.
+ * @author Abhianv Robinson
+ *
+ * @param textMessage give message to be shown
+ * @param callback give optional callback
+ *
+ * @returns null
+ */
+export function CloseHandler(type: string, textmessage: string, callback?: VoidFunction) {
 	remote.dialog
 		.showMessageBox(null, {
 			type: type,
 			buttons: ['Sure.', 'No.'],
 			message: textmessage,
-			cancelId: 1
+			cancelId: 1,
 		})
 		.then((data) => {
 			if (data.response === 0) {
