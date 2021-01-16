@@ -10,6 +10,12 @@ import './css/index.css'
 import './css/utilities.css'
 import Container from 'typedi'
 
+// Amplify
+import Amplify from 'aws-amplify'
+import config from './aws-exports.js'
+
+Amplify.configure(config)
+
 const { ipcRenderer } = require('electron')
 
 class Main extends Component {
