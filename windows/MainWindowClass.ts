@@ -20,7 +20,7 @@ export class MainWindowClass {
 			},
 			width: 300,
 			height: 500,
-			x: display.bounds.width - 200,
+			x: display.bounds.width - 100,
 			alwaysOnTop: true,
 			frame: false,
 			transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,

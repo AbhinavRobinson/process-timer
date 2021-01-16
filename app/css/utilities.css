@@ -1,117 +1,106 @@
 /* MAKE COMPONENT DRAGGABLE */
 .draggable {
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
 }
 
 /* DISABLE COMPONENT */
 .disable-view-only {
-  display: none;
+	display: none;
 }
 
 /* CENTERS TEXT ... DUH */
 .text-center {
-  text-align: center;
-}
-
-/* VERTICALLY CENTERS TEXT (CASE SPECIFIC) */
-.v-middle {
-  transform: translateY(12.5%);
+	text-align: center;
 }
 
 .flex {
-  /* time to flex :) */
-  display: flex;
+	/* time to flex :) */
+	display: flex;
 
-  /* moves boxes to center (main-axis: defined by flex direction) */
-  justify-content: center;
+	/* moves boxes to center (main-axis: defined by flex direction) */
+	justify-content: center;
 
-  /* aligns items vertically (cross-axis: defined by flex direction) */
-  align-items: center;
+	/* aligns items vertically (cross-axis: defined by flex direction) */
+	align-items: center;
 
-  /* fit container */
-  height: 100%;
+	/* fit container */
+	height: 100%;
 }
 
 .grid {
-  display: grid;
+	display: grid;
 
-  /* divide space in fractions for each child within container */
-  /* repeat(2, 1fr) == 1fr 1fr */
-  grid-template-columns: repeat(2, 1fr);
+	/* divide space in fractions for each child within container */
+	/* repeat(2, 1fr) == 1fr 1fr */
+	grid-template-columns: repeat(2, 1fr);
 
-  /* space between grid items */
-  gap: 20px;
+	/* space between grid items */
+	gap: 20px;
 
-  /* center items */
-  justify-content: center;
-  align-items: center;
+	/* center items */
+	justify-content: center;
+	align-items: center;
 
-  /* fit grid to container */
-  height: 100%;
+	/* fit grid to container */
+	height: 100%;
 }
 
 .grid-3 {
-  /* 3 items in one row */
-  grid-template-columns: repeat(3, 1fr);
+	/* 3 items in one row */
+	grid-template-columns: repeat(3, 1fr);
 }
 
 .grid-4 {
-  /* 4 items in one row */
-  grid-template-columns: repeat(4, 1fr);
+	/* 4 items in one row */
+	grid-template-columns: repeat(4, 1fr);
 }
 
 .grid-5 {
-  /* 5 items in one row */
-  grid-template-columns: repeat(5, 1fr);
-}
-
-.container {
-  display: flex;
-	flex-direction: column;
-	align-items: center;
+	/* 5 items in one row */
+	grid-template-columns: repeat(5, 1fr);
 }
 
 .lead {
-  font-size: 20px;
+	font-size: 20px;
 }
 
 .xxs {
-  font-size: 0.5rem;
+	font-size: 0.5rem;
 }
 
 .xs {
-  font-size: 0.75rem;
+	font-size: 0.75rem;
 }
 
 .sm {
-  font-size: 1rem;
+	font-size: 1rem;
 }
 
 .rg {
-  font-size: 1.25rem;
+	font-size: 1.25rem;
 }
 
 .md {
-  font-size: 2rem;
+	font-size: 2rem;
 }
 
 .lg {
-  font-size: 3rem;
+	font-size: 3rem;
 }
 
 .xl {
-  font-size: 4rem;
+	font-size: 4rem;
 }
 
 .xxl {
-  font-size: 8rem;
+	font-size: 8rem;
 }
 
 .py-2 {
-  padding: 1.25rem 0;
+	padding: 1.25rem 0;
 }
 
 .my-1 {
-  margin: 1rem 0;
+	margin: 1rem 0;
 }

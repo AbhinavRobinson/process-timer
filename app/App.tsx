@@ -30,6 +30,7 @@ import firebase from 'firebase'
 // import { SocketContainerClass } from './SocketContainer'
 
 import Store from 'electron-store'
+import MessageHandler from './components/MessageHandler'
 const electron_store = new Store()
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -296,7 +297,7 @@ export class App extends React.Component<{}, IAppState> {
 										}
 									>
 										<span style={{ zIndex: 4 }} className='app-item'>
-											<div className='v-middle text-center'>{`${elem.display_percentage}`}</div>
+											<div className='text-center'>{`${elem.display_percentage}`}</div>
 										</span>
 										<div className='fill' style={this.getStyle(elem)}></div>
 									</li>
@@ -306,7 +307,11 @@ export class App extends React.Component<{}, IAppState> {
 						{!this.state.backend_running ? (
 							<button
 								onClick={() => {
-									console.log('clicked')
+									var confirm = MessageHandler('Do you want to start with ' + this.state.active_app)
+									if (!confirm) {
+										return null
+									}
+
 									const { active_app } = this.state
 									this.setState({ monitor_app: active_app, backend_running: true })
 									this.run_backend()
@@ -332,7 +337,7 @@ export class App extends React.Component<{}, IAppState> {
 							onClick={() => {
 								ipcRenderer.send('open_sidebar')
 							}}
-							className='read-button my-1 xs'
+							className='read-button'
 						>
 							<FontAwesomeIcon icon={faAngleDoubleRight} />
 						</button>
@@ -353,9 +358,9 @@ export class App extends React.Component<{}, IAppState> {
 						</button>
 					</div>
 
-					{this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>}
+					{/* {this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>} */}
 
-					{isDevelopment && <div className='monitor-app my-1 disable'>Monitor App: {this.state.monitor_app}</div>}
+					{/* {isDevelopment && <div className='monitor-app my-1 disable'>Monitor App: {this.state.monitor_app}</div>} */}
 
 					<div className='my-1'></div>
 					<DragRegion />
