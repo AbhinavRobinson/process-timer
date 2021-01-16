@@ -1,0 +1,32 @@
+{
+	"paths": [
+		{
+			"name": "/agora/token",
+			"lambdaFunction": "atomutils",
+			"privacy": {
+				"open": true
+			},
+			"policyResourceName": "/agora/token"
+		}
+	],
+	"resourceName": "mainApi",
+	"apiName": "mainApi",
+	"functionArns": [
+		{
+			"lambdaFunction": "atomutils"
+		}
+	],
+	"privacy": {
+		"auth": 0,
+		"unauth": 0,
+		"authRoleName": "amplify-atomdesktop-staging-131741-authRole",
+		"unAuthRoleName": "amplify-atomdesktop-staging-131741-unauthRole"
+	},
+	"dependsOn": [
+		{
+			"category": "function",
+			"resourceName": "atomutils",
+			"attributes": ["Name", "Arn"]
+		}
+	]
+}

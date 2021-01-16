@@ -1,6 +1,6 @@
 {
 	"name": "Electron",
-	"version": "0.1.0",
+	"version": "0.1.1-hotfix",
 	"description": "",
 	"main": "index.js",
 	"author": {
@@ -58,6 +58,7 @@
 		"active-window": "^0.1.0",
 		"agora-rtc-sdk": "^3.3.1",
 		"agora-rtc-sdk-ng": "^4.2.1",
+		"aws-amplify": "^3.3.14",
 		"axios": "^0.21.1",
 		"electron-log": "^4.2.4",
 		"electron-store": "^6.0.1",

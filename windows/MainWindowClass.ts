@@ -14,6 +14,7 @@ export class MainWindowClass {
 		this.InnerWindow = new BrowserWindow({
 			webPreferences: {
 				nodeIntegration: true,
+				contextIsolation: false,
 				enableRemoteModule: true,
 				webSecurity: false,
 				devTools: isDevelopment,

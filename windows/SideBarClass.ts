@@ -9,6 +9,7 @@ export class SideBarClass {
 		this.InnerWindow = new BrowserWindow({
 			webPreferences: {
 				nodeIntegration: true,
+				contextIsolation: false,
 				enableRemoteModule: true,
 				webSecurity: false,
 			},
