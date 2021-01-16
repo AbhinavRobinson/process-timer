@@ -1,10 +1,17 @@
 import { remote } from 'electron'
 
-export default function MessageHandler(textMessage: string, callback?: VoidFunction) {
-	// TODO: open new window and ask for message?
-
-	remote.dialog.showMessageBox(null, {
-		message: 'Message Handler is not implemented yet.',
-		buttons: ['Okay.'],
-	})
+export default async function MessageHandler(textMessage: string, callback?: VoidFunction) {
+	remote.dialog
+		.showMessageBox(null, {
+			message: textMessage,
+			buttons: ['Yes.', 'No!'],
+		})
+		.then(
+			(data) => {
+				return data.response
+			},
+			(data) => {
+				return data.response
+			}
+		)
 }

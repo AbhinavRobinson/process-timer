@@ -74,13 +74,14 @@
 	min-width: 45px;
 	min-height: 45px;
 	margin: 0;
-	margin-top: 10px;
-	background: #5397e7;
+	/* margin-top: 10px; */
+	background: #93b5db;
 	border: 0px solid #fff;
 	border-radius: 10px;
 	/* margin-top: 10px; */
 	cursor: pointer;
 	color: white;
+	font-size: 20px;
 }
 
 .outer .pause-button {
@@ -88,11 +89,12 @@
 	min-height: 45px;
 	margin: 0;
 	margin-top: 10px;
-	background: #5397e7;
+	background: #93b5db;
 	border: 0px solid #fff;
 	border-radius: 10px;
 	cursor: pointer;
 	color: white;
+	font-size: 20px;
 }
 
 .outer .read-button {
@@ -100,9 +102,10 @@
 	min-height: 45px;
 	margin: 0;
 	margin-top: 10px;
-	background: #5397e7;
+	background: #93b5db;
 	border: 0px solid #fff;
 	border-radius: 10px;
 	cursor: pointer;
 	color: white;
+	font-size: 20px;
 }
