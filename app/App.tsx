@@ -68,6 +68,7 @@ export interface IAppState {
 	active_time: number
 	LoginDialog: boolean
 	closeHandler: boolean
+	test_active: any
 }
 
 // Main Component
@@ -84,6 +85,7 @@ export class App extends React.Component<{}, IAppState> {
 		active_time: 0,
 		LoginDialog: false,
 		closeHandler: false,
+		test_active: '',
 	}
 
 	async initUser(credential) {
@@ -192,7 +194,15 @@ export class App extends React.Component<{}, IAppState> {
 				})
 			} else {
 				// For MacOS and Linux
-				const monitor = require('./active-window')
+				// const monitor = require('./active-window')
+				const activeWin = require('active-win')
+				;(async () => {
+					const data = await activeWin()
+					const appName: string = data.owner?.name
+					const ignoreApp = 'Electron'
+					if (appName.toUpperCase() !== ignoreApp.toUpperCase()) this.setState({ active_app: data.owner?.name.toUpperCase() })
+				})()
+				/**
 				monitor.getActiveWindow((data) => {
 					if (data['title'] !== '"Electron"') {
 						if (data['app'] !== '"google-chrome", "Google-chrome"') {
@@ -202,6 +212,7 @@ export class App extends React.Component<{}, IAppState> {
 						}
 					}
 				})
+				*/
 			}
 			ipcRenderer.emit('time_data', this.state.time_spent)
 		}, 2000)
