@@ -10,6 +10,10 @@ import AgoraRTC, {
 	ILocalAudioTrack,
 } from 'agora-rtc-sdk-ng'
 
+/**
+ * Internal Agora Service Handler
+ * @param client
+ */
 export default function useAgora(
 	client: IAgoraRTCClient | undefined
 ): {
