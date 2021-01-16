@@ -332,7 +332,7 @@ export class App extends React.Component<{}, IAppState> {
 							onClick={() => {
 								ipcRenderer.send('open_sidebar')
 							}}
-							className='read-button my-1 xs'
+							className='read-button'
 						>
 							<FontAwesomeIcon icon={faAngleDoubleRight} />
 						</button>
