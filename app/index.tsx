@@ -1,9 +1,7 @@
 import firebase from 'firebase'
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { App } from './App'
 import { SideBar } from './screens/SideBar/SideBar'
@@ -33,17 +31,7 @@ class Main extends Component {
 			})
 	}
 	render() {
-		return (
-			<Fragment>
-				<Router>
-					<Switch>
-						<Route exact path='/'>
-							{ipcRenderer.sendSync('sidebar_open_check') ? <SideBar /> : <App />}
-						</Route>
-					</Switch>
-				</Router>
-			</Fragment>
-		)
+		return <>{ipcRenderer.sendSync('sidebar_open_check') ? <SideBar /> : <App />}</>
 	}
 }
 
