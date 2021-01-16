@@ -6,7 +6,14 @@ import './Call.css'
 
 import Token from '../token.json'
 
+import { API } from 'aws-amplify'
+
 const client = AgoraRTC.createClient({ codec: 'h264', mode: 'rtc' })
+
+async function testCallApi() {
+	const res = await API.post('mainApi', '/agora/token', {})
+	return res
+}
 
 function Call() {
 	const [appid, setAppid] = useState('')
@@ -15,9 +22,13 @@ function Call() {
 	// const [token] = useState('')
 	const [channel, setChannel] = useState('')
 	const { localAudioTrack, localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
+	const [test, changeTest] = useState({})
 	localAudioTrack
 	// GET APP ID << TEST APP ID
 	useEffect(() => {
+		testCallApi()
+			.then((res) => changeTest(res))
+			.catch(console.error)
 		setAppid(Token.Agora.APP_ID)
 		setToken(Token.Agora.TOKEN)
 	}, [])
@@ -48,6 +59,7 @@ function Call() {
 						}}
 					/>
 				</label> */}
+				<p>{JSON.stringify(test)}</p>
 				<label>
 					Channel:
 					<input
