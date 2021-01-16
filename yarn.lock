@@ -3972,10 +3972,10 @@ electron@*:
     "@types/node" "^12.0.12"
     extract-zip "^1.0.3"
 
-electron@^12.0.0.beta-11:
-  version "12.0.0-beta.12"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-12.0.0-beta.12.tgz#7a9ec2e4a9c43cefdc1f6b958a697638facacdf1"
-  integrity sha512-KsLYSobAgN0F//WuJJxpNK7K2yWqVSPPG/mecGcZh72rRiz0K6oV3UX9xd/37F8l6dqbE3GmfEVAjzD7ZzPwNg==
+electron@12.0.0-beta.11:
+  version "12.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-12.0.0-beta.11.tgz#19541e4376f432c2e9acd2b95341c495ee8f8aa4"
+  integrity sha512-q9OvMVgP0iDLiFpg1HO0xLgw03/VNnxFyPnEplX9sw51vKKnIwCwmQI3q8vX+AllViYNDmaQu9ytwoU7/mWx/w==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^14.6.2"
