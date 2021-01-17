@@ -12,6 +12,9 @@ var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware'
 
 const { RtcTokenBuilder, RtmTokenBuilder, RtcRole, RtmRole } = require('agora-access-token')
 
+// Agora App Id
+const appID = 'cbc3098a370649a09784656a887ffd96'
+
 // declare a new express app
 var app = express()
 app.use(bodyParser.json())
@@ -24,14 +27,35 @@ app.use(function (_, res, next) {
 	next()
 })
 
-app.get('/item', function (req, res) {
+app.get('/agora/appId', function (_, res) {
 	// Add your code here
-	res.json({ success: 'get call succeed!', url: req.url })
+	res.json({ appID })
 })
 
 app.post('/agora/token', function (req, res) {
-	// Add your code here
-	res.json({ success: 'post call succeed!', url: req.url })
+	const appCertificate = '362e61ca49f64a258718fc595cd98a19'
+	const channelName = 'commonChannel'
+	const uid = 0 // This is set to 0 since the user is not being tracked and anyone can join
+	// const account = '2882341273'
+	const role = RtcRole.PUBLISHER
+
+	const expirationTimeInSeconds = 3600
+
+	const currentTimestamp = Math.floor(Date.now() / 1000)
+
+	const privilegeExpiredTs = currentTimestamp + expirationTimeInSeconds
+
+	// IMPORTANT! Build token with either the uid or with the user account. Comment out the option you do not want to use below.
+
+	// Build token with uid
+	const token = RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpiredTs)
+
+	res.json({ sucess: 'Token Generated Successfully', token, channel: channelName })
+
+	// Build token with user account
+	//	const tokenB = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, account, role, privilegeExpiredTs)
+	//	console.log('Token With UserAccount: ' + tokenB)
+	//	res.json({ success: 'post call succeed!', url: req.url })
 })
 
 // Export the app object. When executing the application local this does nothing. However,
