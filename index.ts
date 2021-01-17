@@ -1,4 +1,4 @@
-import { app, ipcMain, screen } from 'electron'
+import { app, ipcMain } from 'electron'
 import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
 
@@ -26,7 +26,6 @@ class Application {
 	handleEvents() {
 		ipcMain.on('open_sidebar', (_) => {
 			this.openSideBar()
-			// const { width, height } = screen.getPrimaryDisplay().workAreaSize
 			const [x, y] = this.AppContainer.InnerWindow.getPosition()
 			this.AppContainer.InnerWindow.setPosition(x + 100, y, true)
 			this.AppContainer.InnerWindow.setOpacity(0.5)
