@@ -84,7 +84,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 				<Call />
 
 				{/* </div> */}
-				{Object.keys(this.state.active_users).map((key) => {
+				{/*Object.keys(this.state.active_users).map((key) => {
 					const active_user = this.state.active_users[key]
 					return (
 						<Fragment>
@@ -104,7 +104,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 							</button>
 						</Fragment>
 					)
-				})}
+						})*/}
 			</Fragment>
 		)
 	}
