@@ -1,15 +1,14 @@
 // IMPORT DEPENDENCIES
 
 import { ipcRenderer } from 'electron'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Container from 'typedi'
-import { ApiMainLinks } from '../../api'
+// import { ApiMainLinks } from '../../api'
 
 // DEPRECIATED >> Using Call Component instead!
 // import Video from '../../components/Video'
 
 import { PeerContainer } from '../../PeerContainer'
-import { SocketContainerClass } from '../../SocketContainer'
 import Call from '../../Call'
 
 interface ISideBarProps {}
@@ -37,33 +36,32 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		active_user_ids: [],
 		received_data: '',
 	}
-	private socket
+	private socket: any
 	async componentDidMount() {
-		Container.get(SocketContainerClass).init()
-		Container.get(PeerContainer).init()
-		this.socket = Container.get(SocketContainerClass).io
-		this.socket.on('chat_response', (data) => {
-			// console.log(data)
-			if (data && data.data && data.data.timer) {
-				console.log(data.data.timer, 'timer')
-				this.setState({ received_data: JSON.stringify(data.data.timer) })
-			}
-			if (data && data.data && data.data.calling) {
-				const key = data.sent_by
-				const calling_user = this.state.active_users[key]
-				this.answer(key, calling_user)
-				// this.answer()
-			}
-		})
-		const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
-		console.log(active_users)
-		// const active_user_ids = []
-
-		this.setState({ active_users })
-		setInterval(async () => {
-			const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
-			this.setState({ active_users })
-		}, 5 * 1000) // Update after 30 seconds
+		//	Container.get(SocketContainerClass).init()
+		//	Container.get(PeerContainer).init()
+		//	this.socket = Container.get(SocketContainerClass).io
+		//	this.socket.on('chat_response', (data) => {
+		//		// console.log(data)
+		//		if (data && data.data && data.data.timer) {
+		//			console.log(data.data.timer, 'timer')
+		//			this.setState({ received_data: JSON.stringify(data.data.timer) })
+		//		}
+		//		if (data && data.data && data.data.calling) {
+		//			const key = data.sent_by
+		//			const calling_user = this.state.active_users[key]
+		//			this.answer(key, calling_user)
+		//			// this.answer()
+		//		}
+		//	})
+		//	const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
+		//	console.log(active_users)
+		//	// const active_user_ids = []
+		//	this.setState({ active_users })
+		//	setInterval(async () => {
+		//		const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
+		//		this.setState({ active_users })
+		//	}, 5 * 1000) // Update after 30 seconds
 	}
 
 	onChatResponse() {
@@ -77,7 +75,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 
 	render() {
 		return (
-			<Fragment>
+			<>
 				<div className='received_data'>{this.state.received_data}</div>
 
 				{/* <div className="disable-view-only"> */}
@@ -105,7 +103,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 						</Fragment>
 					)
 						})*/}
-			</Fragment>
+			</>
 		)
 	}
 

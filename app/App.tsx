@@ -166,17 +166,17 @@ export class App extends React.Component<{}, IAppState> {
 		// if (remote.getCurrentWindow().id === 1)
 		;(window as any).electron_store = electron_store
 		// console.log(electron_store.path)
-		if (electron_store.has('auth')) {
-			if (electron_store.get('auth') === false) {
-				remote.getCurrentWindow().setAlwaysOnTop(false)
-				this.setState({ LoginDialog: true })
-				await this.googleSignIn()
-			}
-		} else {
-			remote.getCurrentWindow().setAlwaysOnTop(false)
-			this.setState({ LoginDialog: true })
-			await this.googleSignIn()
-		}
+		//	if (electron_store.has('auth')) {
+		//		if (electron_store.get('auth') === false) {
+		//			remote.getCurrentWindow().setAlwaysOnTop(false)
+		//			this.setState({ LoginDialog: true })
+		//			await this.googleSignIn()
+		//		}
+		//	} else {
+		//		remote.getCurrentWindow().setAlwaysOnTop(false)
+		//		this.setState({ LoginDialog: true })
+		//		await this.googleSignIn()
+		//	}
 		remote.getCurrentWindow().setAlwaysOnTop(true)
 		remote.getCurrentWindow().setBounds({
 			x: remote.screen.getPrimaryDisplay().bounds.width - 120,
