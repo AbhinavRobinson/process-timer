@@ -3,9 +3,14 @@ import path from 'path'
 import { isDevelopment } from '..'
 import { format as formatUrl } from 'url'
 
+interface BrowserWindowPosition {
+	x?: number
+	y?: number
+}
 export class SideBarClass {
 	public InnerWindow: BrowserWindow
-	constructor() {
+
+	constructor(position: BrowserWindowPosition) {
 		this.InnerWindow = new BrowserWindow({
 			webPreferences: {
 				nodeIntegration: true,
@@ -13,8 +18,9 @@ export class SideBarClass {
 				enableRemoteModule: true,
 				webSecurity: false,
 			},
-			width: 300,
-			height: 250,
+			width: 150,
+			height: 300,
+			...position,
 			alwaysOnTop: true,
 			frame: false,
 			// transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,

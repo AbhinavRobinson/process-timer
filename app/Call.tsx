@@ -36,7 +36,12 @@ function Call() {
 		if (!loading && agoraConfig) join(agoraConfig.appID, agoraConfig.channel, agoraConfig.token)
 	}, [loading, agoraConfig])
 
-	if (loading) return <p>Loading...</p>
+	if (loading)
+		return (
+			<div className='call'>
+				<p>Loading...</p>
+			</div>
+		)
 
 	return (
 		<div className='call'>
@@ -44,6 +49,7 @@ function Call() {
 				<div className='local-player-wrapper'>
 					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
 				</div>
+				{!remoteUsers.length && <p>Waiting for another user to join...</p>}
 				{remoteUsers.map((user) => (
 					<div className='remote-player-wrapper' key={user.uid}>
 						<p className='remote-player-text'>{`remoteVideo(${user.uid})`}</p>
@@ -51,7 +57,9 @@ function Call() {
 					</div>
 				))}
 			</div>
+			{/*
 			<p className='local-player-text'>{!loading && joinState && localVideoTrack ? 'Connected' : 'Disconnected'}</p>
+						*/}
 			<div className='button-group'>
 				<button
 					id='leave'
