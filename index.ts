@@ -18,7 +18,7 @@ class Application {
 			this.AppContainer = new MainWindowClass()
 			await this.AppContainer.init()
 			this.handleEvents()
-			app.dock.hide()
+			//app.dock.hide()
 		})
 		this.isSideBarOpen = false
 	}
@@ -44,11 +44,13 @@ class Application {
 	openSideBar() {
 		this.isSideBarOpen = true
 		if (!this.SideBarContainer) {
-			this.SideBarContainer = new SideBarClass()
-			this.SideBarContainer.init()
-
 			const [x, y] = this.AppContainer.InnerWindow.getPosition()
-			this.SideBarContainer.InnerWindow.setPosition(x - 200, y - 300, true)
+
+			this.SideBarContainer = new SideBarClass({ x, y })
+			this.SideBarContainer.init()
+			this.SideBarContainer.InnerWindow.setParentWindow(this.AppContainer.InnerWindow)
+
+			this.SideBarContainer.InnerWindow.setPosition(x - 130, y - 250, true)
 
 			this.SideBarContainer.InnerWindow.on('closed', () => {
 				this.AppContainer.InnerWindow.setPosition(x, y, true)

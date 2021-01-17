@@ -31,6 +31,7 @@ import firebase from 'firebase'
 
 import Store from 'electron-store'
 import MessageHandler from './components/MessageHandler'
+
 const electron_store = new Store()
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
