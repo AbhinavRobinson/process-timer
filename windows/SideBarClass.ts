@@ -13,10 +13,10 @@ export class SideBarClass {
 				enableRemoteModule: true,
 				webSecurity: false,
 			},
-			width: 500,
-			height: 300,
+			width: 300,
+			height: 250,
 			alwaysOnTop: true,
-			frame: true,
+			frame: false,
 			// transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,
 			icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
 		})

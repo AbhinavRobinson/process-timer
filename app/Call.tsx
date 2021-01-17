@@ -6,6 +6,8 @@ import './Call.css'
 
 import { API } from 'aws-amplify'
 
+const remote = require('electron').remote
+
 interface agoraState {
 	appID: string
 	token: string
@@ -34,28 +36,12 @@ function Call() {
 		if (!loading && agoraConfig) join(agoraConfig.appID, agoraConfig.channel, agoraConfig.token)
 	}, [loading, agoraConfig])
 
+	if (loading) return <p>Loading...</p>
+
 	return (
 		<div className='call'>
-			{loading ? (
-				<p>Loading...</p>
-			) : (
-				<div className='button-group'>
-					<button
-						id='leave'
-						type='button'
-						className='btn btn-primary btn-sm'
-						disabled={!joinState}
-						onClick={() => {
-							leave()
-						}}
-					>
-						Leave
-					</button>
-				</div>
-			)}
 			<div className='player-container'>
 				<div className='local-player-wrapper'>
-					<p className='local-player-text'>{!loading && joinState && localVideoTrack ? 'Connected' : 'Disconnected'}</p>
 					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
 				</div>
 				{remoteUsers.map((user) => (
@@ -64,6 +50,21 @@ function Call() {
 						<MediaPlayer videoTrack={user.videoTrack} audioTrack={user.audioTrack}></MediaPlayer>
 					</div>
 				))}
+			</div>
+			<p className='local-player-text'>{!loading && joinState && localVideoTrack ? 'Connected' : 'Disconnected'}</p>
+			<div className='button-group'>
+				<button
+					id='leave'
+					type='button'
+					className='btn btn-primary btn-sm'
+					disabled={!joinState}
+					onClick={() => {
+						leave()
+						remote.getCurrentWindow().close()
+					}}
+				>
+					Leave
+				</button>
 			</div>
 		</div>
 	)
