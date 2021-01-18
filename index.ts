@@ -18,7 +18,7 @@ class Application {
 			this.AppContainer = new MainWindowClass()
 			await this.AppContainer.init()
 			this.handleEvents()
-			//app.dock.hide()
+			app.dock.hide()
 		})
 		this.isSideBarOpen = false
 	}
