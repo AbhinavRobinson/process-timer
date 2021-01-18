@@ -57,13 +57,7 @@ class Application {
 				this.AppContainer.InnerWindow.setOpacity(1)
 				this.SideBarContainer = null
 				this.isSideBarOpen = false
-				if (this.SideBarContainer) {
-					try {
-						this.SideBarContainer.close()
-					} catch (err) {
-						console.info('Already closed')
-					}
-				}
+				this.SideBarContainer.InnerWindow && this.SideBarContainer.close()
 			})
 		}
 	}
