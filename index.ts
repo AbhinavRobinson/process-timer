@@ -18,7 +18,7 @@ class Application {
 			this.AppContainer = new MainWindowClass()
 			await this.AppContainer.init()
 			this.handleEvents()
-			app.dock.hide()
+			//app.dock.hide()
 		})
 		this.isSideBarOpen = false
 	}
@@ -26,6 +26,9 @@ class Application {
 	handleEvents() {
 		ipcMain.on('open_sidebar', (_) => {
 			this.openSideBar()
+			const [x, y] = this.AppContainer.InnerWindow.getPosition()
+			this.AppContainer.InnerWindow.setPosition(x + 100, y, true)
+			this.AppContainer.InnerWindow.setOpacity(0.5)
 		})
 		ipcMain.on('sidebar_open_check', (e) => {
 			e.returnValue = this.isSideBarOpen
@@ -41,10 +44,17 @@ class Application {
 	openSideBar() {
 		this.isSideBarOpen = true
 		if (!this.SideBarContainer) {
-			this.SideBarContainer = new SideBarClass()
+			const [x, y] = this.AppContainer.InnerWindow.getPosition()
+
+			this.SideBarContainer = new SideBarClass({ x, y })
 			this.SideBarContainer.init()
+			this.SideBarContainer.InnerWindow.setParentWindow(this.AppContainer.InnerWindow)
+
+			this.SideBarContainer.InnerWindow.setPosition(x - 130, y - 250, true)
 
 			this.SideBarContainer.InnerWindow.on('closed', () => {
+				this.AppContainer.InnerWindow.setPosition(x, y, true)
+				this.AppContainer.InnerWindow.setOpacity(1)
 				this.SideBarContainer = null
 				this.isSideBarOpen = false
 				if (this.SideBarContainer) {

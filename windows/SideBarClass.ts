@@ -3,9 +3,14 @@ import path from 'path'
 import { isDevelopment } from '..'
 import { format as formatUrl } from 'url'
 
+interface BrowserWindowPosition {
+	x?: number
+	y?: number
+}
 export class SideBarClass {
 	public InnerWindow: BrowserWindow
-	constructor() {
+
+	constructor(position: BrowserWindowPosition) {
 		this.InnerWindow = new BrowserWindow({
 			webPreferences: {
 				nodeIntegration: true,
@@ -13,16 +18,18 @@ export class SideBarClass {
 				enableRemoteModule: true,
 				webSecurity: false,
 			},
-			width: 500,
+			width: 150,
 			height: 300,
+			...position,
 			alwaysOnTop: true,
-			frame: true,
+			frame: false,
 			// transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,
 			icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
 		})
 		this.InnerWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
 		this.InnerWindow.setAlwaysOnTop(true, 'floating')
 		this.InnerWindow.setFullScreenable(false)
+		this.InnerWindow.setTitle('Video Call')
 	}
 
 	init() {

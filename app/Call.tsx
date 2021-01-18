@@ -6,6 +6,8 @@ import './Call.css'
 
 import { API } from 'aws-amplify'
 
+const remote = require('electron').remote
+
 interface agoraState {
 	appID: string
 	token: string
@@ -14,7 +16,7 @@ interface agoraState {
 
 const client = AgoraRTC.createClient({ codec: 'h264', mode: 'rtc' })
 
-async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<boolean>>) {
+async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<boolean>>): Promise<agoraState> {
 	const { appID } = await API.get('mainApi', '/agora/appId', {})
 	const { token, channel } = await API.post('mainApi', '/agora/token', {})
 	changeLoading(false)
@@ -31,15 +33,33 @@ function Call() {
 	}, [])
 
 	useEffect(() => {
-		//!loading && join(agoraConfig.appID, agoraConfig.channel, agoraConfig.token)
 		if (!loading && agoraConfig) join(agoraConfig.appID, agoraConfig.channel, agoraConfig.token)
 	}, [loading, agoraConfig])
 
-	// USE DYNAMIC TOKEN INSTEAD
-	// setToken(Token.Agora.Token)
+	if (loading)
+		return (
+			<div className='call'>
+				<p>Loading...</p>
+			</div>
+		)
 
 	return (
 		<div className='call'>
+			<div className='player-container'>
+				<div className='local-player-wrapper'>
+					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
+				</div>
+				{!remoteUsers.length && <p>Waiting for another user to join...</p>}
+				{remoteUsers.map((user) => (
+					<div className='remote-player-wrapper' key={user.uid}>
+						<p className='remote-player-text'>{`remoteVideo(${user.uid})`}</p>
+						<MediaPlayer videoTrack={user.videoTrack} audioTrack={user.audioTrack}></MediaPlayer>
+					</div>
+				))}
+			</div>
+			{/*
+			<p className='local-player-text'>{!loading && joinState && localVideoTrack ? 'Connected' : 'Disconnected'}</p>
+						*/}
 			<div className='button-group'>
 				<button
 					id='leave'
@@ -48,25 +68,11 @@ function Call() {
 					disabled={!joinState}
 					onClick={() => {
 						leave()
+						remote.getCurrentWindow().close()
 					}}
 				>
 					Leave
 				</button>
-			</div>
-			<div className='player-container'>
-				<div className='local-player-wrapper'>
-					<p className='local-player-text'>
-						{/* {localVideoTrack && `localTrack`} */}
-						{joinState && localVideoTrack ? 'Connected' : 'Disconnected'}
-					</p>
-					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
-				</div>
-				{remoteUsers.map((user) => (
-					<div className='remote-player-wrapper' key={user.uid}>
-						<p className='remote-player-text'>{`remoteVideo(${user.uid})`}</p>
-						<MediaPlayer videoTrack={user.videoTrack} audioTrack={user.audioTrack}></MediaPlayer>
-					</div>
-				))}
 			</div>
 		</div>
 	)
