@@ -1,9 +1,10 @@
 {
 	"name": "Electron",
-	"version": "0.0.8",
+	"version": "0.1.5",
 	"description": "",
 	"main": "index.js",
 	"author": {
+		"name": "Abhinav Robinson",
 		"email": "abhinavrobinson@gmail.com"
 	},
 	"scripts": {
@@ -17,7 +18,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/AbhinavRobinson/process-timer"
+		"url": "https://github.com/abhinavrobinson/process-timer"
 	},
 	"keywords": [],
 	"license": "ISC",
@@ -37,7 +38,7 @@
 		"babel": "^6.23.0",
 		"babel-cli": "^6.26.0",
 		"chai": "^4.2.0",
-		"electron": "^12.0.0.beta-11",
+		"electron": "^12.0.0-beta.11",
 		"electron-builder": "^22.8.0",
 		"electron-webpack": "^2.8.2",
 		"electron-webpack-ts": "^4.0.1",
