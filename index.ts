@@ -57,7 +57,6 @@ class Application {
 				this.AppContainer.InnerWindow.setOpacity(1)
 				this.SideBarContainer = null
 				this.isSideBarOpen = false
-				this.SideBarContainer.InnerWindow && this.SideBarContainer.close()
 			})
 		}
 	}
