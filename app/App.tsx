@@ -25,7 +25,7 @@ import { CloseHandler } from './components/CloseHandler'
 /**
  * Firestore imports
  */
-import firebase from 'firebase'
+// import firebase from 'firebase'
 // import Container from 'typedi'
 // import { SocketContainerClass } from './SocketContainer'
 
@@ -36,19 +36,19 @@ const electron_store = new Store()
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-if (firebase.apps.length === 0)
-	firebase.initializeApp({
-		apiKey: 'AIzaSyDCXLT3OhYO1gMndDKAoPWAtRFY1DWZWTM',
-		authDomain: 'nudge-299511.firebaseapp.com',
-		projectId: 'nudge-299511',
-		storageBucket: 'nudge-299511.appspot.com',
-		messagingSenderId: '637558220392',
-		appId: '1:637558220392:web:1097b5ef12e6c0ec75fddd',
-		serviceAccountId: 'firebase-adminsdk-1extw@nudge-299511.iam.gserviceaccount.com',
-		databaseURL: 'https://nudge-299511-default-rtdb.firebaseio.com/',
-	})
+// if (firebase.apps.length === 0)
+// 	firebase.initializeApp({
+// 		apiKey: 'AIzaSyDCXLT3OhYO1gMndDKAoPWAtRFY1DWZWTM',
+// 		authDomain: 'nudge-299511.firebaseapp.com',
+// 		projectId: 'nudge-299511',
+// 		storageBucket: 'nudge-299511.appspot.com',
+// 		messagingSenderId: '637558220392',
+// 		appId: '1:637558220392:web:1097b5ef12e6c0ec75fddd',
+// 		serviceAccountId: 'firebase-adminsdk-1extw@nudge-299511.iam.gserviceaccount.com',
+// 		databaseURL: 'https://nudge-299511-default-rtdb.firebaseio.com/',
+// 	})
 
-const firestore = firebase.firestore()
+// const firestore = firebase.firestore()
 
 // create IHealth interface for app monitor
 export interface IHealth {
@@ -105,56 +105,56 @@ export class App extends React.Component<{}, IAppState> {
 		this.setState({ LoginDialog: false })
 
 		// ipcRenderer.emit('update_user')
-		const user_data = {
-			name: credential.user.displayName,
-			email: credential.user.email,
-			profile_pic: credential.user.photoURL,
-		}
+		//	const user_data = {
+		//		name: credential.user.displayName,
+		//		email: credential.user.email,
+		//		profile_pic: credential.user.photoURL,
+		//	}
 
-		await firestore.collection('users').doc(credential.user.uid).set(user_data)
+		// await firestore.collection('users').doc(credential.user.uid).set(user_data)
 	}
 
-	googleSignIn = async () => {
-		const id = require('uuid').v4()
+	// googleSignIn = async () => {
+	// 	const id = require('uuid').v4()
 
-		const oneTimeCodeRef = firebase.database().ref(`ot-auth-codes/${id}`)
+	// 	const oneTimeCodeRef = firebase.database().ref(`ot-auth-codes/${id}`)
 
-		remote.shell.openExternal(`https://nudge.aniketbiprojit.me/?ot-auth-code=${id}`)
+	// 	remote.shell.openExternal(`https://nudge.aniketbiprojit.me/?ot-auth-code=${id}`)
 
-		const userDetails = (resolve) =>
-			oneTimeCodeRef.on('value', async (snapshot) => {
-				const authToken = snapshot.val()
-				if (authToken) {
-					const credential = await firebase.auth().signInWithCustomToken(authToken)
-					remote.getCurrentWindow().setAlwaysOnTop(true)
-					this.initUser(credential)
-					// this.setState({ LoginDialog: false })
-					electron_store.set('auth', true)
-					electron_store.set('email', credential.user.email)
-					electron_store.set('name', credential.user.displayName)
+	// 	const userDetails = (resolve) =>
+	// 		oneTimeCodeRef.on('value', async (snapshot) => {
+	// 			const authToken = snapshot.val()
+	// 			if (authToken) {
+	// 				const credential = await firebase.auth().signInWithCustomToken(authToken)
+	// 				remote.getCurrentWindow().setAlwaysOnTop(true)
+	// 				this.initUser(credential)
+	// 				// this.setState({ LoginDialog: false })
+	// 				electron_store.set('auth', true)
+	// 				electron_store.set('email', credential.user.email)
+	// 				electron_store.set('name', credential.user.displayName)
 
-					electron_store.set('profile_pic', credential.user.photoURL)
-					electron_store.set('user_uid', credential.user.uid)
+	// 				electron_store.set('profile_pic', credential.user.photoURL)
+	// 				electron_store.set('user_uid', credential.user.uid)
 
-					remote.getCurrentWindow().show()
-					remote.getCurrentWindow().focus()
+	// 				remote.getCurrentWindow().show()
+	// 				remote.getCurrentWindow().focus()
 
-					let user_data = {
-						name: credential.user.displayName,
-						email: credential.user.email,
-						profile_pic: credential.user.photoURL,
-					}
-					await firestore.collection('users').doc(credential.user.uid).set(user_data)
-					resolve()
-					// return user_data
-				}
-			})
-		return new Promise((resolve) =>
-			setTimeout(() => {
-				return userDetails(resolve)
-			}, 1000)
-		)
-	}
+	// 				let user_data = {
+	// 					name: credential.user.displayName,
+	// 					email: credential.user.email,
+	// 					profile_pic: credential.user.photoURL,
+	// 				}
+	// 				await firestore.collection('users').doc(credential.user.uid).set(user_data)
+	// 				resolve()
+	// 				// return user_data
+	// 			}
+	// 		})
+	// 	return new Promise((resolve) =>
+	// 		setTimeout(() => {
+	// 			return userDetails(resolve)
+	// 		}, 1000)
+	// 	)
+	// }
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
@@ -257,8 +257,10 @@ export class App extends React.Component<{}, IAppState> {
 			if (health_array.length === 4) {
 				health_array.splice(0, 1)
 			}
-			this.setState({ running_time: 0, time_spent: health_array, active_time: 0 })
-			this.run_backend()
+			if (this.state.backend_running) {
+				this.setState({ running_time: 0, time_spent: health_array, active_time: 0 })
+				this.run_backend()
+			} else this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
 		}, total_time * 1000)
 	}
 

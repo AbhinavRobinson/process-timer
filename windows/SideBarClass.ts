@@ -22,14 +22,13 @@ export class SideBarClass {
 			height: 300,
 			...position,
 			alwaysOnTop: true,
-			frame: true,
+			frame: false,
 			// transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,
 			icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
 		})
 		this.InnerWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
 		this.InnerWindow.setAlwaysOnTop(true, 'floating')
 		this.InnerWindow.setFullScreenable(false)
-		this.InnerWindow.setTitle('Video Call')
 	}
 
 	init() {
@@ -49,6 +48,7 @@ export class SideBarClass {
 	close() {
 		if (this.InnerWindow !== null) {
 			this.InnerWindow.close()
+			this.InnerWindow = null
 		}
 	}
 }

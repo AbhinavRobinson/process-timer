@@ -18,7 +18,7 @@ class Application {
 			this.AppContainer = new MainWindowClass()
 			await this.AppContainer.init()
 			this.handleEvents()
-			//app.dock.hide()
+			app.dock.hide()
 		})
 		this.isSideBarOpen = false
 	}
@@ -57,13 +57,6 @@ class Application {
 				this.AppContainer.InnerWindow.setOpacity(1)
 				this.SideBarContainer = null
 				this.isSideBarOpen = false
-				if (this.SideBarContainer) {
-					try {
-						this.SideBarContainer.close()
-					} catch (err) {
-						console.info('Already closed')
-					}
-				}
 			})
 		}
 	}
