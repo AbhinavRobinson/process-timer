@@ -1,6 +1,6 @@
 {
 	"name": "Electron",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "",
 	"main": "index.js",
 	"author": {
@@ -18,7 +18,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/aniketbiprojit/process-timer"
+		"url": "https://github.com/aniketbiprojit/cdn"
 	},
 	"keywords": [],
 	"license": "ISC",
