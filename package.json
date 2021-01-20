@@ -56,7 +56,6 @@
 		"@types/firebase": "^3.2.1",
 		"@types/socket.io-client": "^1.4.34",
 		"active-win": "^6.2.0",
-		"active-window": "^0.1.0",
 		"agora-rtc-sdk": "^3.3.1",
 		"agora-rtc-sdk-ng": "^4.2.1",
 		"aws-amplify": "^3.3.14",
