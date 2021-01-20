@@ -55,6 +55,7 @@ const getChannelData = async () => {
 }
 
 const increaseChannelCount = async (channelName, count) => {
+	console.log({ position: 'increaseChannelCount start', channelName, count })
 	await docClient
 		.put({
 			TableName,
@@ -69,6 +70,7 @@ const increaseChannelCount = async (channelName, count) => {
 
 const updateChannelName = async (channelName) => {
 	const newName = (parseInt(channelName) + 1).toString()
+	console.log({ position: 'updateChannelName start', channelName, newName })
 	try {
 		await docClient
 			.put({
@@ -94,6 +96,8 @@ app.post('/agora/token', async (_, res) => {
 	//Getting the number of people in the current channel
 	const currentChannelData = await getChannelData().catch((e) => ({ failed: true, err: e.toString() }))
 
+	console.log({ position: 'after data fetch from db', currentChannelData })
+
 	if (currentChannelData == null || currentChannelData.failed) res.json({ failed: 'querying db failed', reason: currentChannelData.err })
 
 	if (currentChannelData.channelCount < 2) {
@@ -106,6 +110,8 @@ app.post('/agora/token', async (_, res) => {
 			err = e.toString() + ' channelUpdate'
 		})
 	}
+
+	console.log({ position: 'after performing channel name updates', channelName, err })
 
 	if (err) res.json({ currentChannelData, failed: 'failed db ops', reason: err })
 
