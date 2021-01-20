@@ -21,6 +21,10 @@ class Application {
 			app.dock.hide()
 		})
 		this.isSideBarOpen = false
+		if (process.env.NODE_ENV === 'production') {
+			const sourceMapSupport = require('source-map-support')
+			sourceMapSupport.install()
+		}
 	}
 
 	handleEvents() {
