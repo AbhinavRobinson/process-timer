@@ -9,6 +9,18 @@
 		},
 		"env": {
 			"Type": "String"
+		},
+		"storageagoraChannelStateName": {
+			"Type": "String",
+			"Default": "storageagoraChannelStateName"
+		},
+		"storageagoraChannelStateArn": {
+			"Type": "String",
+			"Default": "storageagoraChannelStateArn"
+		},
+		"storageagoraChannelStateStreamArn": {
+			"Type": "String",
+			"Default": "storageagoraChannelStateArn"
 		}
 	},
 	"Conditions": {
@@ -140,6 +152,47 @@
 						}
 					]
 				}
+			}
+		},
+		"agoraChannelStateTriggerPolicy": {
+			"DependsOn": ["LambdaExecutionRole"],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "lambda-trigger-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": ["dynamodb:DescribeStream", "dynamodb:GetRecords", "dynamodb:GetShardIterator", "dynamodb:ListStreams"],
+							"Resource": [
+								{
+									"Ref": "storageagoraChannelStateStreamArn"
+								}
+							]
+						}
+					]
+				}
+			}
+		},
+		"agoraChannelStateTrigger": {
+			"Type": "AWS::Lambda::EventSourceMapping",
+			"DependsOn": ["agoraChannelStateTriggerPolicy"],
+			"Properties": {
+				"BatchSize": 100,
+				"Enabled": true,
+				"EventSourceArn": {
+					"Ref": "storageagoraChannelStateStreamArn"
+				},
+				"FunctionName": {
+					"Fn::GetAtt": ["LambdaFunction", "Arn"]
+				},
+				"StartingPosition": "LATEST"
 			}
 		}
 	},
