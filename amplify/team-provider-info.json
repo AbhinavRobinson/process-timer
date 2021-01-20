@@ -10,6 +10,11 @@
 			"StackName": "amplify-atomdesktop-staging-131741",
 			"StackId": "arn:aws:cloudformation:ap-south-1:687283704137:stack/amplify-atomdesktop-staging-131741/36899220-57fd-11eb-8ec6-0a8dc5699504",
 			"AmplifyAppId": "d37xzr2tu1dfyn"
+		},
+		"categories": {
+			"function": {
+				"atomutils": {}
+			}
 		}
 	}
 }
