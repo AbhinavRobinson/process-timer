@@ -19,8 +19,9 @@ import getFile from '../run'
  * CloseHandler closes current window
  */
 import DragRegion from './components/DragRegion'
-import Login from './screens/Login/Login'
+// import Login from './screens/Login/Login'
 import { CloseHandler } from './components/CloseHandler'
+import activeWin from 'active-win'
 
 /**
  * Firestore imports
@@ -29,10 +30,10 @@ import { CloseHandler } from './components/CloseHandler'
 // import Container from 'typedi'
 // import { SocketContainerClass } from './SocketContainer'
 
-import Store from 'electron-store'
+// import Store from 'electron-store'
 import MessageHandler from './components/MessageHandler'
 
-const electron_store = new Store()
+//const electron_store = new Store()
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -89,30 +90,30 @@ export class App extends React.Component<{}, IAppState> {
 		test_active: '',
 	}
 
-	async initUser(credential) {
-		electron_store.set('auth', true)
-		if (credential.user.email) {
-			electron_store.set('email', credential.user.email)
-		}
+	//async initUser(credential) {
+	//	electron_store.set('auth', true)
+	//	if (credential.user.email) {
+	//		electron_store.set('email', credential.user.email)
+	//	}
 
-		electron_store.set('user_uid', credential.user.uid)
-		if (credential.user.photoURL) {
-			electron_store.set('profile_pic', credential.user.photoURL)
-		}
-		if (credential.user.displayName) {
-			electron_store.set('name', credential.user.displayName)
-		}
-		this.setState({ LoginDialog: false })
+	//	electron_store.set('user_uid', credential.user.uid)
+	//	if (credential.user.photoURL) {
+	//		electron_store.set('profile_pic', credential.user.photoURL)
+	//	}
+	//	if (credential.user.displayName) {
+	//		electron_store.set('name', credential.user.displayName)
+	//	}
+	//	this.setState({ LoginDialog: false })
 
-		// ipcRenderer.emit('update_user')
-		//	const user_data = {
-		//		name: credential.user.displayName,
-		//		email: credential.user.email,
-		//		profile_pic: credential.user.photoURL,
-		//	}
+	//	// ipcRenderer.emit('update_user')
+	//	//	const user_data = {
+	//	//		name: credential.user.displayName,
+	//	//		email: credential.user.email,
+	//	//		profile_pic: credential.user.photoURL,
+	//	//	}
 
-		// await firestore.collection('users').doc(credential.user.uid).set(user_data)
-	}
+	//	// await firestore.collection('users').doc(credential.user.uid).set(user_data)
+	//}
 
 	// googleSignIn = async () => {
 	// 	const id = require('uuid').v4()
@@ -165,7 +166,7 @@ export class App extends React.Component<{}, IAppState> {
 			this.run_backend()
 		})
 		// if (remote.getCurrentWindow().id === 1)
-		;(window as any).electron_store = electron_store
+		//;(window as any).electron_store = electron_store
 		// console.log(electron_store.path)
 		//	if (electron_store.has('auth')) {
 		//		if (electron_store.get('auth') === false) {
@@ -196,10 +197,10 @@ export class App extends React.Component<{}, IAppState> {
 			} else {
 				// For MacOS and Linux
 				// const monitor = require('./active-window')
-				const activeWin = require('active-win')
 				;(async () => {
 					const data = await activeWin()
-					const appName: string = data.owner?.name
+					const appName: string = data?.owner?.name
+					if (!appName) return null
 					const ignoreApp = 'Electron'
 					if (appName.toUpperCase() !== ignoreApp.toUpperCase()) this.setState({ active_app: data.owner?.name.toUpperCase() })
 				})()
@@ -294,36 +295,43 @@ export class App extends React.Component<{}, IAppState> {
 	}
 
 	render() {
-		if (this.state.LoginDialog) return <Login />
+		// if (this.state.LoginDialog) return <Login />
 		return (
 			<Fragment>
 				<div className='outer' id='outer'>
 					<div className='container'>
 						<ul className='app-list'>
-							{this.state.time_spent.map((elem: IHealth) => {
-								return (
-									<li
-										className='itemStyle'
-										style={
-											this.state.active_app === this.state.monitor_app
-												? { animation: 'glow-green 2s ease-in-out 4' }
-												: { animation: 'glow-red 2s ease-in-out 4' }
-										}
-									>
-										<span style={{ zIndex: 4 }} className='app-item'>
-											<div className='text-center'>{`${elem.display_percentage}`}</div>
-										</span>
-										<div className='fill' style={this.getStyle(elem)}></div>
-									</li>
-								)
-							})}
+							{this.state.backend_running &&
+								this.state.time_spent.map((elem: IHealth) => {
+									return (
+										<li
+											className='itemStyle'
+											style={
+												this.state.active_app === this.state.monitor_app
+													? { animation: 'glow-green 2s ease-in-out 4' }
+													: { animation: 'glow-red 2s ease-in-out 4' }
+											}
+										>
+											<span style={{ zIndex: 4 }} className='app-item'>
+												<div className='text-center'>{`${elem.display_percentage}`}</div>
+											</span>
+											<div className='fill' style={this.getStyle(elem)}></div>
+										</li>
+									)
+								})}
 						</ul>
 						{!this.state.backend_running ? (
 							<button
 								onClick={async () => {
 									const { active_app } = this.state
-									var confirm = await MessageHandler(`Do you want to start with ${active_app}`)
-									if (confirm === 0) {
+									var confirm = await MessageHandler(
+										active_app
+											? `Do you want to start with ${active_app}`
+											: 'Please select an app by cliking anywhere on the desired application once',
+										() => null,
+										!active_app
+									)
+									if (active_app && confirm === 0) {
 										this.setState({ monitor_app: active_app, backend_running: true })
 										this.run_backend()
 									}
