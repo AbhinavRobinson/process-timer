@@ -1,7 +1,7 @@
 {
 	"httpMethod": "POST",
 	"body": "",
-	"path": "/agora/token",
+	"path": "/agora/leave",
 	"resource": "/{proxy+}",
 	"queryStringParameters": {}
 }

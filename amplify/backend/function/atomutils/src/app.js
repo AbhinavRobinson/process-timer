@@ -78,7 +78,7 @@ const updateChannelName = async (channelName) => {
 				Item: {
 					channelID: 1,
 					channelName: newName,
-					channelCount: 0,
+					channelCount: 1,
 				},
 			})
 			.promise()
@@ -88,13 +88,39 @@ const updateChannelName = async (channelName) => {
 	return newName
 }
 
+const removeCurrentUser = async (channelName, count) => {
+	if (count > 0)
+		await docClient
+			.put({
+				TableName,
+				Item: {
+					channelID: 1,
+					channelName,
+					channelCount: count - 1,
+				},
+			})
+			.promise()
+}
+
+app.post('/agora/leave', async (_, res) => {
+	const { channelName, channelCount } = await getChannelData().catch((e) => ({ failed: true, err: e.toString() }))
+	let err
+	await removeCurrentUser(channelName, channelCount).catch((e) => {
+		err = e.toString()
+	})
+	if (err) res.json({ failed: 'could not remove user from db', reason: err })
+	res.json({ success: true })
+})
+
 app.post('/agora/token', async (_, res) => {
 	const appCertificate = '362e61ca49f64a258718fc595cd98a19'
 
 	let channelName
 	let err
+	let users
 	//Getting the number of people in the current channel
 	const currentChannelData = await getChannelData().catch((e) => ({ failed: true, err: e.toString() }))
+	users = currentChannelData.channelCount
 
 	console.log({ position: 'after data fetch from db', currentChannelData })
 
@@ -105,10 +131,12 @@ app.post('/agora/token', async (_, res) => {
 		await increaseChannelCount(currentChannelData.channelName, currentChannelData.channelCount).catch(() => {
 			err = 'error increasing channel count'
 		})
+		users++
 	} else {
 		channelName = await updateChannelName(currentChannelData.channelName).catch((e) => {
 			err = e.toString() + ' channelUpdate'
 		})
+		users = 1
 	}
 
 	console.log({ position: 'after performing channel name updates', channelName, err })
@@ -130,7 +158,7 @@ app.post('/agora/token', async (_, res) => {
 	// Build token with uid
 	const token = RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpiredTs)
 
-	res.json({ sucess: 'Token Generated Successfully', token, channel: channelName, appID })
+	res.json({ sucess: 'Token Generated Successfully', token, channel: channelName, appID, users })
 
 	// Build token with user account
 	//	const tokenB = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, account, role, privilegeExpiredTs)
