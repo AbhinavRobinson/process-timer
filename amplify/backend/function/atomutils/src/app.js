@@ -19,7 +19,7 @@ const appID = 'cbc3098a370649a09784656a887ffd96'
 
 // DynamoDB Client
 const docClient = new AWS.DynamoDB.DocumentClient({ region: 'ap-south-1' })
-const TableName = 'channel-staging'
+const TableName = 'channel-vstate'
 
 // declare a new express app
 var app = express()
