@@ -4,6 +4,7 @@ import useAgora from './hooks/useAgora'
 import MediaPlayer from './components/MediaPlayer'
 import './Call.css'
 
+import Game from './Game'
 import { API } from 'aws-amplify'
 
 const remote = require('electron').remote
@@ -74,6 +75,7 @@ function Call() {
 					Leave
 				</button>
 			</div>
+			<Game />
 		</div>
 	)
 }
