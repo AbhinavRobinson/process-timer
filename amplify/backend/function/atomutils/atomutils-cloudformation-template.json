@@ -9,6 +9,18 @@
 		},
 		"env": {
 			"Type": "String"
+		},
+		"storageagoraChannelStateName": {
+			"Type": "String",
+			"Default": "storageagoraChannelStateName"
+		},
+		"storageagoraChannelStateArn": {
+			"Type": "String",
+			"Default": "storageagoraChannelStateArn"
+		},
+		"storageagoraChannelStateStreamArn": {
+			"Type": "String",
+			"Default": "storageagoraChannelStateArn"
 		}
 	},
 	"Conditions": {
@@ -65,8 +77,8 @@
 				"Layers": [],
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-atomdesktop-staging-131741-deployment",
-					"S3Key": "amplify-builds/atomutils-517a7753356134507841-build.zip"
+					"S3Bucket": "amplify-atom-desktop-vstate-30811-deployment",
+					"S3Key": "amplify-builds/atomutils-4c685544695a4f70516a-build.zip"
 				}
 			}
 		},
@@ -140,6 +152,47 @@
 						}
 					]
 				}
+			}
+		},
+		"agoraChannelStateTriggerPolicy": {
+			"DependsOn": ["LambdaExecutionRole"],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "lambda-trigger-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": ["dynamodb:DescribeStream", "dynamodb:GetRecords", "dynamodb:GetShardIterator", "dynamodb:ListStreams"],
+							"Resource": [
+								{
+									"Ref": "storageagoraChannelStateStreamArn"
+								}
+							]
+						}
+					]
+				}
+			}
+		},
+		"agoraChannelStateTrigger": {
+			"Type": "AWS::Lambda::EventSourceMapping",
+			"DependsOn": ["agoraChannelStateTriggerPolicy"],
+			"Properties": {
+				"BatchSize": 100,
+				"Enabled": true,
+				"EventSourceArn": {
+					"Ref": "storageagoraChannelStateStreamArn"
+				},
+				"FunctionName": {
+					"Fn::GetAtt": ["LambdaFunction", "Arn"]
+				},
+				"StartingPosition": "LATEST"
 			}
 		}
 	},

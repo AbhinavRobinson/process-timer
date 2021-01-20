@@ -9,6 +9,9 @@
 		"body-parser": "^1.17.1",
 		"express": "^4.15.2"
 	},
+	"devDependencies": {
+		"aws-sdk": "^2.829.0"
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},

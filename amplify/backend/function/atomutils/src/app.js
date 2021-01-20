@@ -10,10 +10,16 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 
-const { RtcTokenBuilder, RtmTokenBuilder, RtcRole, RtmRole } = require('agora-access-token')
+const { RtcTokenBuilder, RtcRole } = require('agora-access-token')
+
+const AWS = require('aws-sdk')
 
 // Agora App Id
 const appID = 'cbc3098a370649a09784656a887ffd96'
+
+// DynamoDB Client
+const docClient = new AWS.DynamoDB.DocumentClient({ region: 'ap-south-1' })
+const TableName = 'channel-vstate'
 
 // declare a new express app
 var app = express()
@@ -32,9 +38,111 @@ app.get('/agora/appId', function (_, res) {
 	res.json({ appID })
 })
 
-app.post('/agora/token', function (req, res) {
+const params = {
+	TableName,
+	Key: {
+		channelID: 1,
+	},
+}
+
+const getChannelData = async () => {
+	try {
+		const data = await docClient.get(params).promise()
+		return data.Item
+	} catch (e) {
+		return e
+	}
+}
+
+const increaseChannelCount = async (channelName, count) => {
+	console.log({ position: 'increaseChannelCount start', channelName, count })
+	await docClient
+		.put({
+			TableName,
+			Item: {
+				channelID: 1,
+				channelName,
+				channelCount: count + 1,
+			},
+		})
+		.promise()
+}
+
+const updateChannelName = async (channelName) => {
+	const newName = (parseInt(channelName) + 1).toString()
+	console.log({ position: 'updateChannelName start', channelName, newName })
+	try {
+		await docClient
+			.put({
+				TableName,
+				Item: {
+					channelID: 1,
+					channelName: newName,
+					channelCount: 1,
+				},
+			})
+			.promise()
+	} catch (e) {
+		throw e
+	}
+	return newName
+}
+
+const removeCurrentUser = async (channelName, count) => {
+	if (count > 0)
+		await docClient
+			.put({
+				TableName,
+				Item: {
+					channelID: 1,
+					channelName,
+					channelCount: count - 1,
+				},
+			})
+			.promise()
+}
+
+app.post('/agora/leave', async (_, res) => {
+	const { channelName, channelCount } = await getChannelData().catch((e) => ({ failed: true, err: e.toString() }))
+	let err
+	await removeCurrentUser(channelName, channelCount).catch((e) => {
+		err = e.toString()
+	})
+	if (err) res.json({ failed: 'could not remove user from db', reason: err })
+	res.json({ success: true })
+})
+
+app.post('/agora/token', async (_, res) => {
 	const appCertificate = '362e61ca49f64a258718fc595cd98a19'
-	const channelName = 'commonChannel'
+
+	let channelName
+	let err
+	let users
+	//Getting the number of people in the current channel
+	const currentChannelData = await getChannelData().catch((e) => ({ failed: true, err: e.toString() }))
+	users = currentChannelData.channelCount
+
+	console.log({ position: 'after data fetch from db', currentChannelData })
+
+	if (currentChannelData == null || currentChannelData.failed) res.json({ failed: 'querying db failed', reason: currentChannelData.err })
+
+	if (currentChannelData.channelCount < 2) {
+		channelName = currentChannelData.channelName
+		await increaseChannelCount(currentChannelData.channelName, currentChannelData.channelCount).catch(() => {
+			err = 'error increasing channel count'
+		})
+		users++
+	} else {
+		channelName = await updateChannelName(currentChannelData.channelName).catch((e) => {
+			err = e.toString() + ' channelUpdate'
+		})
+		users = 1
+	}
+
+	console.log({ position: 'after performing channel name updates', channelName, err })
+
+	if (err) res.json({ currentChannelData, failed: 'failed db ops', reason: err })
+
 	const uid = 0 // This is set to 0 since the user is not being tracked and anyone can join
 	// const account = '2882341273'
 	const role = RtcRole.PUBLISHER
@@ -50,7 +158,7 @@ app.post('/agora/token', function (req, res) {
 	// Build token with uid
 	const token = RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpiredTs)
 
-	res.json({ sucess: 'Token Generated Successfully', token, channel: channelName })
+	res.json({ sucess: 'Token Generated Successfully', token, channel: channelName, appID, users })
 
 	// Build token with user account
 	//	const tokenB = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, account, role, privilegeExpiredTs)

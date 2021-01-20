@@ -18,8 +18,7 @@ interface agoraState {
 const client = AgoraRTC.createClient({ codec: 'h264', mode: 'rtc' })
 
 async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<boolean>>): Promise<agoraState> {
-	const { appID } = await API.get('mainApi', '/agora/appId', {})
-	const { token, channel } = await API.post('mainApi', '/agora/token', {})
+	const { token, channel, appID } = await API.post('mainApi', '/agora/token', {})
 	changeLoading(false)
 	return { appID, token, channel }
 }
@@ -50,6 +49,7 @@ function Call() {
 				<div className='local-player-wrapper'>
 					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
 				</div>
+				<p>{JSON.stringify(agoraConfig)}</p>
 				{!remoteUsers.length && <p>Waiting for another user to join...</p>}
 				{remoteUsers.map((user) => (
 					<div className='remote-player-wrapper' key={user.uid}>

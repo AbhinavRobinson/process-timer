@@ -3,7 +3,14 @@
 		"atomutils": {
 			"build": true,
 			"providerPlugin": "awscloudformation",
-			"service": "Lambda"
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "storage",
+					"resourceName": "agoraChannelState",
+					"attributes": ["Name", "Arn", "StreamArn"]
+				}
+			]
 		}
 	},
 	"api": {
@@ -17,6 +24,12 @@
 					"attributes": ["Name", "Arn"]
 				}
 			]
+		}
+	},
+	"storage": {
+		"agoraChannelState": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation"
 		}
 	}
 }
