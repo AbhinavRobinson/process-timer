@@ -78,7 +78,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-atomdesktop-staging-131741-deployment",
-					"S3Key": "amplify-builds/atomutils-574d6e57336370625637-build.zip"
+					"S3Key": "amplify-builds/atomutils-32567674386565743074-build.zip"
 				}
 			}
 		},
