@@ -1,7 +1,7 @@
 import { drawFunction } from '../hooks/useCanvas'
 
 function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
-	let Cycles = 0
+	// let Cycles = 0
 
 	// bg color
 	canvas.style.backgroundColor = '#04293F'
@@ -38,7 +38,7 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
 
 		if ((t / time) * 100 > 1) {
 			t = 0
-			Cycles += 1
+			// Cycles += 1
 		} else {
 			t += 1 / 50
 		}
