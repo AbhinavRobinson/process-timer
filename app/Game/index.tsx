@@ -37,7 +37,6 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
 
 		render(t)
 		// render(t);
-		document.getElementById('TIME').innerHTML = 'Score : ' + Cycles + ' | Time : ' + parseInt(t)
 
 		if ((t / time) * 100 > 1) {
 			t = 0
