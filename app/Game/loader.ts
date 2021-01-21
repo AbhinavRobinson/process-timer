@@ -55,55 +55,55 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
 	function Balloon(x, y) {
 		ctx.beginPath()
 		ctx.moveTo(x, y)
-		ctx.arc(x, y, 50, 0, Math.PI * 2, true)
+		ctx.arc(x, y, 50 * y_unit, 0, Math.PI * 2, true)
 		ctx.fillStyle = '#4AC97F'
 		ctx.fill()
 
 		ctx.beginPath()
-		ctx.moveTo(x, y + 50)
-		ctx.lineTo(x + 10, y + 65)
-		ctx.lineTo(x - 10, y + 65)
+		ctx.moveTo(x, y + 50 * y_unit)
+		ctx.lineTo(x + 10 * x_unit, y + 65 * y_unit)
+		ctx.lineTo(x - 10 * x_unit, y + 65 * y_unit)
 		ctx.fillStyle = '#4AC97F'
 		ctx.fill()
 
-		if (y < 125) {
+		if (y < 125 * y_unit) {
 			ctx.beginPath()
-			ctx.moveTo(x - 30, y - 5)
-			ctx.lineTo(x - 10, y)
-			ctx.moveTo(x + 30, y - 5)
-			ctx.lineTo(x + 10, y)
-			ctx.moveTo(x - 4.5, y + 33)
-			ctx.arc(x, y + 25, 10, 8.5, Math.PI * 2, true)
+			ctx.moveTo(x - 30 * x_unit, y - 5 * y_unit)
+			ctx.lineTo(x - 10 * x_unit, y)
+			ctx.moveTo(x + 30 * x_unit, y - 5 * y_unit)
+			ctx.lineTo(x + 10 * x_unit, y)
+			ctx.moveTo(x - 4.5 * x_unit, y + 33 * y_unit)
+			ctx.arc(x, y + 25 * y_unit, 10 * x_unit, 8.5, Math.PI * 2, true)
 			ctx.strokeStyle = '#444'
-			ctx.lineWidth = 3
+			ctx.lineWidth = 2
 			ctx.stroke()
-		} else if (y > 125 && y < 175) {
+		} else if (y > 125 * y_unit && y < 175 * y_unit) {
 			ctx.beginPath()
-			ctx.moveTo(x - 30, y - 2.5)
-			ctx.lineTo(x - 10, y - 2.5)
-			ctx.moveTo(x + 30, y - 2.5)
-			ctx.lineTo(x + 10, y - 2.5)
-			ctx.moveTo(x - 7.5, y + 25)
-			ctx.lineTo(x + 7.5, y + 25)
+			ctx.moveTo(x - 30 * x_unit, y - 2.5 * y_unit)
+			ctx.lineTo(x - 10 * x_unit, y - 2.5 * y_unit)
+			ctx.moveTo(x + 30 * x_unit, y - 2.5 * y_unit)
+			ctx.lineTo(x + 10 * x_unit, y - 2.5 * y_unit)
+			ctx.moveTo(x - 7.5 * x_unit, y + 25 * y_unit)
+			ctx.lineTo(x + 7.5 * x_unit, y + 25 * y_unit)
 			ctx.strokeStyle = '#444'
-			ctx.lineWidth = 3
+			ctx.lineWidth = 2
 			ctx.stroke()
 		} else {
 			ctx.beginPath()
-			ctx.moveTo(x - 30, y)
-			ctx.lineTo(x - 10, y - 5)
-			ctx.moveTo(x + 30, y)
-			ctx.lineTo(x + 10, y - 5)
-			ctx.moveTo(x + 2.5, y + 30)
-			ctx.arc(x, y + 25, 5, 0, Math.PI * 2, true)
+			ctx.moveTo(x - 30 * x_unit, y)
+			ctx.lineTo(x - 10 * x_unit, y - 5 * y_unit)
+			ctx.moveTo(x + 30 * x_unit, y)
+			ctx.lineTo(x + 10 * x_unit, y - 5 * y_unit)
+			ctx.moveTo(x + 2.5 * x_unit, y + 30 * y_unit)
+			ctx.arc(x, y + 25 * y_unit, 5 * x_unit, 0, Math.PI * 2, true)
 			ctx.strokeStyle = '#444'
-			ctx.lineWidth = 3
+			ctx.lineWidth = 2
 			ctx.stroke()
 		}
 
 		ctx.beginPath()
-		ctx.moveTo(x, y + 65)
-		ctx.lineTo(x, y + 200)
+		ctx.moveTo(x, y + 65 * y_unit)
+		ctx.lineTo(x, y + 200 * y_unit)
 		ctx.strokeStyle = '#407E92'
 		ctx.lineWidth = 2
 		ctx.stroke()
