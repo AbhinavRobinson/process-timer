@@ -16,6 +16,10 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
 	let width = canvas.width
 	let height = canvas.height
 
+	// define one unit as 1/500 of canvas, then we multiply all calc with this unit
+	let x_unit = width / 500
+	let y_unit = height / 500
+
 	let t
 	// Initialize the game
 	function init() {
@@ -110,44 +114,44 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
 		// Draw the frame
 		let cmp = (t / time) * 100 * 175
 
-		Balloon(250, 50 + cmp)
-		drawSpikes(0, 500 - cmp)
+		Balloon(250 * x_unit, (50 + cmp) * y_unit)
+		drawSpikes(0, (500 - cmp) * y_unit)
 
 		ctx.beginPath()
-		ctx.moveTo(0, 500)
-		ctx.lineTo(0, 499 - cmp)
-		ctx.lineTo(500, 499 - cmp)
-		ctx.lineTo(500, 500)
+		ctx.moveTo(0, 500 * y_unit)
+		ctx.lineTo(0, (499 - cmp) * y_unit)
+		ctx.lineTo(500 * x_unit, (499 - cmp) * y_unit)
+		ctx.lineTo(500 * x_unit, 500 * y_unit)
 		ctx.fillStyle = '#111D23'
 		ctx.fill()
 
 		ctx.beginPath()
-		ctx.moveTo(0, 515 - cmp)
-		ctx.lineTo(0, 499 - cmp)
-		ctx.lineTo(500, 499 - cmp)
-		ctx.lineTo(500, 515 - cmp)
+		ctx.moveTo(0, (515 - cmp) * y_unit)
+		ctx.lineTo(0, (499 - cmp) * y_unit)
+		ctx.lineTo(500 * x_unit, (499 - cmp) * y_unit)
+		ctx.lineTo(500 * x_unit, (515 - cmp) * y_unit)
 		ctx.fillStyle = '#64768C'
 		ctx.fill()
 	}
 
 	function drawSpikes(x, y) {
 		spikes(x, y)
-		spikes(x + 50, y)
-		spikes(x + 100, y)
-		spikes(x + 150, y)
-		spikes(x + 200, y)
-		spikes(x + 250, y)
-		spikes(x + 300, y)
-		spikes(x + 350, y)
-		spikes(x + 400, y)
-		spikes(x + 450, y)
+		spikes(x + 50 * x_unit, y)
+		spikes(x + 100 * x_unit, y)
+		spikes(x + 150 * x_unit, y)
+		spikes(x + 200 * x_unit, y)
+		spikes(x + 250 * x_unit, y)
+		spikes(x + 300 * x_unit, y)
+		spikes(x + 350 * x_unit, y)
+		spikes(x + 400 * x_unit, y)
+		spikes(x + 450 * x_unit, y)
 	}
 
 	function spikes(x, y) {
 		ctx.beginPath()
 		ctx.moveTo(x, y)
-		ctx.lineTo(x + 25, y - 50)
-		ctx.lineTo(x + 50, y)
+		ctx.lineTo(x + 25 * x_unit, y - 50 * y_unit)
+		ctx.lineTo(x + 50 * x_unit, y)
 		ctx.fillStyle = '#F5F5F5'
 		ctx.fill()
 	}
