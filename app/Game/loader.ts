@@ -7,11 +7,14 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
 	canvas.style.backgroundColor = '#04293F'
 	ctx.save()
 
-	var time = 10 * 100
+	let time = 10 * 100
 	const FRAMES_PER_SECOND = 50
 
 	const FRAME_MIN_TIME = (1000 / 60) * (60 / FRAMES_PER_SECOND) - (1000 / 60) * 0.5
-	var lastFrameTime = 0
+	let lastFrameTime = 0
+
+	let width = canvas.width
+	let height = canvas.height
 
 	let t
 	// Initialize the game
