@@ -1,6 +1,11 @@
+import { API } from 'aws-amplify'
 import { app, ipcMain } from 'electron'
 import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
+import Amplify from 'aws-amplify'
+import config from './app/aws-exports.js'
+
+Amplify.configure(config)
 
 export const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -21,6 +26,10 @@ class Application {
 			app.dock.hide()
 		})
 		this.isSideBarOpen = false
+		if (process.env.NODE_ENV === 'production') {
+			const sourceMapSupport = require('source-map-support')
+			sourceMapSupport.install()
+		}
 	}
 
 	handleEvents() {
@@ -57,9 +66,14 @@ class Application {
 				this.AppContainer.InnerWindow.setOpacity(1)
 				this.SideBarContainer = null
 				this.isSideBarOpen = false
+				leaveAgora()
 			})
 		}
 	}
+}
+
+const leaveAgora = async () => {
+	await API.post('mainApi', '/agora/leave', {}).catch(console.error)
 }
 
 export const application = new Application()

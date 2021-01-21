@@ -8,11 +8,11 @@ import { remote } from 'electron'
  *
  * @returns [0,1] -> {yes, no} responce id
  */
-export default async function MessageHandler(textMessage: string, callback?: VoidFunction) {
+export default async function MessageHandler(textMessage: string, callback?: VoidFunction, singleSelect?: boolean) {
 	return remote.dialog
 		.showMessageBox(null, {
 			message: textMessage,
-			buttons: ['Yes.', 'No!'],
+			buttons: singleSelect ? ['OK'] : ['Yes.', 'No!'],
 		})
 		.then(({ response }) => {
 			try {
