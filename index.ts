@@ -2,6 +2,10 @@ import { API } from 'aws-amplify'
 import { app, ipcMain } from 'electron'
 import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
+import Amplify from 'aws-amplify'
+import config from './app/aws-exports.js'
+
+Amplify.configure(config)
 
 export const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -69,7 +73,7 @@ class Application {
 }
 
 const leaveAgora = async () => {
-	await API.post('mainApi', 'agora/leave', {}).catch(console.error)
+	await API.post('mainApi', '/agora/leave', {}).catch(console.error)
 }
 
 export const application = new Application()
