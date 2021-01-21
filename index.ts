@@ -43,6 +43,10 @@ class Application {
 			e.returnValue = this.isSideBarOpen
 		})
 
+		ipcMain.on('control_state_change', (_, state) => {
+			if (this.isSideBarOpen) this.SideBarContainer?.InnerWindow?.webContents.send('stateUpdate', state)
+		})
+
 		this.AppContainer.InnerWindow.on('closed', () => {
 			this.AppContainer = null
 		})

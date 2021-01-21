@@ -220,6 +220,10 @@ export class App extends React.Component<{}, IAppState> {
 		}, 2000)
 	}
 
+	async componentDidUpdate() {
+		ipcRenderer.send('control_state_change', this.state)
+	}
+
 	private global_timeout: NodeJS.Timeout
 
 	// Timer logic
