@@ -18,12 +18,12 @@ export class SideBarClass {
 				enableRemoteModule: true,
 				webSecurity: false,
 			},
-			width: 150,
-			height: 300,
+			width: 350,
+			height: 550,
 			...position,
 			alwaysOnTop: true,
 			frame: false,
-			// transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,
+			transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,
 			icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
 		})
 		this.InnerWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
