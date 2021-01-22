@@ -8,6 +8,7 @@ import './Call.css'
 import Game from './Game'
 import { API } from 'aws-amplify'
 import { IAppState } from './App'
+import DragRegion from './components/DragRegion'
 
 const remote = require('electron').remote
 
@@ -55,9 +56,9 @@ function Call() {
 	return (
 		<div className='call'>
 			<div className='player-container'>
-				<div className='local-player-wrapper'>
+				{/* <div className='local-player-wrapper'>
 					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
-				</div>
+				</div> */}
 				{!remoteUsers.length && (
 					<p>
 						Current App:
@@ -93,7 +94,11 @@ function Call() {
 					Leave
 				</button>
 			</div>
-			<Game {...{ gameState }} />
+			<div className='game'>
+				<Game {...{ gameState }} />
+				<Game {...{ gameState }} />
+			</div>
+			<DragRegion />
 		</div>
 	)
 }
