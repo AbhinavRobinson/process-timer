@@ -1,4 +1,4 @@
-import { drawFunction } from '../hooks/useCanvas'
+import { drawFunction } from '../../hooks/useCanvas'
 
 function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
 	// let Cycles = 0
