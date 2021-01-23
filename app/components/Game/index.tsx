@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { IAppState } from '../App'
+import { IAppState } from '../../App'
 
 import GameContainer from './GameContainer'
 

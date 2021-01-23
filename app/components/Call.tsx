@@ -11,7 +11,7 @@ import MediaPlayer from './MediaPlayer'
 import { API } from 'aws-amplify'
 
 // LOCAL IMPORTS
-import Game from '../Game'
+import Game from './Game'
 import { IAppState } from '../App'
 import DragRegion from './DragRegion'
 import './Call.css'

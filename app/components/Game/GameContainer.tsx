@@ -1,5 +1,5 @@
 import * as React from 'react'
-import useCanvas, { drawFunction } from '../hooks/useCanvas'
+import useCanvas, { drawFunction } from '../../hooks/useCanvas'
 
 interface GameProps {
 	draw: drawFunction
