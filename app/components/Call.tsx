@@ -1,19 +1,27 @@
+// React-Electron
 import React, { useEffect, useState } from 'react'
 import { ipcRenderer } from 'electron'
 
+// Agora
 import AgoraRTC from 'agora-rtc-sdk-ng'
 import useAgora from '../hooks/useAgora'
 import MediaPlayer from './MediaPlayer'
 
+// AWS
 import { API } from 'aws-amplify'
 
+// LOCAL IMPORTS
 import Game from '../Game'
 import { IAppState } from '../App'
 import DragRegion from './DragRegion'
 import './Call.css'
+// *** END OF IMPORTS ***
 
 const remote = require('electron').remote
 
+/**
+ * @interface agoraState local agora state
+ */
 interface agoraState {
 	appID: string
 	token: string
@@ -21,8 +29,15 @@ interface agoraState {
 	users: number
 }
 
+/**
+ * Agora Config
+ */
 const client = AgoraRTC.createClient({ codec: 'h264', mode: 'rtc' })
 
+/**
+ * @returns Agora Token and Channels
+ * @param changeLoading provide loading confirm
+ */
 async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<boolean>>): Promise<agoraState> {
 	const { token, channel, appID, users } = await API.post('mainApi', '/agora/token', {})
 	changeLoading(false)
@@ -35,6 +50,9 @@ async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<
 function Call() {
 	const [agoraConfig, changeAgoraConfig] = useState<agoraState | null>(null)
 
+	/**
+	 * @see localVideoTrack enables you to view local video feed
+	 */
 	// const { localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
 	const { leave, join, joinState, remoteUsers } = useAgora(client)
 	const [loading, changeLoading] = useState<boolean>(true)
@@ -63,6 +81,9 @@ function Call() {
 	return (
 		<div className='call'>
 			<div className='player-container'>
+				{/**
+				 * @see local-player-wrapper enables you to see local video feed (Call.tsx:53)
+				 */}
 				{/* <div className='local-player-wrapper'>
 					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
 				</div> */}
@@ -76,6 +97,9 @@ function Call() {
 				)}
 				{remoteUsers.map((user) => (
 					<div className='remote-player-wrapper' key={user.uid}>
+						{/**
+						 * local player UID (debug)
+						 */}
 						{/*
 						<p className='remote-player-text'>{`remoteVideo(${user.uid})`}</p>
 							*/}
@@ -83,6 +107,9 @@ function Call() {
 					</div>
 				))}
 			</div>
+			{/**
+			 *  Confirmation Text
+			 */}
 			{/*
 			<p className='local-player-text'>{!loading && joinState && localVideoTrack ? 'Connected' : 'Disconnected'}</p>
 						*/}
