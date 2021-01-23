@@ -4,16 +4,16 @@ import { ipcRenderer } from 'electron'
 
 // Agora
 import AgoraRTC from 'agora-rtc-sdk-ng'
-import useAgora from '../hooks/useAgora'
-import MediaPlayer from './MediaPlayer'
+import useAgora from '../../hooks/useAgora'
+import MediaPlayer from '../MediaPlayer'
 
 // AWS
 import { API } from 'aws-amplify'
 
 // LOCAL IMPORTS
-import Game from './Game'
-import { IAppState } from '../App'
-import DragRegion from './DragRegion'
+import Game from '../Game'
+import { IAppState } from '../../App'
+import DragRegion from '../DragRegion'
 import './Call.css'
 // *** END OF IMPORTS ***
 
