@@ -36,7 +36,7 @@ class Application {
 		ipcMain.on('open_sidebar', (_) => {
 			this.openSideBar()
 			const [x, y] = this.AppContainer.InnerWindow.getPosition()
-			this.AppContainer.InnerWindow.setPosition(x + 100, y, true)
+			this.AppContainer.InnerWindow.setPosition(x + 75, y, true)
 			this.AppContainer.InnerWindow.setOpacity(0.5)
 		})
 		ipcMain.on('sidebar_open_check', (e) => {
@@ -63,7 +63,7 @@ class Application {
 			this.SideBarContainer.init()
 			this.SideBarContainer.InnerWindow.setParentWindow(this.AppContainer.InnerWindow)
 
-			this.SideBarContainer.InnerWindow.setPosition(x - 130, y - 250, true)
+			this.SideBarContainer.InnerWindow.setPosition(x - 300, y, true)
 
 			this.SideBarContainer.InnerWindow.on('closed', () => {
 				this.AppContainer.InnerWindow.setPosition(x, y, true)
