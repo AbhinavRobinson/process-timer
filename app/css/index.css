@@ -116,8 +116,8 @@
 	flex-wrap: wrap;
 	/* justify-items: center; */
 	align-items: center;
-	height: 500px;
-	width: 320px;
+	height: auto;
+	width: auto;
 }
 
 .call .game {
@@ -129,7 +129,32 @@
 .call .player-container {
 	display: flex;
 	flex-direction: row;
-	margin: 10px;
+	margin: 0 10px;
+	font-family: monospace;
+	font-size: 12px;
+	padding: 20px 30px;
+}
+
+.call .button-group {
+	margin: 0;
+	padding: 0;
+}
+
+.call button {
+	padding: 12px;
+	background: #87a3ff;
+	color: white;
+	border-radius: 10px;
+	border: 0 solid #fff;
+	font-family: monospace;
+	text-transform: uppercase;
+}
+
+.call button:hover,
+.outer .play-button:hover,
+.outer .pause-button:hover,
+.outer .read-button:hover {
+	box-shadow: 0 0 0 2px #3b69ff inset;
 }
 
 .dragregion {
@@ -142,6 +167,7 @@
 
 .call .dragregion {
 	margin: 0;
+	margin-bottom: 20px;
 	background: #cecece;
 	border-radius: 999px;
 	min-height: 10px;
