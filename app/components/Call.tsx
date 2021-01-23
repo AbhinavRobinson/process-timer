@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { ipcRenderer } from 'electron'
 import AgoraRTC from 'agora-rtc-sdk-ng'
-import useAgora from './hooks/useAgora'
-import MediaPlayer from './components/MediaPlayer'
+import useAgora from '../hooks/useAgora'
+import MediaPlayer from './MediaPlayer'
 import './Call.css'
 
-import Game from './Game'
+import Game from '../Game'
 import { API } from 'aws-amplify'
-import { IAppState } from './App'
-import DragRegion from './components/DragRegion'
+import { IAppState } from '../App'
+import DragRegion from './DragRegion'
 
 const remote = require('electron').remote
 

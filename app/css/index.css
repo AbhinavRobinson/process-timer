@@ -140,6 +140,10 @@
 	padding: 0;
 }
 
+.call canvas {
+	border: 4px solid #777;
+}
+
 .call button {
 	padding: 12px;
 	background: #87a3ff;
