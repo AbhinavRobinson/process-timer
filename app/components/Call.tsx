@@ -47,7 +47,7 @@ async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<
 /**
  * @returns Agora Call and Game Component
  */
-function Call() {
+const Call = () => {
 	const [agoraConfig, changeAgoraConfig] = useState<agoraState | null>(null)
 
 	/**
