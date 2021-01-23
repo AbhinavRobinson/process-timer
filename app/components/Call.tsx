@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { ipcRenderer } from 'electron'
+
 import AgoraRTC from 'agora-rtc-sdk-ng'
 import useAgora from '../hooks/useAgora'
 import MediaPlayer from './MediaPlayer'
-import './Call.css'
+
+import { API } from 'aws-amplify'
 
 import Game from '../Game'
-import { API } from 'aws-amplify'
 import { IAppState } from '../App'
 import DragRegion from './DragRegion'
+import './Call.css'
 
 const remote = require('electron').remote
 
@@ -27,6 +29,9 @@ async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<
 	return { appID, token, channel, users }
 }
 
+/**
+ * @returns Agora Call and Game Component
+ */
 function Call() {
 	const [agoraConfig, changeAgoraConfig] = useState<agoraState | null>(null)
 
