@@ -29,7 +29,9 @@ async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<
 
 function Call() {
 	const [agoraConfig, changeAgoraConfig] = useState<agoraState | null>(null)
-	const { localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
+
+	// const { localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
+	const { leave, join, joinState, remoteUsers } = useAgora(client)
 	const [loading, changeLoading] = useState<boolean>(true)
 
 	const [gameState, changeGameConfig] = useState<IAppState | null>(null)
@@ -64,8 +66,7 @@ function Call() {
 						Current App:
 						{gameState?.active_app}
 						{'\n'}
-						Channel: {agoraConfig?.channel}
-						{'\n'}Waiting for another user to join...
+						Channel: {agoraConfig?.channel};{'\n'}Waiting for another user to join...
 					</p>
 				)}
 				{remoteUsers.map((user) => (
