@@ -9,7 +9,7 @@ import Container from 'typedi'
 // import Video from '../../components/Video'
 
 import { PeerContainer } from '../../PeerContainer'
-import Call from '../../components/Call'
+import Call from '../../components/Call/Call'
 
 interface ISideBarProps {}
 
