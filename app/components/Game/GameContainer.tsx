@@ -7,7 +7,7 @@ interface GameProps {
 
 const GameContainer: React.FC<GameProps> = ({ draw }) => {
 	const canvasRef = useCanvas(draw)
-	return <canvas ref={canvasRef} height='120' width='90'></canvas>
+	return <canvas ref={canvasRef} height='120' width='100'></canvas>
 }
 
 export default GameContainer

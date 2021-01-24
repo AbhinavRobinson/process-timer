@@ -139,13 +139,20 @@
 .call .button-group {
 	margin: 0;
 	padding: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .call canvas:first-child {
+	border: 3px solid #eee;
+	border-radius: 10px 0 0 10px;
 	border-right: 2px solid #777;
 }
 
 .call canvas:last-child {
+	border: 3px solid #eee;
+	border-radius: 0 10px 10px 0;
 	border-left: 2px solid #777;
 }
 
@@ -159,6 +166,8 @@
 	text-transform: uppercase;
 	width: 45px;
 	height: 45px;
+	margin: 0 7.5px;
+	padding: 0;
 }
 
 .call button:hover,
