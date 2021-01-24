@@ -94,7 +94,8 @@ const Call = () => {
 						Current App:
 						{gameState?.active_app}
 						{'\n'}
-						Channel: {agoraConfig?.channel};{'\n'}Waiting for another user to join...
+						Channel: {agoraConfig?.channel}
+						{'\n'}Waiting for another user to join...
 					</p>
 				)}
 				{remoteUsers.map((user) => (
