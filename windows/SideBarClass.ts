@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { isDevelopment } from '..'
 import { format as formatUrl } from 'url'
@@ -43,6 +43,9 @@ export class SideBarClass {
 				})
 			)
 		}
+		this.InnerWindow.setBounds({
+			x: screen.getPrimaryDisplay().bounds.width - 150,
+		})
 	}
 
 	close() {

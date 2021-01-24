@@ -1,6 +1,6 @@
 // IMPORT DEPENDENCIES
 
-import { ipcRenderer, remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import React, { Component } from 'react'
 // import Container from 'typedi'
 // import { ApiMainLinks } from '../../api'

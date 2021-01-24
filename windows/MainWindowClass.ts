@@ -57,6 +57,9 @@ export class MainWindowClass {
 			})
 		})
 
+		this.InnerWindow.setBounds({
+			x: screen.getPrimaryDisplay().bounds.width - 120,
+		})
 		return this.InnerWindow
 	}
 }
