@@ -180,10 +180,7 @@ export class App extends React.Component<{}, IAppState> {
 		//		await this.googleSignIn()
 		//	}
 		remote.getCurrentWindow().setAlwaysOnTop(true)
-		remote.getCurrentWindow().setBounds({
-			x: remote.screen.getPrimaryDisplay().bounds.width - 120,
-			y: remote.screen.getPrimaryDisplay().bounds.height / 2 - document.getElementById('outer').clientHeight,
-		})
+
 		console.log('resolved')
 		setInterval(() => {
 			// For Windows
