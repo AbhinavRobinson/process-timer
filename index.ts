@@ -66,7 +66,7 @@ class Application {
 			this.SideBarContainer.init()
 			// this.SideBarContainer.InnerWindow.setParentWindow(this.AppContainer.InnerWindow)
 
-			this.SideBarContainer.InnerWindow.setPosition(x - 550, y, true)
+			this.SideBarContainer.InnerWindow.setPosition(x - 300, y, true)
 
 			if (isDevelopment) {
 				setInterval(() => this.SideBarContainer?.InnerWindow?.webContents.send('redirect', true), 1000)
