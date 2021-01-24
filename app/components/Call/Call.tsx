@@ -15,6 +15,8 @@ import Game from '../Game'
 import { IAppState } from '../../App'
 import DragRegion from '../DragRegion'
 import './Call.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPhoneSlash, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 // *** END OF IMPORTS ***
 
 const remote = require('electron').remote
@@ -124,7 +126,7 @@ const Call = () => {
 						remote.getCurrentWindow().close()
 					}}
 				>
-					Leave
+					<FontAwesomeIcon icon={faPhoneSlash} />
 				</button>
 			</div>
 			<div className='game'>

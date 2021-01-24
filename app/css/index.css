@@ -145,9 +145,10 @@
 }
 
 .call button {
-	padding: 12px;
+	padding: 6px;
 	background: #87a3ff;
 	color: white;
+	font-size: 16px;
 	border-radius: 10px;
 	border: 0 solid #fff;
 	font-family: monospace;
