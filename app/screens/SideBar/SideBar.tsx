@@ -6,6 +6,13 @@ import { Container } from 'typedi'
 // import Container from 'typedi'
 // import { ApiMainLinks } from '../../api'
 
+// if (true) {
+// const whyDidYouRender = require('@welldone-software/why-did-you-render')
+// 	whyDidYouRender(React, {
+// 		trackAllPureComponents: true,
+// 	})
+// }
+
 import Call from '../../components/Call/Call'
 import { SocketContainerClass } from '../../SocketContainer'
 
@@ -36,6 +43,8 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		received_data: '',
 		channel: -1,
 	}
+	static whyDidYouRender = true
+
 	// private socket: any
 	async componentDidMount() {
 		const socket_container = Container.get(SocketContainerClass)
@@ -63,7 +72,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	render() {
 		return (
 			<>
-				{/* <div className=''>{this.state.channel}</div> */}
+				<div className=''>{this.state.channel}</div>
 				{/* <div className='received_data'>{this.state.received_data}</div> */}
 
 				{/* <div className="disable-view-only"> */}

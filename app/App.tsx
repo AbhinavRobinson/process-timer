@@ -73,6 +73,10 @@ export class App extends React.Component<{}, IAppState> {
 		test_active: '',
 	}
 
+	private global_interval_timeout: NodeJS.Timeout
+	private active_app_interval_timeout: NodeJS.Timeout
+	private backend_timeout: NodeJS.Timeout
+
 	// Get platform and initiate monitor
 	async componentDidMount() {
 		ipcRenderer.addListener('start_timer', () => {
@@ -81,27 +85,14 @@ export class App extends React.Component<{}, IAppState> {
 			this.setState({ monitor_app: active_app, backend_running: true })
 			this.run_backend()
 		})
-		// if (remote.getCurrentWindow().id === 1)
-		//;(window as any).electron_store = electron_store
-		// console.log(electron_store.path)
-		//	if (electron_store.has('auth')) {
-		//		if (electron_store.get('auth') === false) {
-		//			remote.getCurrentWindow().setAlwaysOnTop(false)
-		//			this.setState({ LoginDialog: true })
-		//			await this.googleSignIn()
-		//		}
-		//	} else {
-		//		remote.getCurrentWindow().setAlwaysOnTop(false)
-		//		this.setState({ LoginDialog: true })
-		//		await this.googleSignIn()
-		//	}
+
 		remote.getCurrentWindow().setAlwaysOnTop(true)
 		remote.getCurrentWindow().setBounds({
 			// x: remote.screen.getPrimaryDisplay().bounds.width - 120,
 			y: remote.screen.getPrimaryDisplay().bounds.height / 2 - document.getElementById('outer').clientHeight,
 		})
 		console.log('resolved')
-		setInterval(() => {
+		this.active_app_interval_timeout = setInterval(() => {
 			// For Windows
 			if (process.platform === 'win32') {
 				getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
@@ -140,8 +131,11 @@ export class App extends React.Component<{}, IAppState> {
 		ipcRenderer.send('control_state_change', this.state)
 	}
 
-	private global_timeout: NodeJS.Timeout
-
+	componentWillUnmount() {
+		clearTimeout(this.backend_timeout)
+		clearInterval(this.global_interval_timeout)
+		clearInterval(this.active_app_interval_timeout)
+	}
 	// Timer logic
 	run_backend() {
 		const { total_time } = this.state
@@ -171,9 +165,9 @@ export class App extends React.Component<{}, IAppState> {
 			})
 		}, 1000)
 
-		this.global_timeout = interval
+		this.global_interval_timeout = interval
 
-		setTimeout(() => {
+		this.backend_timeout = setTimeout(() => {
 			clearInterval(interval)
 			if (health_array.length === 4) {
 				health_array.splice(0, 1)
@@ -310,7 +304,7 @@ export class App extends React.Component<{}, IAppState> {
 	}
 
 	private stop_backend() {
-		clearInterval(this.global_timeout)
+		clearInterval(this.global_interval_timeout)
 		this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
 	}
 }
