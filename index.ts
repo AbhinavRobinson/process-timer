@@ -35,9 +35,9 @@ class Application {
 	handleEvents() {
 		ipcMain.on('open_sidebar', (_) => {
 			this.openSideBar()
-			const [x, y] = this.AppContainer.InnerWindow.getPosition()
-			this.AppContainer.InnerWindow.setPosition(x + 75, y, true)
-			this.AppContainer.InnerWindow.setOpacity(0.5)
+			// const [x, y] = this.AppContainer.InnerWindow.getPosition()
+			// this.AppContainer.InnerWindow.setPosition(x + 75, y, true)
+			// this.AppContainer.InnerWindow.setOpacity(0.5)
 		})
 		ipcMain.on('sidebar_open_check', (e) => {
 			e.returnValue = this.isSideBarOpen
@@ -57,13 +57,25 @@ class Application {
 	openSideBar() {
 		this.isSideBarOpen = true
 		if (!this.SideBarContainer) {
+			// AppCOntainer Updates
 			const [x, y] = this.AppContainer.InnerWindow.getPosition()
+			this.AppContainer.InnerWindow.setPosition(x + 75, y, true)
+			this.AppContainer.InnerWindow.setOpacity(0.5)
 
 			this.SideBarContainer = new SideBarClass({ x, y })
 			this.SideBarContainer.init()
-			this.SideBarContainer.InnerWindow.setParentWindow(this.AppContainer.InnerWindow)
+			// this.SideBarContainer.InnerWindow.setParentWindow(this.AppContainer.InnerWindow)
 
-			this.SideBarContainer.InnerWindow.setPosition(x - 300, y, true)
+			this.SideBarContainer.InnerWindow.setPosition(x - 550, y, true)
+
+			if (isDevelopment) {
+				setInterval(() => this.SideBarContainer?.InnerWindow?.webContents.send('redirect', true), 1000)
+			} else {
+				const interval = setInterval(() => this.SideBarContainer?.InnerWindow?.webContents.send('redirect', true), 1000)
+				setTimeout(() => {
+					clearInterval(interval)
+				}, 60000)
+			}
 
 			this.SideBarContainer.InnerWindow.on('closed', () => {
 				this.AppContainer.InnerWindow.setPosition(x, y, true)

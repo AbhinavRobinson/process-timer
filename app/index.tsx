@@ -23,6 +23,9 @@ class Main extends Component {
 		super(props)
 		Container.set('url', 'socket.nudge.aniketbiprojit.me')
 	}
+	state = {
+		sidebar: false,
+	}
 	//async componentDidMount() {
 	//	if (firebase.apps.length === 0)
 	//		firebase.initializeApp({
@@ -36,9 +39,16 @@ class Main extends Component {
 	//			databaseURL: 'https://nudge-299511-default-rtdb.firebaseio.com/',
 	//		})
 	//}
+	componentDidMount() {
+		ipcRenderer.on('redirect', (e) => {
+			this.setState({ sidebar: true })
+		})
+	}
 
 	render() {
-		return <>{ipcRenderer.sendSync('sidebar_open_check') ? <SideBar /> : <App />}</>
+		return this.state.sidebar ? <SideBar /> : <App />
+		// return <App />
+		// return <>{ipcRenderer.sendSync('sidebar_open_check') ? <SideBar /> : <App />}</>
 	}
 }
 
