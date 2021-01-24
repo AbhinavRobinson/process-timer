@@ -20,7 +20,7 @@ export class MainWindowClass {
 				devTools: isDevelopment,
 			},
 			width: 90,
-			height: 470,
+			height: 300,
 			x: display.bounds.width - 200,
 			alwaysOnTop: true,
 			frame: false,

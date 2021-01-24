@@ -63,8 +63,8 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	render() {
 		return (
 			<>
-				<div className=''>{this.state.channel}</div>
-				<div className='received_data'>{this.state.received_data}</div>
+				{/* <div className=''>{this.state.channel}</div> */}
+				{/* <div className='received_data'>{this.state.received_data}</div> */}
 
 				{/* <div className="disable-view-only"> */}
 				<Call />
