@@ -53,8 +53,8 @@ const Call = () => {
 	/**
 	 * @see localVideoTrack enables you to view local video feed
 	 */
-	// const { localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
-	const { leave, join, joinState, remoteUsers } = useAgora(client)
+	const { localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
+	// const { leave, join, joinState, remoteUsers } = useAgora(client)
 	const [loading, changeLoading] = useState<boolean>(true)
 
 	const [gameState, changeGameConfig] = useState<IAppState | null>(null)
@@ -84,9 +84,9 @@ const Call = () => {
 				{/**
 				 * @see local-player-wrapper enables you to see local video feed (Call.tsx:53)
 				 */}
-				{/* <div className='local-player-wrapper'>
+				<div className='local-player-wrapper'>
 					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
-				</div> */}
+				</div>
 				{!remoteUsers.length && (
 					<p>
 						Current App:
