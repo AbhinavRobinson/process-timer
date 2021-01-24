@@ -123,7 +123,11 @@ const Call = () => {
 					disabled={!joinState}
 					onClick={() => {
 						leave()
-						document.getElementById('leave').style.background = 'red'
+						if (document.getElementById('leave').style.background == 'red') {
+							document.getElementById('leave').style.background = '#87a3ff'
+						} else {
+							document.getElementById('leave').style.background = 'red'
+						}
 						remote.getCurrentWindow().close()
 					}}
 				>
@@ -135,7 +139,11 @@ const Call = () => {
 					className='btn btn-primary btn-sm'
 					// disabled={!joinState}
 					onClick={() => {
-						document.getElementById('cam').style.background = 'red'
+						if (document.getElementById('cam').style.background == 'red') {
+							document.getElementById('cam').style.background = '#87a3ff'
+						} else {
+							document.getElementById('cam').style.background = 'red'
+						}
 					}}
 				>
 					<FontAwesomeIcon icon={faCamera} />
@@ -146,7 +154,11 @@ const Call = () => {
 					className='btn btn-primary btn-sm'
 					// disabled={!joinState}
 					onClick={() => {
-						document.getElementById('mic').style.background = 'red'
+						if (document.getElementById('mic').style.background == 'red') {
+							document.getElementById('mic').style.background = '#87a3ff'
+						} else {
+							document.getElementById('mic').style.background = 'red'
+						}
 					}}
 				>
 					<FontAwesomeIcon icon={faMicrophone} />
