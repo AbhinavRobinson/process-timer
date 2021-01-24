@@ -34,6 +34,7 @@ interface ISideBarState {
 	active_user_ids: Array<string>
 	received_data: string
 	channel: number
+	token: string
 }
 
 export class SideBar extends Component<ISideBarProps, ISideBarState> {
@@ -42,6 +43,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		active_user_ids: [],
 		received_data: '',
 		channel: -1,
+		token: null,
 	}
 	static whyDidYouRender = true
 
@@ -54,8 +56,9 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		// })
 		socket_container.init()
 		socket_container.get_channel({
-			callback: (channel) => {
-				this.setState({ channel })
+			callback: (data) => {
+				const { channel, token } = data
+				this.setState({ channel, token })
 			},
 		})
 	}
