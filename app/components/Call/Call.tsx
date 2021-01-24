@@ -16,7 +16,7 @@ import { IAppState } from '../../App'
 import DragRegion from '../DragRegion'
 import './Call.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera, faMicrophone, faPhoneSlash } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faCloudDownloadAlt, faMicrophone, faPhoneSlash } from '@fortawesome/free-solid-svg-icons'
 // *** END OF IMPORTS ***
 
 const remote = require('electron').remote
@@ -75,8 +75,9 @@ const Call = () => {
 
 	if (loading)
 		return (
-			<div className='call'>
-				<p>Loading...</p>
+			<div className='loading'>
+				<FontAwesomeIcon icon={faCloudDownloadAlt} />
+				<h3>Engines warming up...</h3>
 			</div>
 		)
 
@@ -95,7 +96,8 @@ const Call = () => {
 						{gameState?.active_app}
 						{'\n'}
 						Channel: {agoraConfig?.channel}
-						{'\n'}Waiting for another user to join...
+						{'\n'}
+						<h3>Waiting for another user to join...</h3>
 					</p>
 				)}
 				{remoteUsers.map((user) => (

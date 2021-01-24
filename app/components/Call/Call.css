@@ -2,6 +2,28 @@
 	text-align: center;
 }
 
+.loading {
+	height: 200px;
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	font-size: 50px;
+	background-color: rgb(246, 246, 246);
+	border-radius: 25px;
+	color: #87a3ff;
+}
+
+.loading h3 {
+	margin: 10px;
+	font-size: 10px;
+	font-family: monospace;
+	color: #333;
+}
+
 .player-container {
 	padding: 20px;
 	text-align: initial;

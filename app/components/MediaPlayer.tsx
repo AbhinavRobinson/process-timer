@@ -25,7 +25,7 @@ const MediaPlayer = (props: VideoPlayerProps) => {
 			props.audioTrack?.stop()
 		}
 	}, [props.audioTrack])
-	return <div ref={container} className='video-player' style={{ width: '100px', height: '100px' }}></div>
+	return <div ref={container} className='video-player' style={{ width: '200px', height: '150px' }}></div>
 }
 
 export default MediaPlayer
