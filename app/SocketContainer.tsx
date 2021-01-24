@@ -8,13 +8,16 @@ const electron_store = new Store()
 @Service()
 export class SocketContainerClass {
 	public io: SocketIOClient.Socket
-	private readonly url = `wss://${Container.get('url')}/`
+	private url = `wss://${Container.get('url')}/`
 
 	// constructor() {
 	// 	this.init()
 	// }
 
-	init() {
+	init(develop: boolean = false) {
+		if (develop) {
+			this.url = 'ws://localhost:8080'
+		}
 		this.io = socket(this.url)
 		this.io.on('connect', () => {
 			try {
@@ -31,6 +34,13 @@ export class SocketContainerClass {
 		})
 		this.io.io.on('chat_response', (data) => {
 			console.log(data, 1)
+		})
+	}
+
+	get_channel({ callback }: { callback: (data) => void }) {
+		this.io.on('update_channel', (e) => {
+			console.log(e, 'get_channel')
+			callback(e)
 		})
 	}
 

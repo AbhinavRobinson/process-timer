@@ -26,6 +26,7 @@ interface ISideBarState {
 	}
 	active_user_ids: Array<string>
 	received_data: string
+	channel: number
 }
 
 export class SideBar extends Component<ISideBarProps, ISideBarState> {
@@ -33,37 +34,21 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		active_users: {},
 		active_user_ids: [],
 		received_data: '',
+		channel: -1,
 	}
-	private socket: any
+	// private socket: any
 	async componentDidMount() {
+		const socket_container = Container.get(SocketContainerClass)
 		// remote.getCurrentWindow().setBounds({
 		// 	x: remote.screen.getPrimaryDisplay().bounds.width - 120,
 		// 	y: remote.screen.getPrimaryDisplay().bounds.height / 2 - document.getElementById('outer').clientHeight,
 		// })
-		Container.get(SocketContainerClass).init()
-		//	Container.get(PeerContainer).init()
-		//	this.socket = Container.get(SocketContainerClass).io
-		//	this.socket.on('chat_response', (data) => {
-		//		// console.log(data)
-		//		if (data && data.data && data.data.timer) {
-		//			console.log(data.data.timer, 'timer')
-		//			this.setState({ received_data: JSON.stringify(data.data.timer) })
-		//		}
-		//		if (data && data.data && data.data.calling) {
-		//			const key = data.sent_by
-		//			const calling_user = this.state.active_users[key]
-		//			this.answer(key, calling_user)
-		//			// this.answer()
-		//		}
-		//	})
-		//	const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
-		//	console.log(active_users)
-		//	// const active_user_ids = []
-		//	this.setState({ active_users })
-		//	setInterval(async () => {
-		//		const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
-		//		this.setState({ active_users })
-		//	}, 5 * 1000) // Update after 30 seconds
+		socket_container.init()
+		socket_container.get_channel({
+			callback: (channel) => {
+				this.setState({ channel })
+			},
+		})
 	}
 
 	onChatResponse() {
@@ -78,6 +63,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	render() {
 		return (
 			<>
+				<div className=''>{this.state.channel}</div>
 				<div className='received_data'>{this.state.received_data}</div>
 
 				{/* <div className="disable-view-only"> */}
@@ -130,13 +116,12 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		})
 	}
 	send_connect(user: UserDataType, key: string, data: any = 'hi') {
-		this.socket.emit('chat_message', {
-			data: data,
-			key: key,
-		})
-
-		this.socket.on('chat_response', (data) => {
-			console.log(data)
-		})
+		// this.socket.emit('chat_message', {
+		// 	data: data,
+		// 	key: key,
+		// })
+		// this.socket.on('chat_response', (data) => {
+		// 	console.log(data)
+		// })
 	}
 }
