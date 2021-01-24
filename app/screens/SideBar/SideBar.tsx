@@ -2,10 +2,12 @@
 
 import { ipcRenderer } from 'electron'
 import React, { Component } from 'react'
+import { Container } from 'typedi'
 // import Container from 'typedi'
 // import { ApiMainLinks } from '../../api'
 
 import Call from '../../components/Call/Call'
+import { SocketContainerClass } from '../../SocketContainer'
 
 interface ISideBarProps {}
 
@@ -38,7 +40,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		// 	x: remote.screen.getPrimaryDisplay().bounds.width - 120,
 		// 	y: remote.screen.getPrimaryDisplay().bounds.height / 2 - document.getElementById('outer').clientHeight,
 		// })
-		//	Container.get(SocketContainerClass).init()
+		Container.get(SocketContainerClass).init()
 		//	Container.get(PeerContainer).init()
 		//	this.socket = Container.get(SocketContainerClass).io
 		//	this.socket.on('chat_response', (data) => {

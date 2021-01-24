@@ -18,6 +18,7 @@ export class SocketContainerClass {
 		this.io = socket(this.url)
 		this.io.on('connect', () => {
 			try {
+				console.log(electron_store.get('user_uid'))
 				this.io.emit('store_uid', {
 					user_id: electron_store.get('user_uid'),
 				})
@@ -31,5 +32,9 @@ export class SocketContainerClass {
 		this.io.io.on('chat_response', (data) => {
 			console.log(data, 1)
 		})
+	}
+
+	disconnect() {
+		this.io.disconnect()
 	}
 }
