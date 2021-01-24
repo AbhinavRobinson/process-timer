@@ -16,7 +16,7 @@ import { IAppState } from '../../App'
 import DragRegion from '../DragRegion'
 import './Call.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhoneSlash, faWindowClose } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faPhoneSlash, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 // *** END OF IMPORTS ***
 
 const remote = require('electron').remote
@@ -123,10 +123,22 @@ const Call = () => {
 					disabled={!joinState}
 					onClick={() => {
 						leave()
+						document.getElementById('leave').style.background = 'red'
 						remote.getCurrentWindow().close()
 					}}
 				>
 					<FontAwesomeIcon icon={faPhoneSlash} />
+				</button>
+				<button
+					id='cam'
+					type='button'
+					className='btn btn-primary btn-sm'
+					disabled={!joinState}
+					onClick={() => {
+						document.getElementById('cam').style.background = 'red'
+					}}
+				>
+					<FontAwesomeIcon icon={faCamera} />
 				</button>
 			</div>
 			<div className='game'>
