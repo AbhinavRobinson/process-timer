@@ -118,6 +118,7 @@
 	align-items: center;
 	height: auto;
 	width: auto;
+	max-width: 250px;
 }
 
 .call .game {
@@ -151,13 +152,13 @@
 .call button {
 	background: #87a3ff;
 	color: white;
-	font-size: 16px;
+	font-size: 20px;
 	border-radius: 10px;
 	border: 0 solid #fff;
 	font-family: monospace;
 	text-transform: uppercase;
-	width: 30px;
-	height: 30px;
+	width: 45px;
+	height: 45px;
 }
 
 .call button:hover,

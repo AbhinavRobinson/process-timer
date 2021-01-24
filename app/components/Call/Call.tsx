@@ -16,7 +16,7 @@ import { IAppState } from '../../App'
 import DragRegion from '../DragRegion'
 import './Call.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera, faMicrophone, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faMicrophone, faPhoneSlash } from '@fortawesome/free-solid-svg-icons'
 // *** END OF IMPORTS ***
 
 const remote = require('electron').remote
@@ -90,7 +90,7 @@ const Call = () => {
 					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
 				</div>
 				{!remoteUsers.length && (
-					<p>
+					<p id='info'>
 						Current App:
 						{gameState?.active_app}
 						{'\n'}
@@ -131,7 +131,7 @@ const Call = () => {
 						remote.getCurrentWindow().close()
 					}}
 				>
-					<FontAwesomeIcon icon={faPhone} />
+					<FontAwesomeIcon icon={faPhoneSlash} />
 				</button>
 				<button
 					id='cam'
