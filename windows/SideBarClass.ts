@@ -19,7 +19,7 @@ export class SideBarClass {
 				webSecurity: false,
 			},
 			width: 300,
-			height: 550,
+			height: 625,
 			...position,
 			alwaysOnTop: true,
 			frame: false,
