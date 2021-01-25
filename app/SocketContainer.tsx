@@ -43,7 +43,7 @@ export class SocketContainerClass {
 		})
 	}
 
-	private store_uid() {
+	store_uid() {
 		try {
 			console.log(electron_store.get('user_uid'))
 			this.io.emit('store_uid', {
