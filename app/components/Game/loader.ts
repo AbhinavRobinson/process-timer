@@ -20,6 +20,7 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, local:
 	socket.on_receive_update((data) => {
 		opponent_state = data
 	})
+
 	// bg color
 	canvas.style.backgroundColor = '#04293F'
 	ctx.save()
@@ -47,6 +48,9 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, local:
 		main(0)
 	}
 
+	var local_state: any
+	var ratio: any
+
 	// Main loop
 	function main(ft) {
 		if (ft - lastFrameTime < FRAME_MIN_TIME) {
@@ -56,7 +60,12 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, local:
 		lastFrameTime = ft
 		clear()
 
-		render(t)
+		local_state = local === true ? our_state : opponent_state
+
+		ratio = local_state?.time_spent[local_state?.time_spent.length - 1]
+		console.log(ratio?.display_percentage)
+
+		render(t, ratio?.display_percentage)
 		// render(t);
 		// document.getElementById('TIME').innerHTML = 'Score : ' + Cycles + ' | Time : ' + parseInt(t)
 
@@ -127,26 +136,26 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, local:
 	}
 
 	// Render the game
-	function render(t) {
+	function render(t, game_cmp) {
 		// Draw the frame
-		let cmp = (t / time) * 100 * 175
+		let cmp = (100 - game_cmp) * 16 * x_unit
 
-		Balloon(250 * x_unit, (50 + cmp) * y_unit)
-		drawSpikes(0, (500 - cmp) * y_unit)
+		Balloon(250 * x_unit, (100 + cmp) * y_unit)
+		drawSpikes(0, 500 * y_unit)
 
 		ctx.beginPath()
 		ctx.moveTo(0, 500 * y_unit)
-		ctx.lineTo(0, (499 - cmp) * y_unit)
-		ctx.lineTo(500 * x_unit, (499 - cmp) * y_unit)
+		ctx.lineTo(0, 499 * y_unit)
+		ctx.lineTo(500 * x_unit, 499 * y_unit)
 		ctx.lineTo(500 * x_unit, 500 * y_unit)
 		ctx.fillStyle = '#111D23'
 		ctx.fill()
 
 		ctx.beginPath()
-		ctx.moveTo(0, (515 - cmp) * y_unit)
-		ctx.lineTo(0, (499 - cmp) * y_unit)
-		ctx.lineTo(500 * x_unit, (499 - cmp) * y_unit)
-		ctx.lineTo(500 * x_unit, (515 - cmp) * y_unit)
+		ctx.moveTo(0, 515 * y_unit)
+		ctx.lineTo(0, 499 * y_unit)
+		ctx.lineTo(500 * x_unit, 499 * y_unit)
+		ctx.lineTo(500 * x_unit, 515 * y_unit)
 		ctx.fillStyle = '#64768C'
 		ctx.fill()
 	}
