@@ -63,7 +63,6 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, local:
 		local_state = local === true ? our_state : opponent_state
 
 		ratio = local_state?.time_spent[local_state?.time_spent.length - 1]
-		console.log(ratio?.display_percentage)
 
 		render(t, ratio?.display_percentage)
 		// render(t);
