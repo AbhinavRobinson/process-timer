@@ -54,12 +54,12 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		const socket_container = Container.get(SocketContainerClass)
 		const develop = false
 		this.initSocket(socket_container, develop)
-		setTimeout(() => {
-			if (this.state.channel === '-1') {
-				socket_container.disconnect()
-				this.initSocket(socket_container, develop)
-			}
-		}, 5000)
+		// setTimeout(() => {
+		// 	if (this.state.channel === '-1') {
+		// 		socket_container.disconnect()
+		// 		this.initSocket(socket_container, develop)
+		// 	}
+		// }, 10000)
 	}
 
 	/**
