@@ -32,6 +32,11 @@ interface agoraState {
 	error?: string
 }
 
+interface AVState {
+	audio: boolean
+	video: boolean
+}
+
 /**
  * Agora Config
  */
@@ -63,11 +68,13 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 	/**
 	 * @see localVideoTrack enables you to view local video feed
 	 */
-	const { localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
-	// const { leave, join, joinState, remoteUsers } = useAgora(client)
+	const { localVideoTrack, localAudioTrack, leave, join, joinState, remoteUsers } = useAgora(client)
+
 	const [loading, changeLoading] = useState<boolean>(true)
 
 	const [gameState, changeGameConfig] = useState<IAppState | null>(null)
+
+	const [avState, changeAV] = useState<AVState>({ video: true, audio: true })
 
 	useEffect(() => {
 		//	getAgoraToken(changeLoading)
@@ -95,6 +102,15 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 		}
 	}, [loading, agoraConfig])
 
+	useEffect(() => {
+		if (joinState) {
+			if (!avState.video) client.unpublish(localVideoTrack)
+			else client.publish(localVideoTrack)
+			if (!avState.audio) client.unpublish(localAudioTrack)
+			else client.publish(localAudioTrack)
+		}
+	}, [avState])
+
 	if (loading || error)
 		return (
 			<div className='loading'>
@@ -115,18 +131,22 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 				{/**
 				 * @see local-player-wrapper enables you to see local video feed (Call.tsx:53)
 				 */}
-				<div className='local-player-wrapper'>
-					<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>
-				</div>
+
 				{!remoteUsers.length && (
-					<p id='info'>
-						Current App:
-						{gameState?.active_app}
+					<>
+						<div className='local-player-wrapper'>
+							{avState.video && <MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>}
+						</div>
 						{'\n'}
-						Channel: {agoraConfig?.channel}
-						{'\n'}
-						<p>Waiting for another user to join...</p>
-					</p>
+						<p id='info'>
+							Current App:
+							{gameState?.active_app}
+							{'\n'}
+							Channel: {agoraConfig?.channel}
+							{'\n'}
+							<p>Waiting for another user to join...</p>
+						</p>
+					</>
 				)}
 				{remoteUsers.map((user) => (
 					<div className='remote-player-wrapper' key={user.uid}>
@@ -140,12 +160,7 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 					</div>
 				))}
 			</div>
-			{/**
-			 *  Confirmation Text
-			 */}
-			{/*
-			<p className='local-player-text'>{!loading && joinState && localVideoTrack ? 'Connected' : 'Disconnected'}</p>
-						*/}
+
 			<div className='button-group'>
 				<button
 					id='leave'
@@ -169,13 +184,8 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 					type='button'
 					className='btn btn-primary btn-sm'
 					// disabled={!joinState}
-					onClick={() => {
-						if (document.getElementById('cam').style.background == 'red') {
-							document.getElementById('cam').style.background = '#87a3ff'
-						} else {
-							document.getElementById('cam').style.background = 'red'
-						}
-					}}
+					style={{ background: avState.video ? '#87a3ff' : 'red' }}
+					onClick={() => changeAV({ ...avState, video: !avState.video })}
 				>
 					<FontAwesomeIcon icon={faCamera} />
 				</button>
@@ -184,13 +194,8 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 					type='button'
 					className='btn btn-primary btn-sm'
 					// disabled={!joinState}
-					onClick={() => {
-						if (document.getElementById('mic').style.background == 'red') {
-							document.getElementById('mic').style.background = '#87a3ff'
-						} else {
-							document.getElementById('mic').style.background = 'red'
-						}
-					}}
+					style={{ background: avState.audio ? '#87a3ff' : 'red' }}
+					onClick={() => changeAV({ ...avState, audio: !avState.audio })}
 				>
 					<FontAwesomeIcon icon={faMicrophone} />
 				</button>
