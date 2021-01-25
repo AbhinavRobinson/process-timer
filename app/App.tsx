@@ -306,5 +306,6 @@ export class App extends React.Component<{}, IAppState> {
 	private stop_backend() {
 		clearInterval(this.global_interval_timeout)
 		this.setState({ running_time: 0, time_spent: [], active_time: 0, backend_running: false })
+		window.location.reload()
 	}
 }
