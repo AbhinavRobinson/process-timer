@@ -13,9 +13,9 @@ import './css/utilities.css'
 import Container from 'typedi'
 
 // Amplify
-import Amplify from 'aws-amplify'
-import config from './aws-exports.js'
-Amplify.configure(config)
+//import Amplify from 'aws-amplify'
+//import config from './aws-exports.js'
+//Amplify.configure(config)
 
 import Store from 'electron-store'
 const electron_store = new Store()
