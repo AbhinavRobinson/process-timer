@@ -6,13 +6,16 @@ import { SocketContainerClass } from '../../SocketContainer'
 function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, local: boolean) {
 	// Receive state from our App.
 	const socket = Container.get(SocketContainerClass)
+	var opponent_state: any
+	var our_state: any
+
 	ipcRenderer.on('stateUpdate', (_, state) => {
 		console.log(state, 'game_container')
 		// Send Our State Update to Socket
+		our_state = state
 		socket.send_state(state)
 	})
 
-	var opponent_state: any
 	// Receive opponent state from Socket.
 	socket.on_receive_update((data) => {
 		opponent_state = data
