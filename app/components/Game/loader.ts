@@ -1,8 +1,22 @@
+import { ipcRenderer } from 'electron'
+import Container from 'typedi'
 import { drawFunction } from '../../hooks/useCanvas'
+import { SocketContainerClass } from '../../SocketContainer'
 
 function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
-	// let Cycles = 0
+	// Receive state from our App.
+	const socket = Container.get(SocketContainerClass)
+	ipcRenderer.on('stateUpdate', (_, state) => {
+		console.log(state, 'game_container')
+		// Send Our State Update to Socket
+		socket.send_state(state)
+	})
 
+	var opponent_state: any
+	// Receive opponent state from Socket.
+	socket.on_receive_update((data) => {
+		opponent_state = data
+	})
 	// bg color
 	canvas.style.backgroundColor = '#04293F'
 	ctx.save()

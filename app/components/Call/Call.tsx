@@ -74,7 +74,7 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 		//		.then((state) => changeAgoraConfig({ ...state, channel, token }))
 		//		.catch(console.error)
 		ipcRenderer.on('stateUpdate', (_, state) => {
-			console.log(state)
+			// console.log(state)
 			changeGameConfig(state)
 		})
 	}, [])

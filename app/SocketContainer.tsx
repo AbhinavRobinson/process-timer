@@ -13,6 +13,22 @@ export class SocketContainerClass {
 	// constructor() {
 	// 	this.init()
 	// }
+	on_receive_update(callback) {
+		try {
+			this.io.on('receive_state', (state) => {
+				callback(state)
+			})
+		} catch (err) {
+			console.error(err)
+		}
+	}
+	send_state(state) {
+		try {
+			this.io.emit('send_state', state)
+		} catch (err) {
+			console.error(err)
+		}
+	}
 
 	init(develop: boolean = false) {
 		if (develop) {
@@ -30,7 +46,9 @@ export class SocketContainerClass {
 					console.log(data, 1)
 				})
 				// this.io.
-			} catch (error) {}
+			} catch (error) {
+				console.error(error)
+			}
 		})
 		this.io.io.on('chat_response', (data) => {
 			console.log(data, 1)
