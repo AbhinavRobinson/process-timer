@@ -8,7 +8,7 @@ import useAgora from '../../hooks/useAgora'
 import MediaPlayer from '../MediaPlayer'
 
 // AWS
-import { API } from 'aws-amplify'
+//import { API } from 'aws-amplify'
 
 // LOCAL IMPORTS
 import Game from '../Game'
@@ -28,7 +28,8 @@ interface agoraState {
 	appID: string
 	token: string
 	channel: string
-	users: number
+	users?: number
+	error?: string
 }
 
 /**
@@ -36,20 +37,27 @@ interface agoraState {
  */
 const client = AgoraRTC.createClient({ codec: 'h264', mode: 'rtc' })
 
+interface CallProps {
+	channel: string
+	token: string
+	error?: string
+}
+
+const appID = 'cbc3098a370649a09784656a887ffd96'
 /**
  * @returns Agora Token and Channels
  * @param changeLoading provide loading confirm
  */
-async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<boolean>>): Promise<agoraState> {
-	const { token, channel, appID, users } = await API.post('mainApi', '/agora/token', {})
-	changeLoading(false)
-	return { appID, token, channel, users }
-}
+//async function getAgoraToken(changeLoading: React.Dispatch<React.SetStateAction<boolean>>): Promise<agoraState> {
+//	const { token, channel, appID, users } = await API.post('mainApi', '/agora/token', {})
+//	changeLoading(false)
+//	return { appID, token, channel, users }
+//}
 
 /**
  * @returns Agora Call and Game Component
  */
-const Call = () => {
+const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 	const [agoraConfig, changeAgoraConfig] = useState<agoraState | null>(null)
 
 	/**
@@ -62,7 +70,9 @@ const Call = () => {
 	const [gameState, changeGameConfig] = useState<IAppState | null>(null)
 
 	useEffect(() => {
-		getAgoraToken(changeLoading).then(changeAgoraConfig).catch(console.error)
+		//	getAgoraToken(changeLoading)
+		//		.then((state) => changeAgoraConfig({ ...state, channel, token }))
+		//		.catch(console.error)
 		ipcRenderer.on('stateUpdate', (_, state) => {
 			console.log(state)
 			changeGameConfig(state)
@@ -70,14 +80,31 @@ const Call = () => {
 	}, [])
 
 	useEffect(() => {
-		if (!loading && agoraConfig) join(agoraConfig.appID, agoraConfig.channel, agoraConfig.token)
+		if (channel && token && !error) {
+			changeAgoraConfig({ channel, token, appID })
+			changeLoading(false)
+		} else if (error) {
+		}
+	}, [token, channel, error])
+
+	useEffect(() => {
+		if (!loading && agoraConfig) {
+			console.log({ joinedConfig: agoraConfig })
+			join(agoraConfig.appID, agoraConfig.channel, agoraConfig.token)
+		}
 	}, [loading, agoraConfig])
 
-	if (loading)
+	if (loading || error)
 		return (
 			<div className='loading'>
-				<FontAwesomeIcon icon={faCloudDownloadAlt} />
-				<h3>Engines warming up...</h3>
+				{loading ? (
+					<>
+						<FontAwesomeIcon icon={faCloudDownloadAlt} />
+						<h3>Engines warming up...</h3>
+					</>
+				) : (
+					<h3>Error: {agoraConfig.error}</h3>
+				)}
 			</div>
 		)
 
@@ -97,7 +124,7 @@ const Call = () => {
 						{'\n'}
 						Channel: {agoraConfig?.channel}
 						{'\n'}
-						<h3>Waiting for another user to join...</h3>
+						<p>Waiting for another user to join...</p>
 					</p>
 				)}
 				{remoteUsers.map((user) => (
