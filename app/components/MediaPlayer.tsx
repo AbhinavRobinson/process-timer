@@ -25,6 +25,12 @@ const MediaPlayer = (props: VideoPlayerProps) => {
 			props.audioTrack?.stop()
 		}
 	}, [props.audioTrack])
+	useEffect(() => {
+		try {
+			const divi = container.current.children[0] as HTMLDivElement
+			divi.style.background = '#eeeeee'
+		} catch (err) {}
+	})
 	return <div ref={container} className='video-player' style={{ width: '200px', height: '150px' }}></div>
 }
 
