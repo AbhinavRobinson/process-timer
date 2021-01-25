@@ -49,6 +49,7 @@ class Application {
 
 		this.AppContainer.InnerWindow.on('closed', () => {
 			this.AppContainer = null
+			this.SideBarContainer = null
 		})
 
 		// TODO add a close_sidebar call: should be callable globally
