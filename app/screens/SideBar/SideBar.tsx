@@ -54,7 +54,7 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		// 	x: remote.screen.getPrimaryDisplay().bounds.width - 120,
 		// 	y: remote.screen.getPrimaryDisplay().bounds.height / 2 - document.getElementById('outer').clientHeight,
 		// })
-		socket_container.init()
+		socket_container.init(true)
 		socket_container.get_channel({
 			callback: (data) => {
 				const { channel, token } = data
