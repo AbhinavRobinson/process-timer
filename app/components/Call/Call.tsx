@@ -90,6 +90,7 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 	useEffect(() => {
 		if (!loading && agoraConfig) {
 			console.log({ joinedConfig: agoraConfig })
+			joinState && leave()
 			join(agoraConfig.appID, agoraConfig.channel, agoraConfig.token)
 		}
 	}, [loading, agoraConfig])
