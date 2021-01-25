@@ -52,16 +52,21 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	// private socket: any
 	async componentDidMount() {
 		const socket_container = Container.get(SocketContainerClass)
+		const develop = true
+		this.initSocket(socket_container, develop)
 		setTimeout(() => {
 			if (this.state.channel === '-1') {
 				socket_container.disconnect()
-				this.initSocket(socket_container)
+				this.initSocket(socket_container, develop)
 			}
 		}, 5000)
 	}
 
-	private initSocket(socket_container: SocketContainerClass) {
-		socket_container.init()
+	/**
+	 * Initialize socket and call update channels.
+	 */
+	private initSocket(socket_container: SocketContainerClass, develop: boolean = false) {
+		socket_container.init(develop)
 		this.update_channel(socket_container)
 	}
 
