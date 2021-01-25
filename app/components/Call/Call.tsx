@@ -195,8 +195,8 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 				</button>
 			</div>
 			<div className='game'>
-				<Game {...{ gameState }} />
-				<Game {...{ gameState }} />
+				<Game {...{ gameState }} local={true} />
+				<Game {...{ gameState }} local={false} />
 			</div>
 			<DragRegion />
 		</div>

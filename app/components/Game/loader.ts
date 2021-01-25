@@ -3,7 +3,7 @@ import Container from 'typedi'
 import { drawFunction } from '../../hooks/useCanvas'
 import { SocketContainerClass } from '../../SocketContainer'
 
-function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, local: boolean) {
 	// Receive state from our App.
 	const socket = Container.get(SocketContainerClass)
 	ipcRenderer.on('stateUpdate', (_, state) => {
@@ -182,7 +182,7 @@ function loader(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
 }
 // This function receives 2-D context of the canvas and the frameCount
 // All the drawing stuff can be performed here
-export const draw: drawFunction = (canvas, ctx, frameCount) => {
-	loader(canvas, ctx)
+export const draw: drawFunction = (canvas, ctx, frameCount, local) => {
+	loader(canvas, ctx, local)
 	// ctx.fill()
 }

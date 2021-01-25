@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react'
 
-export type drawFunction = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, frameCount: number) => void
+export type drawFunction = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, frameCount: number, local: boolean) => void
 
-const useCanvas = (draw: drawFunction) => {
+const useCanvas = (draw: drawFunction, local: boolean) => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
 	useEffect(() => {
@@ -14,7 +14,7 @@ const useCanvas = (draw: drawFunction) => {
 		// const render = () => {
 		// 	frameCount++
 
-		draw(canvas, context, frameCount)
+		draw(canvas, context, frameCount, local)
 		// 	animationFrameId = window.requestAnimationFrame(render)
 		// }
 		// render()
