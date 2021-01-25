@@ -120,6 +120,14 @@
 	width: 275px;
 }
 
+.call .video-player video {
+	border-radius: 20px;
+}
+
+.call .video-player {
+	margin: 10px 0;
+}
+
 .call .game {
 	margin: 20px 0;
 	display: flex;
