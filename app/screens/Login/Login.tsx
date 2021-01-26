@@ -25,7 +25,7 @@ const Login = () => {
 				<button
 					onClick={() => {
 						remote.getCurrentWindow().setAlwaysOnTop(false)
-						remote.getCurrentWindow().hide()
+						remote.getCurrentWindow().minimize()
 					}}
 				>
 					<FontAwesomeIcon icon={faEyeSlash} style={{ color: '#333' }} />
