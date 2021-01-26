@@ -32,11 +32,6 @@ interface agoraState {
 	error?: string
 }
 
-interface AVState {
-	audio: boolean
-	video: boolean
-}
-
 /**
  * Agora Config
  */
@@ -68,13 +63,11 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 	/**
 	 * @see localVideoTrack enables you to view local video feed
 	 */
-	const { localVideoTrack, localAudioTrack, leave, join, joinState, remoteUsers } = useAgora(client)
+	const { avState, changeAV, localVideoTrack, leave, join, joinState, remoteUsers } = useAgora(client)
 
 	const [loading, changeLoading] = useState<boolean>(true)
 
 	const [gameState, changeGameConfig] = useState<IAppState | null>(null)
-
-	const [avState, changeAV] = useState<AVState>({ video: true, audio: true })
 
 	useEffect(() => {
 		//	getAgoraToken(changeLoading)
@@ -96,20 +89,10 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 
 	useEffect(() => {
 		if (!loading && agoraConfig) {
-			console.log({ joinedConfig: agoraConfig })
 			joinState && leave()
 			join(agoraConfig.appID, agoraConfig.channel, agoraConfig.token)
 		}
 	}, [loading, agoraConfig])
-
-	useEffect(() => {
-		if (joinState) {
-			if (!avState.video) client.unpublish(localVideoTrack)
-			else client.publish(localVideoTrack)
-			if (!avState.audio) client.unpublish(localAudioTrack)
-			else client.publish(localAudioTrack)
-		}
-	}, [avState])
 
 	if (loading || error)
 		return (

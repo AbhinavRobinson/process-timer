@@ -10,6 +10,11 @@ import AgoraRTC, {
 	ILocalAudioTrack,
 } from 'agora-rtc-sdk-ng'
 
+interface AVState {
+	audio: boolean
+	video: boolean
+}
+
 /**
  * Internal Agora Service Handler
  * @param client
@@ -23,6 +28,8 @@ export default function useAgora(
 	leave: Function
 	join: Function
 	remoteUsers: IAgoraRTCRemoteUser[]
+	avState: AVState
+	changeAV: React.Dispatch<React.SetStateAction<AVState>>
 } {
 	const [localVideoTrack, setLocalVideoTrack] = useState<ILocalVideoTrack | undefined>(undefined)
 	const [localAudioTrack, setLocalAudioTrack] = useState<ILocalAudioTrack | undefined>(undefined)
@@ -30,6 +37,8 @@ export default function useAgora(
 	const [joinState, setJoinState] = useState(false)
 
 	const [remoteUsers, setRemoteUsers] = useState<IAgoraRTCRemoteUser[]>([])
+
+	const [avState, changeAV] = useState<AVState>({ video: true, audio: true })
 
 	async function createLocalTracks(
 		audioConfig?: MicrophoneAudioTrackInitConfig,
@@ -103,6 +112,21 @@ export default function useAgora(
 		}
 	}, [client])
 
+	useEffect(() => {
+		if (joinState) {
+			if (!avState.video) {
+				client.unpublish(localVideoTrack)
+			} else {
+				client.publish(localVideoTrack)
+			}
+			if (!avState.audio) {
+				client.unpublish(localAudioTrack)
+			} else {
+				client.publish(localAudioTrack)
+			}
+		}
+	}, [avState])
+
 	return {
 		localAudioTrack,
 		localVideoTrack,
@@ -110,5 +134,7 @@ export default function useAgora(
 		leave,
 		join,
 		remoteUsers,
+		avState,
+		changeAV,
 	}
 }
