@@ -10,12 +10,13 @@
 	justify-content: center;
 	align-items: center;
 	width: 50px;
-	height: 45px;
-	border-radius: 10px;
+	height: 50px;
+	border-radius: 9999px;
 	overflow: hidden;
 	position: relative;
-	margin-bottom: 15px;
-	box-shadow: 0 0 0 1px grey;
+	margin-bottom: 10px;
+	box-shadow: 0 0 0 1px #333;
+	font-size: 20px;
 	animation: glow-green 500ms ease-in-out infinite;
 	-webkit-user-select: none;
 }
@@ -88,6 +89,7 @@
 }
 
 .outer .read-button {
+	font-size: 22px;
 	margin-top: 10px;
 }
 
