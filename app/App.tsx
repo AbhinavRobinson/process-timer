@@ -36,6 +36,7 @@ const electron_store = new Store()
 import MessageHandler from './components/MessageHandler'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
+const ignoreApp = isDevelopment ? 'Electron' : 'Nudge'
 
 // create IHealth interface for app monitor
 export interface IHealth {
@@ -106,7 +107,7 @@ export class App extends React.Component<{}, IAppState> {
 			// For Windows
 			if (process.platform === 'win32') {
 				getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
-					if (data['title'] !== 'Electron') {
+					if (data['title'] !== ignoreApp) {
 						if (data['app'] === 'chrome.exe') this.setState({ active_app: data['title'] })
 						else this.setState({ active_app: data['app'] })
 					}
@@ -118,7 +119,6 @@ export class App extends React.Component<{}, IAppState> {
 					const data = await activeWin()
 					const appName: string = data?.owner?.name
 					if (!appName) return null
-					const ignoreApp = 'Electron'
 					if (appName.toUpperCase() !== ignoreApp.toUpperCase()) this.setState({ active_app: data.owner?.name.toUpperCase() })
 				})()
 			}
