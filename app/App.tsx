@@ -6,7 +6,7 @@ import React, { Fragment } from 'react'
  * Font Awesome Imports
  */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faCheck, faTimes, faPhone, faStopwatch } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faCheck, faTimes, faPhone, faStopwatch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Checks active app in windows
@@ -307,8 +307,9 @@ export class App extends React.Component<{}, IAppState> {
 							electron_store.clear()
 							window.location.reload()
 						}}
+						className='logout-button sm'
 					>
-						LO
+						<FontAwesomeIcon icon={faSignOutAlt} className='icon' />
 					</button>
 
 					{/* {this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>} */}

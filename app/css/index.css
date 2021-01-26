@@ -72,7 +72,8 @@
 
 .outer .play-button,
 .outer .pause-button,
-.outer .read-button {
+.outer .read-button,
+.outer .logout-button {
 	min-width: 50px;
 	min-height: 50px;
 	margin: 0;
@@ -93,10 +94,20 @@
 	margin-top: 10px;
 }
 
+.outer .logout-button {
+	margin-top: 10px;
+	font-size: 20px;
+}
+
+.outer .logout-button .icon {
+	transform: translateY(1px) translateX(2px);
+}
+
 .call button:hover,
 .outer .play-button:hover,
 .outer .pause-button:hover,
-.outer .read-button:hover {
+.outer .read-button:hover,
+.outer .logout-button:hover {
 	box-shadow: 0 0 0 1px #777 inset;
 }
 
