@@ -1,4 +1,4 @@
-import { API } from 'aws-amplify'
+//import { API } from 'aws-amplify'
 import { app, ipcMain } from 'electron'
 import { BrowserWindow } from 'electron'
 import { MainWindowClass } from './windows/MainWindowClass'
@@ -91,7 +91,7 @@ class Application {
 				this.AppContainer.InnerWindow.setOpacity(1)
 				this.SideBarContainer = null
 				this.isSideBarOpen = false
-				leaveAgora()
+				//leaveAgora()
 			})
 		}
 	}
@@ -113,8 +113,8 @@ class Application {
 	}
 }
 
-const leaveAgora = async () => {
-	await API.post('mainApi', '/agora/leave', {}).catch(console.error)
-}
+//const leaveAgora = async () => {
+//	await API.post('mainApi', '/agora/leave', {}).catch(console.error)
+//}
 
 export const application = new Application()
