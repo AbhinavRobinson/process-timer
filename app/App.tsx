@@ -285,6 +285,17 @@ export class App extends React.Component<{}, IAppState> {
 							<FontAwesomeIcon icon={faStopwatch} />
 						</button>
 
+						{/* TODO: Add Sidebar close on Logout */}
+						<button
+							onClick={() => {
+								electron_store.clear()
+								window.location.reload()
+							}}
+							className='logout-button sm'
+						>
+							<FontAwesomeIcon icon={faSignOutAlt} className='icon' />
+						</button>
+
 						<button
 							onClick={() => {
 								if (!this.state.closeHandler) {
@@ -300,17 +311,6 @@ export class App extends React.Component<{}, IAppState> {
 							<FontAwesomeIcon icon={faTimes} />
 						</button>
 					</div>
-
-					{/* TODO: Add Sidebar close on Logout */}
-					<button
-						onClick={() => {
-							electron_store.clear()
-							window.location.reload()
-						}}
-						className='logout-button sm'
-					>
-						<FontAwesomeIcon icon={faSignOutAlt} className='icon' />
-					</button>
 
 					{/* {this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>} */}
 
