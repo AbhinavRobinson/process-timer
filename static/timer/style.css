@@ -1,7 +1,7 @@
 /* Body background and font */
 body {
 	background: #6995ec;
-	font-family: 'Pacifico', cursive;
+	font-family: monospace;
 }
 ::-webkit-scrollbar {
 	display: none;
@@ -40,6 +40,10 @@ body {
 	border: 2px solid transparent;
 	padding: 1rem;
 	border-radius: 2rem;
+}
+
+.btn {
+	padding: 20px;
 }
 
 .fa-play:hover,
