@@ -18,26 +18,96 @@
 }
 
 .loading h3 {
-	margin: 10px;
 	font-size: 10px;
 	font-family: monospace;
 	color: #333;
 }
 
 .player-container {
-	padding: 20px;
 	text-align: initial;
 }
 
 .button-group {
-	padding: 20px;
 }
 
 .call-form {
-	padding: 20px;
 }
 
 input,
 button {
 	margin-right: 10px;
+}
+
+.call {
+	background: #eee;
+	border-radius: 25px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-items: center;
+	align-items: center;
+	height: auto;
+	width: 225px;
+}
+
+.call .video-player video {
+	border-radius: 20px;
+}
+
+.call .video-player {
+}
+
+.call .game {
+	display: flex;
+	flex-direction: row;
+}
+
+.call .player-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-items: center;
+	align-items: center;
+	font-family: monospace;
+	font-size: 12px;
+}
+
+.call p {
+	text-align: center;
+	background: rgb(255, 255, 100);
+	border-radius: 10px;
+	color: #333;
+}
+
+.call .button-group {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.call canvas:first-child {
+	border: 3px solid #eee;
+	border-radius: 10px 0 0 10px;
+	border-right: 2px solid #777;
+}
+
+.call canvas:last-child {
+	border: 3px solid #eee;
+	border-radius: 0 10px 10px 0;
+	border-left: 2px solid #777;
+}
+
+.call button {
+	background: #87a3ff;
+	color: white;
+	font-size: 20px;
+	border-radius: 10px;
+	border: 0 solid #fff;
+	font-family: monospace;
+	text-transform: uppercase;
+	width: 45px;
+	height: 45px;
+	padding: 0;
 }
