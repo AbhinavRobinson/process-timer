@@ -1,6 +1,7 @@
 // IMPORT DEPENDENCIES
 
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote } from 'electron'
+// import { remote } from 'electron/renderer'
 import React, { Component } from 'react'
 import { Container } from 'typedi'
 // import Container from 'typedi'
@@ -54,6 +55,10 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		const socket_container = Container.get(SocketContainerClass)
 		const develop = false
 		this.initSocket(socket_container, develop)
+		remote.getCurrentWindow().setSize(220, 625)
+		remote.getCurrentWindow().setBounds({
+			x: remote.screen.getPrimaryDisplay().bounds.width - 315,
+		})
 		setInterval(() => {
 			if (this.state.channel === '-1') {
 				window.location.reload()
