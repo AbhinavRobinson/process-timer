@@ -99,7 +99,7 @@ class Application {
 		let [p, q] = this.AppContainer.InnerWindow.getPosition()
 		console.log(p)
 		console.log(q)
-		win = new BrowserWindow({ width: 330, height: 450 })
+		win = new BrowserWindow({ width: 330, height: 450, frame: false })
 		p = p - 330
 		win.setPosition(p, q + 50)
 		win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
