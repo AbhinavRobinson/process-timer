@@ -167,10 +167,11 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 					disabled={!joinState}
 					onClick={() => {
 						leave()
-						if (document.getElementById('leave').style.background == 'red') {
-							document.getElementById('leave').style.background = '#87a3ff'
+						if (document.getElementById('leave').style.background == '#f25') {
+							document.getElementById('leave').style.background = '#fff'
+							document.getElementById('leave').style.color = '#333'
 						} else {
-							document.getElementById('leave').style.background = 'red'
+							document.getElementById('leave').style.background = '#f25'
 						}
 						remote.getCurrentWindow().close()
 					}}
@@ -182,7 +183,7 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 					type='button'
 					className='btn btn-primary btn-sm'
 					// disabled={!joinState}
-					style={{ background: avState.video ? '#87a3ff' : 'red' }}
+					style={{ background: avState.video ? '#fff' : '#f25', color: avState.video ? '#333' : '#fff' }}
 					onClick={() => changeAV({ ...avState, video: !avState.video })}
 				>
 					<FontAwesomeIcon icon={faCamera} />
@@ -192,7 +193,7 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 					type='button'
 					className='btn btn-primary btn-sm'
 					// disabled={!joinState}
-					style={{ background: avState.audio ? '#87a3ff' : 'red' }}
+					style={{ background: avState.audio ? '#fff' : '#f25', color: avState.audio ? '#333' : '#fff' }}
 					onClick={() => changeAV({ ...avState, audio: !avState.audio })}
 				>
 					<FontAwesomeIcon icon={faMicrophone} />
