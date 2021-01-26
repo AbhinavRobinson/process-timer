@@ -97,16 +97,13 @@ class Application {
 	openTimer() {
 		let win = null
 		let [p, q] = this.AppContainer.InnerWindow.getPosition()
-		console.log(p)
-		console.log(q)
-		win = new BrowserWindow({ width: 330, height: 450, frame: false })
+		win = new BrowserWindow({ width: 330, height: 450 })
 		p = p - 330
 		win.setPosition(p, q + 50)
 		win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
 		win.setAlwaysOnTop(true, 'floating')
 		win.setFullScreenable(false)
 		win.setMenu(null)
-		//win.loadURL("https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining")
 		win.loadURL(`file://${__static}/timer/index.html`)
 		win.once('ready', () => {
 			win.show()
