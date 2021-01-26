@@ -1,7 +1,7 @@
 // import { remote } from 'electron'
 import React, { useEffect } from 'react'
 
-import './Login.scss'
+import './Login.css'
 
 /**
  * Shows Login Screen
