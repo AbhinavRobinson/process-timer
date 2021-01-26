@@ -30,6 +30,9 @@ import activeWin from './lib/active-win'
 // import Container from 'typedi'
 // import { SocketContainerClass } from './SocketContainer'
 
+import Store from 'electron-store'
+const electron_store = new Store()
+
 import MessageHandler from './components/MessageHandler'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -290,6 +293,15 @@ export class App extends React.Component<{}, IAppState> {
 							<FontAwesomeIcon icon={faTimes} />
 						</button>
 					</div>
+
+					<button
+						onClick={() => {
+							electron_store.clear()
+							window.location.reload()
+						}}
+					>
+						LO
+					</button>
 
 					{/* {this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>} */}
 
