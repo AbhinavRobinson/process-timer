@@ -6,7 +6,7 @@ import React, { Fragment } from 'react'
  * Font Awesome Imports
  */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faCheck, faTimes, faPhone, faStopwatch } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faCheck, faTimes, faPhone, faStopwatch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Checks active app in windows
@@ -208,7 +208,6 @@ export class App extends React.Component<{}, IAppState> {
 	}
 
 	render() {
-		// if (this.state.LoginDialog) return <Login />
 		return (
 			<Fragment>
 				<div className='outer' id='outer'>
@@ -287,6 +286,16 @@ export class App extends React.Component<{}, IAppState> {
 
 						<button
 							onClick={() => {
+								electron_store.clear()
+								window.location.reload()
+							}}
+							className='logout-button sm'
+						>
+							<FontAwesomeIcon icon={faSignOutAlt} className='icon' />
+						</button>
+
+						<button
+							onClick={() => {
 								if (!this.state.closeHandler) {
 									this.setState({ closeHandler: true })
 
@@ -301,16 +310,9 @@ export class App extends React.Component<{}, IAppState> {
 						</button>
 					</div>
 
-					{/* TODO: Add Sidebar close on Logout */}
-					<button
-						onClick={() => {
-							electron_store.clear()
-							window.location.reload()
-						}}
-					>
-						LO
-					</button>
-
+					{/** @deprecated
+					 * Debug Tools
+					 */}
 					{/* {this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>} */}
 
 					{/* {isDevelopment && <div className='monitor-app my-1 disable'>Monitor App: {this.state.monitor_app}</div>} */}

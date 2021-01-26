@@ -1,6 +1,9 @@
 // import { remote } from 'electron'
+import { faEyeSlash, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { remote } from 'electron'
 import React, { useEffect } from 'react'
+import DragRegion from '../../components/DragRegion'
 
 import './Login.css'
 
@@ -11,23 +14,25 @@ const Login = () => {
 	useEffect(() => {
 		// const primary_display = remote.screen.getPrimaryDisplay()
 		//Use for size
-		remote.getCurrentWindow().setSize(200, 300)
+		remote.getCurrentWindow().setSize(250, 200)
 		// remote.getCurrentWindow().setPosition(primary_display.bounds.width / 2 - 200, primary_display.bounds.height / 2 - 300)
 
 		return () => {}
 	}, [])
 	return (
-		<div className='flex login-container'>
-			<div className='login login-box'>
-				<h2>Login to Continue</h2>
+		<div className='login-container'>
+			<div className='login'>
 				<button
 					onClick={() => {
 						remote.getCurrentWindow().setAlwaysOnTop(false)
 						remote.getCurrentWindow().minimize()
 					}}
 				>
-					Hide
+					<FontAwesomeIcon icon={faEyeSlash} style={{ color: '#333' }} />
 				</button>
+				<FontAwesomeIcon icon={faSignInAlt} className='icon' style={{ color: '#333' }} />
+				<h2>Login to Nudge</h2>
+				<DragRegion />
 			</div>
 		</div>
 	)
