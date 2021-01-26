@@ -208,7 +208,6 @@ export class App extends React.Component<{}, IAppState> {
 	}
 
 	render() {
-		// if (this.state.LoginDialog) return <Login />
 		return (
 			<Fragment>
 				<div className='outer' id='outer'>
@@ -285,7 +284,6 @@ export class App extends React.Component<{}, IAppState> {
 							<FontAwesomeIcon icon={faStopwatch} />
 						</button>
 
-						{/* TODO: Add Sidebar close on Logout */}
 						<button
 							onClick={() => {
 								electron_store.clear()
@@ -312,6 +310,9 @@ export class App extends React.Component<{}, IAppState> {
 						</button>
 					</div>
 
+					{/** @deprecated
+					 * Debug Tools
+					 */}
 					{/* {this.state.backend_running === false && <div className='active-app my-1'>Selected App: {this.state.active_app}</div>} */}
 
 					{/* {isDevelopment && <div className='monitor-app my-1 disable'>Monitor App: {this.state.monitor_app}</div>} */}
