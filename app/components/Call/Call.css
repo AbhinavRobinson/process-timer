@@ -100,14 +100,13 @@ button {
 }
 
 .call button {
-	background: #87a3ff;
-	color: white;
+	min-width: 50px;
+	min-height: 50px;
+	margin: 0;
+	background: #fff;
+	border: 1px solid #333;
+	border-radius: 9999px;
+	cursor: pointer;
+	color: #333;
 	font-size: 20px;
-	border-radius: 10px;
-	border: 0 solid #fff;
-	font-family: monospace;
-	text-transform: uppercase;
-	width: 45px;
-	height: 45px;
-	padding: 0;
 }
