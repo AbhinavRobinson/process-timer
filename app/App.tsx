@@ -6,7 +6,7 @@ import React, { Fragment } from 'react'
  * Font Awesome Imports
  */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faCheck, faTimes, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faCheck, faTimes, faPhone, faStopwatch } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Checks active app in windows
@@ -264,6 +264,15 @@ export class App extends React.Component<{}, IAppState> {
 							className='read-button'
 						>
 							<FontAwesomeIcon icon={faPhone} />
+						</button>
+
+						<button
+							onClick={() => {
+								ipcRenderer.send('open_timer')
+							}}
+							className='read-button'
+						>
+							<FontAwesomeIcon icon={faStopwatch} />
 						</button>
 
 						<button
