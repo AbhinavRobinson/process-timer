@@ -9,7 +9,6 @@ import MediaPlayer from '../MediaPlayer'
 
 // AWS
 //import { API } from 'aws-amplify'
-import { join } from 'path'
 
 // LOCAL IMPORTS
 import Game from '../Game'
@@ -132,10 +131,12 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 				{/**
 				 * @see local-player-wrapper enables you to see local video feed (Call.tsx:53)
 				 */}
-
-				<div className='local-player-wrapper'>{<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>}</div>
+				{avState.video && <MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>}
 				{!remoteUsers.length && (
 					<>
+						{/* <div className='local-player-wrapper'>
+							
+						</div> */}
 						{'\n'}
 						<p id='info'>
 							Current App:
@@ -168,11 +169,10 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 					disabled={!joinState}
 					onClick={() => {
 						leave()
-						if (document.getElementById('leave').style.background == '#f25') {
-							document.getElementById('leave').style.background = '#fff'
-							document.getElementById('leave').style.color = '#333'
+						if (document.getElementById('leave').style.background == 'red') {
+							document.getElementById('leave').style.background = '#87a3ff'
 						} else {
-							document.getElementById('leave').style.background = '#f25'
+							document.getElementById('leave').style.background = 'red'
 						}
 						remote.getCurrentWindow().close()
 					}}
@@ -184,7 +184,7 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 					type='button'
 					className='btn btn-primary btn-sm'
 					// disabled={!joinState}
-					style={{ background: avState.video ? '#fff' : '#f25', color: avState.video ? '#333' : '#fff' }}
+					style={{ background: avState.video ? '#87a3ff' : 'red' }}
 					onClick={() => changeAV({ ...avState, video: !avState.video })}
 				>
 					<FontAwesomeIcon icon={faCamera} />
@@ -194,7 +194,7 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 					type='button'
 					className='btn btn-primary btn-sm'
 					// disabled={!joinState}
-					style={{ background: avState.audio ? '#fff' : '#f25', color: avState.audio ? '#333' : '#fff' }}
+					style={{ background: avState.audio ? '#87a3ff' : 'red' }}
 					onClick={() => changeAV({ ...avState, audio: !avState.audio })}
 				>
 					<FontAwesomeIcon icon={faMicrophone} />
