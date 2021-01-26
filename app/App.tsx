@@ -21,7 +21,7 @@ import getFile from '../run'
 import DragRegion from './components/DragRegion'
 // import Login from './screens/Login/Login'
 import { CloseHandler } from './components/CloseHandler'
-import activeWin from './lib/active-win'
+import activeWin from 'active-win'
 
 /**
  * Firestore imports
