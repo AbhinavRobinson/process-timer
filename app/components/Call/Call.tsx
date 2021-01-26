@@ -132,11 +132,9 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 				 * @see local-player-wrapper enables you to see local video feed (Call.tsx:53)
 				 */}
 
+				<div className='local-player-wrapper'>{<MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>}</div>
 				{!remoteUsers.length && (
 					<>
-						<div className='local-player-wrapper'>
-							{avState.video && <MediaPlayer videoTrack={localVideoTrack} audioTrack={undefined}></MediaPlayer>}
-						</div>
 						{'\n'}
 						<p id='info'>
 							Current App:

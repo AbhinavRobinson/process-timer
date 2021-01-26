@@ -42,6 +42,7 @@ export class MainWindowClass {
 					pathname: path.join(__dirname, 'index.html'),
 					protocol: 'file',
 					slashes: true,
+					query: 'read=true',
 				})
 			)
 		}
