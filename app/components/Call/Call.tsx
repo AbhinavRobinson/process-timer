@@ -9,6 +9,7 @@ import MediaPlayer from '../MediaPlayer'
 
 // AWS
 //import { API } from 'aws-amplify'
+import { join } from 'path'
 
 // LOCAL IMPORTS
 import Game from '../Game'

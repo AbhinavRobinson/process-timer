@@ -35,7 +35,6 @@ class Application {
 
 	handleEvents() {
 		ipcMain.on('open_sidebar', (_) => {
-
 			this.openSideBar()
 			// const [x, y] = this.AppContainer.InnerWindow.getPosition()
 			// this.AppContainer.InnerWindow.setPosition(x + 75, y, true)
@@ -100,16 +99,18 @@ class Application {
 		let [p, q] = this.AppContainer.InnerWindow.getPosition()
 		console.log(p)
 		console.log(q)
-	  win = new BrowserWindow({ width: 330, height: 450 })
-		p=p-330
-		win.setPosition(p,q+50)
+		win = new BrowserWindow({ width: 330, height: 450 })
+		p = p - 330
+		win.setPosition(p, q + 50)
 		win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
 		win.setAlwaysOnTop(true, 'floating')
 		win.setFullScreenable(false)
 		win.setMenu(null)
-	  //win.loadURL("https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining")
-		win.loadURL(`file://${__dirname}/app/components/timer/index.html`)
-	  win.once('ready', () => { win.show() })
+		//win.loadURL("https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining")
+		win.loadURL(`file://${__static}/timer/index.html`)
+		win.once('ready', () => {
+			win.show()
+		})
 	}
 }
 
