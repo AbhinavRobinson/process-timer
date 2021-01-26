@@ -47,7 +47,7 @@ button {
 	justify-items: center;
 	align-items: center;
 	height: auto;
-	width: 225px;
+	width: 210px;
 }
 
 .call .video-player video {
@@ -55,6 +55,7 @@ button {
 }
 
 .call .video-player {
+	margin: 5px;
 }
 
 .call .game {
@@ -87,22 +88,26 @@ button {
 	align-items: center;
 }
 
+.call canvas {
+	margin: 0 0 10px 0;
+}
+
 .call canvas:first-child {
 	border: 3px solid #eee;
-	border-radius: 10px 0 0 10px;
+	border-radius: 20px 0 0 20px;
 	border-right: 2px solid #777;
 }
 
 .call canvas:last-child {
 	border: 3px solid #eee;
-	border-radius: 0 10px 10px 0;
+	border-radius: 0 20px 20px 0;
 	border-left: 2px solid #777;
 }
 
 .call button {
 	min-width: 50px;
 	min-height: 50px;
-	margin: 0;
+	margin: 10px 5px;
 	background: #fff;
 	border: 1px solid #333;
 	border-radius: 9999px;
