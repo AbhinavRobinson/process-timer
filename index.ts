@@ -24,7 +24,7 @@ class Application {
 			this.AppContainer = new MainWindowClass()
 			await this.AppContainer.init()
 			this.handleEvents()
-			app.dock.hide()
+			if (process.platform === 'darwin') app.dock.hide()
 		})
 		this.isSideBarOpen = false
 		if (process.env.NODE_ENV === 'production') {

@@ -21,7 +21,7 @@ import getFile from '../run'
 import DragRegion from './components/DragRegion'
 // import Login from './screens/Login/Login'
 import { CloseHandler } from './components/CloseHandler'
-import activeWin from 'active-win'
+import activeWin from './lib/active-win'
 
 /**
  * Firestore imports
@@ -111,17 +111,6 @@ export class App extends React.Component<{}, IAppState> {
 					const ignoreApp = 'Electron'
 					if (appName.toUpperCase() !== ignoreApp.toUpperCase()) this.setState({ active_app: data.owner?.name.toUpperCase() })
 				})()
-				/**
-				monitor.getActiveWindow((data) => {
-					if (data['title'] !== '"Electron"') {
-						if (data['app'] !== '"google-chrome", "Google-chrome"') {
-							this.setState({ active_app: data['app'] })
-						} else {
-							this.setState({ active_app: data['title'] })
-						}
-					}
-				})
-				*/
 			}
 			ipcRenderer.emit('time_data', this.state.time_spent)
 		}, 2000)
@@ -216,7 +205,7 @@ export class App extends React.Component<{}, IAppState> {
 					<div className='container'>
 						<ul className='app-list'>
 							{this.state.backend_running &&
-								this.state.time_spent.map((elem: IHealth) => {
+								this.state.time_spent.map((elem: IHealth, ind) => {
 									return (
 										<li
 											className='itemStyle'
@@ -225,6 +214,7 @@ export class App extends React.Component<{}, IAppState> {
 													? { animation: 'glow-green 2s ease-in-out 4' }
 													: { animation: 'glow-red 2s ease-in-out 4' }
 											}
+											key={ind}
 										>
 											<span style={{ zIndex: 4 }} className='app-item'>
 												<div className='text-center'>{`${elem.display_percentage}`}</div>
