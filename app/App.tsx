@@ -278,6 +278,15 @@ export class App extends React.Component<{}, IAppState> {
 
 						<button
 							onClick={() => {
+								ipcRenderer.send('open_timer')
+							}}
+							className='read-button'
+						>
+							<FontAwesomeIcon icon={faTimes} />
+						</button>
+
+						<button
+							onClick={() => {
 								if (!this.state.closeHandler) {
 									this.setState({ closeHandler: true })
 
