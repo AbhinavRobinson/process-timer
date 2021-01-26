@@ -139,11 +139,6 @@ const Call: React.FC<CallProps> = ({ channel, token, error }) => {
 						</div> */}
 						{'\n'}
 						<p id='info'>
-							Current App:
-							{gameState?.active_app}
-							{'\n'}
-							Channel: {agoraConfig?.channel}
-							{'\n'}
 							<p>Waiting for another user to join...</p>
 						</p>
 					</>
