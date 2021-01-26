@@ -12,7 +12,7 @@ import MediaPlayer from '../MediaPlayer'
 
 // LOCAL IMPORTS
 import Game from '../Game'
-import { IAppState } from '../../App'
+import { IAppState } from '../../screens/App/App'
 import DragRegion from '../DragRegion'
 import './Call.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

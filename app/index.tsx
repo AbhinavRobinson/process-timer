@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-import { App } from './App'
+import { App } from './screens/App/App'
 import { SideBar } from './screens/SideBar/SideBar'
 
 import { ipcRenderer, remote } from 'electron'
