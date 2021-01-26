@@ -75,7 +75,9 @@ button {
 
 .call p {
 	text-align: center;
-	background: rgb(255, 255, 100);
+	font-weight: bold;
+	margin: 5px 2px;
+	padding: 5px;
 	border-radius: 10px;
 	color: #333;
 }
