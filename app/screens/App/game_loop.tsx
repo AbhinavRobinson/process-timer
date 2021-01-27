@@ -21,7 +21,6 @@ export function game_loop(obj: App) {
 			})
 		} else {
 			// For MacOS and Linux
-			// const monitor = require('./active-window')
 			if (process.platform === 'darwin' && !hasPermissions()) return
 			;(async () => {
 				const data = await activeWin()

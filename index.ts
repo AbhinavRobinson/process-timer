@@ -1,12 +1,10 @@
-//import { API } from 'aws-amplify'
 import { app, ipcMain } from 'electron'
 import { BrowserWindow } from 'electron'
 import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
-//import Amplify from 'aws-amplify'
-//import config from './app/aws-exports.js'
 
-//Amplify.configure(config)
+import hasPermissions from 'macos-accessibility-permissions'
+import { hasScreenCapturePermission, hasPromptedForPermission } from 'mac-screen-capture-permissions'
 
 export const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -31,19 +29,21 @@ class Application {
 			const sourceMapSupport = require('source-map-support')
 			sourceMapSupport.install()
 		}
+
+		//Asking for permissions on mac
+		if (process.platform === 'darwin') {
+			if (!hasPermissions()) hasPermissions({ ask: true })
+			if (!hasPromptedForPermission()) hasScreenCapturePermission()
+		}
 	}
 
 	handleEvents() {
 		ipcMain.on('open_sidebar', (_) => {
 			this.openSideBar()
-			// const [x, y] = this.AppContainer.InnerWindow.getPosition()
-			// this.AppContainer.InnerWindow.setPosition(x + 75, y, true)
-			// this.AppContainer.InnerWindow.setOpacity(0.5)
 		})
 
 		ipcMain.on('open_timer', (_) => {
 			this.openTimer()
-			//this.openSideBar()
 		})
 
 		ipcMain.on('sidebar_open_check', (e) => {
@@ -72,7 +72,6 @@ class Application {
 
 			this.SideBarContainer = new SideBarClass({ x, y })
 			this.SideBarContainer.init()
-			// this.SideBarContainer.InnerWindow.setParentWindow(this.AppContainer.InnerWindow)
 
 			this.SideBarContainer.InnerWindow.setPosition(x - 300, y, true)
 
@@ -90,7 +89,6 @@ class Application {
 				this.AppContainer.InnerWindow.setOpacity(1)
 				this.SideBarContainer = null
 				this.isSideBarOpen = false
-				//leaveAgora()
 			})
 		}
 	}
@@ -110,9 +108,5 @@ class Application {
 		})
 	}
 }
-
-//const leaveAgora = async () => {
-//	await API.post('mainApi', '/agora/leave', {}).catch(console.error)
-//}
 
 export const application = new Application()
