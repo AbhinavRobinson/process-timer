@@ -31,6 +31,8 @@ import { ext_run_backend } from './ext_run_backend'
 import { game_loop } from './game_loop'
 import { set_up_window } from './set_up_window'
 
+import hasPermissions from 'macos-accessibility-permissions'
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // create IHealth interface for app monitor
@@ -78,6 +80,9 @@ export class App extends React.Component<{}, IAppState> {
 
 	// Get platform and initiate monitor
 	async componentDidMount() {
+		//Asking for accessibility permissions
+		if (!hasPermissions()) hasPermissions({ ask: true })
+
 		ipcRenderer.addListener('start_timer', () => {
 			const { active_app } = this.state
 			this.stop_backend()
