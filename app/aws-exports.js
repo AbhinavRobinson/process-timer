@@ -10,6 +10,7 @@ const awsmobile = {
 			region: 'ap-south-1',
 		},
 	],
+
 	aws_dynamodb_all_tables_region: 'ap-south-1',
 	aws_dynamodb_table_schemas: [
 		{

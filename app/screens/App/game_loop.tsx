@@ -4,6 +4,8 @@ import getFile from '../../../run'
 import activeWin from 'active-win'
 import { App } from './App'
 
+import hasPermissions from 'macos-accessibility-permissions'
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const ignoreApp = isDevelopment ? 'Electron' : 'Nudge'
 
@@ -20,11 +22,11 @@ export function game_loop(obj: App) {
 		} else {
 			// For MacOS and Linux
 			// const monitor = require('./active-window')
+			if (process.platform === 'darwin' && !hasPermissions()) return
 			;(async () => {
 				const data = await activeWin()
 				const appName: string = data?.owner?.name
 				if (!appName) return null
-				const ignoreApp = 'Electron'
 				if (appName.toUpperCase() !== ignoreApp.toUpperCase()) obj.setState({ active_app: data.owner?.name.toUpperCase() })
 			})()
 		}
