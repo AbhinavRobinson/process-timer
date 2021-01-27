@@ -28,7 +28,7 @@ export function game_loop(obj: App) {
 					const data = await activeWin()
 					const appName: string = data?.owner?.name
 					if (!appName) return null
-					if (appName.toUpperCase() !== ignoreApp.toUpperCase() && obj.state.active_app.toUpperCase() !== data.owner.name.toUpperCase())
+					if (appName.toUpperCase() !== ignoreApp.toUpperCase() && obj.state.active_app.toUpperCase() !== data.owner?.name.toUpperCase())
 						obj.setState({ active_app: data.owner?.name.toUpperCase() })
 				})()
 			} else {
@@ -39,7 +39,7 @@ export function game_loop(obj: App) {
 					if (appName.toUpperCase() !== ignoreApp.toUpperCase()) {
 						if (appName.toUpperCase() === 'GOOGLE-CHROME') {
 							obj.setState({ active_app: data.title.toUpperCase() })
-						} else if (obj.state.active_app.toUpperCase() !== data.owner.name.toUpperCase())
+						} else if (obj.state.active_app.toUpperCase() !== data.owner?.name.toUpperCase())
 							obj.setState({ active_app: data.owner?.name.toUpperCase() })
 					}
 				})()
