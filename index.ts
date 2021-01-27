@@ -3,9 +3,6 @@ import { BrowserWindow } from 'electron'
 import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
 
-import hasPermissions from 'macos-accessibility-permissions'
-import { hasScreenCapturePermission, hasPromptedForPermission } from 'mac-screen-capture-permissions'
-
 export const isDevelopment = process.env.NODE_ENV !== 'production'
 
 class Application {
@@ -31,10 +28,10 @@ class Application {
 		}
 
 		//Asking for permissions on mac
-		if (process.platform === 'darwin') {
-			if (!hasPermissions()) hasPermissions({ ask: true })
-			if (!hasPromptedForPermission()) hasScreenCapturePermission()
-		}
+		//	if (process.platform === 'darwin') {
+		//		if (!hasPermissions()) hasPermissions({ ask: true })
+		//		if (!hasPromptedForPermission()) hasScreenCapturePermission()
+		//	}
 	}
 
 	handleEvents() {
