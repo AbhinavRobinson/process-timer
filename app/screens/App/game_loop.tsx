@@ -1,15 +1,18 @@
 import { ipcRenderer } from 'electron'
 import { join } from 'path'
 import getFile from '../../../run'
-import activeWin from '../../lib/active-win'
+import activeWin from 'active-win'
 import { App } from './App'
+
+const isDevelopment = process.env.NODE_ENV !== 'production'
+const ignoreApp = isDevelopment ? 'Electron' : 'Nudge'
 
 export function game_loop(obj: App) {
 	obj.active_app_interval_timeout = setInterval(() => {
 		// For Windows
 		if (process.platform === 'win32') {
 			getFile(join(__static, 'dist', 'getwindow.exe'), (data) => {
-				if (data['title'] !== 'Electron') {
+				if (data['title'] !== ignoreApp) {
 					if (data['app'] === 'chrome.exe') obj.setState({ active_app: data['title'] })
 					else obj.setState({ active_app: data['app'] })
 				}
