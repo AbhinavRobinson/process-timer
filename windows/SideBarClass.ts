@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { isDevelopment } from '..'
 import { format as formatUrl } from 'url'
@@ -18,12 +18,12 @@ export class SideBarClass {
 				enableRemoteModule: true,
 				webSecurity: false,
 			},
-			width: 150,
-			height: 300,
+			width: 300,
+			height: 625,
 			...position,
 			alwaysOnTop: true,
 			frame: false,
-			// transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,
+			transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,
 			icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
 		})
 		this.InnerWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
@@ -43,6 +43,9 @@ export class SideBarClass {
 				})
 			)
 		}
+		this.InnerWindow.setBounds({
+			x: screen.getPrimaryDisplay().bounds.width - 150,
+		})
 	}
 
 	close() {

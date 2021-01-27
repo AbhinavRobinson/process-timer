@@ -20,7 +20,7 @@ export class MainWindowClass {
 				devTools: isDevelopment,
 			},
 			width: 90,
-			height: 470,
+			height: 600,
 			x: display.bounds.width - 200,
 			alwaysOnTop: true,
 			frame: false,
@@ -42,6 +42,7 @@ export class MainWindowClass {
 					pathname: path.join(__dirname, 'index.html'),
 					protocol: 'file',
 					slashes: true,
+					query: 'read=true',
 				})
 			)
 		}
@@ -57,6 +58,9 @@ export class MainWindowClass {
 			})
 		})
 
+		this.InnerWindow.setBounds({
+			x: screen.getPrimaryDisplay().bounds.width - 120,
+		})
 		return this.InnerWindow
 	}
 }

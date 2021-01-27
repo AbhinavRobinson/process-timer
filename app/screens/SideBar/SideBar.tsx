@@ -1,15 +1,21 @@
 // IMPORT DEPENDENCIES
 
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote } from 'electron'
+// import { remote } from 'electron/renderer'
 import React, { Component } from 'react'
-import Container from 'typedi'
+import { Container } from 'typedi'
+// import Container from 'typedi'
 // import { ApiMainLinks } from '../../api'
 
-// DEPRECIATED >> Using Call Component instead!
-// import Video from '../../components/Video'
+// if (true) {
+// const whyDidYouRender = require('@welldone-software/why-did-you-render')
+// 	whyDidYouRender(React, {
+// 		trackAllPureComponents: true,
+// 	})
+// }
 
-import { PeerContainer } from '../../PeerContainer'
-import Call from '../../Call'
+import Call from '../../components/Call/Call'
+import { SocketContainerClass } from '../../SocketContainer'
 
 interface ISideBarProps {}
 
@@ -28,6 +34,9 @@ interface ISideBarState {
 	}
 	active_user_ids: Array<string>
 	received_data: string
+	channel: string
+	token: string
+	error: string | undefined
 }
 
 export class SideBar extends Component<ISideBarProps, ISideBarState> {
@@ -35,51 +44,72 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		active_users: {},
 		active_user_ids: [],
 		received_data: '',
+		channel: '-1',
+		token: null,
+		error: undefined,
 	}
-	private socket: any
+	static whyDidYouRender = true
+
+	// private socket: any
 	async componentDidMount() {
-		//	Container.get(SocketContainerClass).init()
-		//	Container.get(PeerContainer).init()
-		//	this.socket = Container.get(SocketContainerClass).io
-		//	this.socket.on('chat_response', (data) => {
-		//		// console.log(data)
-		//		if (data && data.data && data.data.timer) {
-		//			console.log(data.data.timer, 'timer')
-		//			this.setState({ received_data: JSON.stringify(data.data.timer) })
-		//		}
-		//		if (data && data.data && data.data.calling) {
-		//			const key = data.sent_by
-		//			const calling_user = this.state.active_users[key]
-		//			this.answer(key, calling_user)
-		//			// this.answer()
-		//		}
-		//	})
-		//	const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
-		//	console.log(active_users)
-		//	// const active_user_ids = []
-		//	this.setState({ active_users })
-		//	setInterval(async () => {
-		//		const active_users = await Container.get(ApiMainLinks).fetchActiveUsers()
-		//		this.setState({ active_users })
-		//	}, 5 * 1000) // Update after 30 seconds
+		const socket_container = Container.get(SocketContainerClass)
+		const develop = false
+		this.initSocket(socket_container, develop)
+		remote.getCurrentWindow().setSize(220, 625)
+		remote.getCurrentWindow().setBounds({
+			x: remote.screen.getPrimaryDisplay().bounds.width - 315,
+		})
+		setInterval(() => {
+			if (this.state.channel === '-1') {
+				window.location.reload()
+			}
+		}, 2000)
+	}
+
+	/**
+	 * Initialize socket and call update channels.
+	 */
+	private initSocket(socket_container: SocketContainerClass, develop: boolean = false) {
+		socket_container.init(develop)
+		this.update_channel(socket_container)
+	}
+
+	private update_channel(socket_container: SocketContainerClass) {
+		try {
+			socket_container.get_channel({
+				callback: (data) => {
+					const { channel, token } = data
+					this.setState({ channel, token: token.toString() })
+				},
+			})
+		} catch (err) {
+			this.setState({ error: err.toString() })
+		}
 	}
 
 	onChatResponse() {
-		Container.get(PeerContainer).peer.on('connection', (conn) => {
-			conn.on('data', (data) => {
-				console.log(data, 2)
-			})
-			console.log('connected')
-		})
+		// Container.get(PeerContainer).peer.on('connection', (conn) => {
+		// 	conn.on('data', (data) => {
+		// 		console.log(data, 2)
+		// 	})
+		// 	console.log('connected')
+		// })
 	}
 
 	render() {
 		return (
 			<>
-				<div className='received_data'>{this.state.received_data}</div>
+				{/*<div className='' style={{ backgroundColor: 'white' }}>
+					{this.state.channel}
+				</div>
+				<div className='' style={{ backgroundColor: 'white' }}>
+					{this.state.token}
+				</div>*/}
+				{/* <div className='received_data'>{this.state.received_data}</div> */}
 
 				{/* <div className="disable-view-only"> */}
-				<Call />
+				{/*<Call channel={this.state.channel.toString()} token={this.state.token} error={this.state.error} />*/}
+				<Call {...this.state} />
 
 				{/* </div> */}
 				{/*Object.keys(this.state.active_users).map((key) => {
@@ -128,13 +158,12 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 		})
 	}
 	send_connect(user: UserDataType, key: string, data: any = 'hi') {
-		this.socket.emit('chat_message', {
-			data: data,
-			key: key,
-		})
-
-		this.socket.on('chat_response', (data) => {
-			console.log(data)
-		})
+		// this.socket.emit('chat_message', {
+		// 	data: data,
+		// 	key: key,
+		// })
+		// this.socket.on('chat_response', (data) => {
+		// 	console.log(data)
+		// })
 	}
 }

@@ -1,0 +1,120 @@
+.call {
+	text-align: center;
+}
+
+.loading {
+	height: 200px;
+	width: 200px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	font-size: 50px;
+	background-color: rgb(246, 246, 246);
+	border-radius: 25px;
+	color: #87a3ff;
+}
+
+.loading h3 {
+	font-size: 10px;
+	font-family: monospace;
+	color: #333;
+}
+
+.player-container {
+	text-align: initial;
+}
+
+.button-group {
+}
+
+.call-form {
+}
+
+input,
+button {
+	margin-right: 10px;
+}
+
+.call {
+	background: #eee;
+	border-radius: 25px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-items: center;
+	align-items: center;
+	height: auto;
+	width: 210px;
+}
+
+.call .video-player video {
+	border-radius: 20px;
+}
+
+.call .video-player {
+	margin: 5px;
+}
+
+.call .game {
+	display: flex;
+	flex-direction: row;
+}
+
+.call .player-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-items: center;
+	align-items: center;
+	font-family: monospace;
+	font-size: 12px;
+}
+
+.call p {
+	text-align: center;
+	font-weight: bold;
+	margin: 5px 2px;
+	padding: 0 10px;
+	border-radius: 10px;
+	color: #333;
+	font-size: 14px;
+}
+
+.call .button-group {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.call canvas {
+	margin: 0 0 5px 0;
+}
+
+.call canvas:first-child {
+	border: 3px solid #eee;
+	border-radius: 20px 0 0 20px;
+	border-right: 2px solid #777;
+}
+
+.call canvas:last-child {
+	border: 3px solid #eee;
+	border-radius: 0 20px 20px 0;
+	border-left: 2px solid #777;
+}
+
+.call button {
+	min-width: 50px;
+	min-height: 50px;
+	margin: 5px 5px 10px 5px;
+	background: #fff;
+	border: 1px solid #333;
+	border-radius: 9999px;
+	cursor: pointer;
+	color: #333;
+	font-size: 20px;
+}
