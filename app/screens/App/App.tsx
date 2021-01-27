@@ -142,6 +142,7 @@ export class App extends React.Component<{}, IAppState> {
 		return (
 			<Fragment>
 				<div className='outer' id='outer'>
+					<p>{this.state.active_app}</p>
 					<div className='container'>
 						{this.app_list()}
 						{!this.state.backend_running ? (
