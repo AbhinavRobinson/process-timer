@@ -23,7 +23,7 @@ export class SideBarClass {
 			...position,
 			alwaysOnTop: true,
 			frame: false,
-			transparent: !isDevelopment ? true : process.platform === 'linux' ? false : true,
+			transparent: process.platform === 'linux' ? false : true,
 			icon: isDevelopment ? './app/logo.png' : path.join(__dirname, '/icon/Icon-512x512.png'),
 		})
 		this.InnerWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
