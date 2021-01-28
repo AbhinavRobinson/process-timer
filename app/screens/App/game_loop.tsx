@@ -19,8 +19,8 @@ export async function game_loop(obj: App) {
 			getFile(executableLocation, (data) => {
 				if (data['title'] !== ignoreApp) {
 					if (data['app'] === 'chrome.exe') {
-						if (data['title'] !== obj.state.active_app) obj.setState({ active_app: data['title'] })
-					} else obj.setState({ active_app: data['app'] })
+						if (data['title'] !== obj.active_app) obj.active_app = data['title']
+					} else obj.active_app = data['app']
 				}
 			})
 		} else {
@@ -29,9 +29,8 @@ export async function game_loop(obj: App) {
 			const appName: string = data?.owner?.name
 			if (!appName || appName.toUpperCase() === ignoreApp.toUpperCase()) return null
 			if (browsers.some((browser) => appName.toUpperCase().includes(browser.toUpperCase()))) {
-				if (obj.state.active_app.toUpperCase() !== data.title.toUpperCase()) obj.setState({ active_app: data.title.toUpperCase() })
-			} else if (obj.state.active_app.toUpperCase() !== data.owner?.name.toUpperCase())
-				obj.setState({ active_app: data.owner?.name.toUpperCase() })
+				if (obj.active_app.toUpperCase() !== data.title.toUpperCase()) obj.active_app = data.title.toUpperCase()
+			} else if (obj.active_app.toUpperCase() !== data.owner?.name.toUpperCase()) obj.active_app = data.owner?.name.toUpperCase()
 		}
 
 		ipcRenderer.emit('time_data', obj.state.time_spent)
