@@ -120,7 +120,9 @@ export class App extends React.Component<{}, IAppState> {
 							}}
 						/>
 						{!this.state.backend_running ? (
-							this.ifBackendRunning()
+							<button onClick={this.backend_handler(this)} className='play-button' data-tip='Focus Mode'>
+								<FontAwesomeIcon icon={faPlay} />
+							</button>
 						) : (
 							<Fragment>
 								<button
@@ -186,14 +188,6 @@ export class App extends React.Component<{}, IAppState> {
 					<DragRegion />
 				</div>
 			</Fragment>
-		)
-	}
-
-	private ifBackendRunning(): React.ReactNode {
-		return (
-			<button onClick={this.backend_handler(this)} className='play-button' data-tip='Focus Mode'>
-				<FontAwesomeIcon icon={faPlay} />
-			</button>
 		)
 	}
 
