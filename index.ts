@@ -6,12 +6,22 @@ import { AppUpdaterContainer } from './AutoUpdater'
 import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
 
+import activeWin from 'active-win'
+
 export const isDevelopment = process.env.NODE_ENV !== 'production'
+
+const ignoreApp = isDevelopment ? 'Electron' : 'Nudge'
+const browsers = ['Safari', 'Chrome', 'Edge', 'Brave ']
 
 class Application {
 	public AppContainer: MainWindowClass
 	public SideBarContainer: SideBarClass
 	private isSideBarOpen: boolean
+
+	private intervalId: NodeJS.Timeout
+
+	active_app = ''
+	monitor_app = ''
 
 	constructor() {
 		this.init()
@@ -32,12 +42,6 @@ class Application {
 
 		/** Init app updates. */
 		Container.get(AppUpdaterContainer)
-
-		//Asking for permissions on mac
-		//	if (process.platform === 'darwin') {
-		//		if (!hasPermissions()) hasPermissions({ ask: true })
-		//		if (!hasPromptedForPermission()) hasScreenCapturePermission()
-		//	}
 	}
 
 	handleEvents() {
@@ -57,9 +61,27 @@ class Application {
 			if (this.isSideBarOpen) this.SideBarContainer?.InnerWindow?.webContents.send('stateUpdate', state)
 		})
 
+		// App tracking every 2 seconds
+		if (process.platform !== 'win32')
+			this.intervalId = setInterval(async () => {
+				const data = await activeWin()
+				const appName: string = data?.owner?.name
+				let currentActive: string
+				if (!appName || appName.toUpperCase() === ignoreApp.toUpperCase()) return null
+				if (browsers.some((browser) => appName.toUpperCase().includes(browser.toUpperCase()))) {
+					if (this.active_app.toUpperCase() !== data.title.toUpperCase()) currentActive = data.title.toUpperCase()
+				} else if (this.active_app.toUpperCase() !== data.owner?.name.toUpperCase()) currentActive = data.owner?.name.toUpperCase()
+
+				if (currentActive && currentActive !== this.active_app) {
+					this.active_app = currentActive
+					this.AppContainer?.InnerWindow?.webContents?.send('appUpdate', currentActive)
+				}
+			}, 2000)
+
 		this.AppContainer.InnerWindow.on('closed', () => {
 			this.AppContainer = null
 			this.SideBarContainer = null
+			!(process.platform === 'win32') && clearInterval(this.intervalId)
 		})
 
 		// TODO add a close_sidebar call: should be callable globally

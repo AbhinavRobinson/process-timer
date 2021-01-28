@@ -23,11 +23,11 @@ const electron_store = new Store()
 
 import MessageHandler from '../../components/MessageHandler'
 import { ext_run_backend } from './ext_run_backend'
-import { game_loop } from './game_loop'
 import { set_up_window } from './set_up_window'
 
 import AppList from './AppList'
 import { macPermissionCheck } from './utilities'
+import { game_loop } from './game_loop'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -82,9 +82,13 @@ export class App extends React.Component<{}, IAppState> {
 			this.run_backend()
 		})
 
+		ipcRenderer.on('appUpdate', (_, data: string) => {
+			this.active_app = data
+		})
+
 		set_up_window()
 		console.log('resolved')
-		game_loop(this)
+		if (process.platform === 'win32') game_loop(this)
 	}
 
 	async componentDidUpdate() {
@@ -187,13 +191,13 @@ export class App extends React.Component<{}, IAppState> {
 
 	private ifBackendRunning(): React.ReactNode {
 		return (
-			<button onClick={() => this.backend_handler(this)} className='play-button' data-tip='Focus Mode'>
+			<button onClick={this.backend_handler(this)} className='play-button' data-tip='Focus Mode'>
 				<FontAwesomeIcon icon={faPlay} />
 			</button>
 		)
 	}
 
-	private async backend_handler(ref: App) {
+	backend_handler = (ref: App) => async () => {
 		const accRes = macPermissionCheck('accessibility')
 		const scrRes = macPermissionCheck('screen')
 		const permissionResponse = `${accRes}${scrRes}`
