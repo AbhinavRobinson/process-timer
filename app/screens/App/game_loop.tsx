@@ -25,12 +25,9 @@ export async function game_loop(obj: App) {
 			})
 		} else {
 			// For MacOS and Linux
-
 			const data = await activeWin()
 			const appName: string = data?.owner?.name
-
 			if (!appName || appName.toUpperCase() === ignoreApp.toUpperCase()) return null
-
 			if (browsers.some((browser) => appName.toUpperCase().includes(browser.toUpperCase()))) {
 				if (obj.state.active_app.toUpperCase() !== data.title.toUpperCase()) obj.setState({ active_app: data.title.toUpperCase() })
 			} else if (obj.state.active_app.toUpperCase() !== data.owner?.name.toUpperCase())

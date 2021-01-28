@@ -7,6 +7,8 @@ import React, { Fragment } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faCheck, faTimes, faPhone, faStopwatch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
+import ReactTooltip from 'react-tooltip'
+
 /**
  * DragRegion adds draggable section
  * Login adds login screen
@@ -136,6 +138,7 @@ export class App extends React.Component<{}, IAppState> {
 	render() {
 		return (
 			<Fragment>
+				<ReactTooltip />
 				<div className='outer' id='outer'>
 					{/* <p>{this.state.active_app}</p> */}
 					<div className='container'>
@@ -160,6 +163,7 @@ export class App extends React.Component<{}, IAppState> {
 								ipcRenderer.send('open_sidebar')
 							}}
 							className='read-button'
+							data-tip='Start Video Call'
 						>
 							<FontAwesomeIcon icon={faPhone} />
 						</button>
@@ -169,6 +173,7 @@ export class App extends React.Component<{}, IAppState> {
 								ipcRenderer.send('open_timer')
 							}}
 							className='read-button'
+							data-tip='Pomo Timer'
 						>
 							<FontAwesomeIcon icon={faStopwatch} />
 						</button>
@@ -179,6 +184,7 @@ export class App extends React.Component<{}, IAppState> {
 								window.location.reload()
 							}}
 							className='logout-button sm'
+							data-tip='Login Again'
 						>
 							<FontAwesomeIcon icon={faSignOutAlt} className='icon' />
 						</button>
@@ -194,6 +200,7 @@ export class App extends React.Component<{}, IAppState> {
 								}
 							}}
 							className='read-button sm'
+							data-tip='Exit'
 						>
 							<FontAwesomeIcon icon={faTimes} />
 						</button>
@@ -250,6 +257,7 @@ export class App extends React.Component<{}, IAppState> {
 					}
 				}}
 				className='play-button'
+				data-tip='Focus Mode'
 			>
 				<FontAwesomeIcon icon={faPlay} />
 			</button>
