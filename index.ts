@@ -1,5 +1,8 @@
 import { app, ipcMain } from 'electron'
 import { BrowserWindow } from 'electron'
+
+import Container from 'typedi'
+import { AppUpdaterContainer } from './AutoUpdater'
 import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
 
@@ -26,6 +29,9 @@ class Application {
 			const sourceMapSupport = require('source-map-support')
 			sourceMapSupport.install()
 		}
+
+		/** Init app updates. */
+		Container.get(AppUpdaterContainer)
 
 		//Asking for permissions on mac
 		//	if (process.platform === 'darwin') {
