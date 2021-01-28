@@ -42,11 +42,18 @@ export const macPermissionCheck = (type: permissions.AuthType) => {
 			break
 		case 'restricted':
 			{
-				response = `You are not allowed to give ${type} permission to this app. Try doing the same manuall in Settings > Security > ${type}`
+				response = `You are not allowed to give ${type} permission to this app. Try doing the same manually in Settings > Security > ${type}`
 			}
 			break
 		case 'not determined':
 			{
+				switch (type) {
+					case 'screen':
+						permissions.askForScreenCaptureAccess()
+						break
+					case 'accessibility':
+						permissions.askForAccessibilityAccess()
+				}
 				response = 'not determined'
 			}
 			break

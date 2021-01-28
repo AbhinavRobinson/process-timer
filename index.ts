@@ -7,6 +7,7 @@ import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
 
 import activeWin from 'active-win'
+import permissions from 'node-mac-permissions'
 
 export const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -64,6 +65,11 @@ class Application {
 		// App tracking every 2 seconds
 		if (process.platform !== 'win32')
 			this.intervalId = setInterval(async () => {
+				if (process.platform === 'darwin') {
+					if (permissions.getAuthStatus('accessibility') !== 'authorized' || permissions.getAuthStatus('screen') !== 'authorized') {
+						return
+					}
+				}
 				const data = await activeWin()
 				const appName: string = data?.owner?.name
 				let currentActive: string
