@@ -82,9 +82,10 @@ export class App extends React.Component<{}, IAppState> {
 			this.run_backend()
 		})
 
-		ipcRenderer.on('appUpdate', (_, data: string) => {
-			this.active_app = data
-		})
+		if (process.platform !== 'win32')
+			ipcRenderer.on('appUpdate', (_, data: string) => {
+				this.active_app = data
+			})
 
 		set_up_window()
 		console.log('resolved')
