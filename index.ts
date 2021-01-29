@@ -7,7 +7,8 @@ import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
 
 import activeWin from 'active-win'
-import permissions from 'node-mac-permissions'
+let permissions
+if (process.platform === 'darwin') permissions = require('node-mac-permissions')
 
 export const isDevelopment = process.env.NODE_ENV !== 'production'
 

@@ -1,5 +1,4 @@
 import { IHealth } from './App'
-import permissions from 'node-mac-permissions'
 
 // Color grad logic
 const getColorForPercentage = (percentage: number) => {
@@ -30,33 +29,41 @@ export const getStyle = (elem: IHealth) => {
 	return fillStyle
 }
 
-export const macPermissionCheck = (type: permissions.AuthType) => {
-	let response = ''
-	if (process.platform !== 'darwin') return response
-	const status = permissions.getAuthStatus(type)
-	switch (status) {
-		case 'denied':
-			{
-				response = `You have denied ${type} permission to the app. Please go to System preferences > Security > ${type} and grant the Nudge app permission`
-			}
-			break
-		case 'restricted':
-			{
-				response = `You are not allowed to give ${type} permission to this app. Try doing the same manually in Settings > Security > ${type}`
-			}
-			break
-		case 'not determined':
-			{
-				switch (type) {
-					case 'screen':
-						permissions.askForScreenCaptureAccess()
-						break
-					case 'accessibility':
-						permissions.askForAccessibilityAccess()
-				}
-				response = 'not determined'
-			}
-			break
+// TODO:
+export let macPermissionCheck
+if (process.platform === 'darwin') {
+	let permissions
+	if (process.platform === 'darwin') {
+		permissions = require('node-mac-permissions')
 	}
-	return response ? `${response}\nRestart the app by pressing cmd+q and opening again after doing the needful.\n` : response
+	macPermissionCheck = (type: any) => {
+		let response = ''
+		if (process.platform !== 'darwin') return response
+		const status = permissions.getAuthStatus(type)
+		switch (status) {
+			case 'denied':
+				{
+					response = `You have denied ${type} permission to the app. Please go to System preferences > Security > ${type} and grant the Nudge app permission`
+				}
+				break
+			case 'restricted':
+				{
+					response = `You are not allowed to give ${type} permission to this app. Try doing the same manually in Settings > Security > ${type}`
+				}
+				break
+			case 'not determined':
+				{
+					switch (type) {
+						case 'screen':
+							permissions.askForScreenCaptureAccess()
+							break
+						case 'accessibility':
+							permissions.askForAccessibilityAccess()
+					}
+					response = 'not determined'
+				}
+				break
+		}
+		return response ? `${response}\nRestart the app by pressing cmd+q and opening again after doing the needful.\n` : response
+	}
 }
