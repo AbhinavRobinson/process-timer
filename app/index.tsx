@@ -162,8 +162,6 @@ class Main extends Component<{}, IMainState> {
 			this.setState({
 				loggedin: true,
 			})
-		} else {
-			this.googleSignIn()
 		}
 	}
 
