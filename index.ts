@@ -6,6 +6,8 @@ import { AppUpdaterContainer } from './AutoUpdater'
 import { MainWindowClass } from './windows/MainWindowClass'
 import { SideBarClass } from './windows/SideBarClass'
 
+import './redux/MainStore'
+
 import activeWin from 'active-win'
 let permissions
 if (process.platform === 'darwin') permissions = require('node-mac-permissions')
