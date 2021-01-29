@@ -55,11 +55,6 @@ class Application {
 			this.openSideBar()
 		})
 
-		ipcMain.on('loggedIn', (_) => {
-			//do something here equivalent to refresh..................
-			//this.MainWindowClass?.InnerWindow?.webContents.send('LoggedIn', state)
-		})
-
 		ipcMain.on('open_timer', (_) => {
 			this.openTimer()
 		})
