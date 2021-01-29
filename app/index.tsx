@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 import App from './screens/App'
 import { SideBar } from './screens/SideBar/SideBar'
 
-import { ipcRenderer, remote } from 'electron'
+import { ipcRenderer } from 'electron'
 
 import './css/index.css'
 import './css/utilities.css'
@@ -23,7 +23,6 @@ const electron_store = new Store()
 
 import firebase from 'firebase'
 import Login from './screens/Login/Login'
-
 import store, { AppDispatch } from './redux/store'
 
 import { MetaApplicationActions } from './redux/states/MetaApplicationSlice'
@@ -38,14 +37,6 @@ if (firebase.apps.length === 0)
 		serviceAccountId: 'firebase-adminsdk-1extw@nudge-299511.iam.gserviceaccount.com',
 		databaseURL: 'https://nudge-299511-default-rtdb.firebaseio.com/',
 	})
-const firestore = firebase.firestore()
-
-// const run = () => {
-
-// }
-
-// run()
-
 interface IMainState {
 	sidebar: boolean
 	loggedin: boolean

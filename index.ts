@@ -97,6 +97,9 @@ class Application {
 
 			if (this.win) this.win.close()
 			this.win = null
+			/*if(this.SideBarContainer&&this.SideBarContainer.InnerWindow)
+				this.SideBarContainer.InnerWindow.close()
+			this.SideBarContainer = null*/
 		})
 
 		// TODO add a close_sidebar call: should be callable globally

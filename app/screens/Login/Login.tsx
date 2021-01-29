@@ -134,11 +134,11 @@ export class Login extends React.Component<{}, State> {
 						<button
 							onClick={() => {
 								if (!this.state.verifying) {
-									this.state.verifying = true
+									this.setState({ verifying: true })
 									this.googleSignIn()
 								} else {
-									this.state.verifying = false
-									Prompt('error', 'Oops!! A window is already opened or something went wrong, press login again for a fresh start!')
+									this.setState({ verifying: false })
+									Prompt('info', 'Oops!! A window is already opened or something went wrong, press login again for a fresh start!')
 								}
 							}}
 							className='read-button'
