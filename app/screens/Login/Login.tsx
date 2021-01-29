@@ -10,7 +10,7 @@ import './Login.css'
 /**
  * Shows Login Screen
  */
-const Login = () => {
+const Login = ({ loginHandler }) => {
 	useEffect(() => {
 		// const primary_display = remote.screen.getPrimaryDisplay()
 		//Use for size
@@ -31,7 +31,15 @@ const Login = () => {
 					<FontAwesomeIcon icon={faEyeSlash} style={{ color: '#333' }} />
 				</button>
 				<FontAwesomeIcon icon={faSignInAlt} className='icon' style={{ color: '#333' }} />
-				<h2>Login to Nudge</h2>
+				<a
+					href='#'
+					onClick={(e) => {
+						e.preventDefault()
+						loginHandler()
+					}}
+				>
+					<h2>Login to Nudge</h2>
+				</a>
 				<DragRegion />
 			</div>
 		</div>

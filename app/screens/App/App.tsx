@@ -159,10 +159,13 @@ export class App extends React.Component<{}, IAppState> {
 						<button
 							onClick={() => {
 								electron_store.clear()
+								// Set a flag so as not to fire login on
+								// logout and reset it on that page.
+								electron_store.set('fire_login', false)
 								window.location.reload()
 							}}
 							className='logout-button sm'
-							data-tip='Login Again'
+							data-tip='Logout'
 						>
 							<FontAwesomeIcon icon={faSignOutAlt} className='icon' />
 						</button>

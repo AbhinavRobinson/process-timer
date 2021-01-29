@@ -127,6 +127,10 @@ class Main extends Component<{}, IMainState> {
 		ipcRenderer.on('redirect', (e) => {
 			this.setState({ sidebar: true })
 		})
+		if (electron_store.has('fire_login') && electron_store.get('fire_login') === false) {
+			electron_store.clear()
+			return
+		}
 		if (electron_store.get('auth')) {
 			this.setState({
 				loggedin: true,
@@ -137,7 +141,7 @@ class Main extends Component<{}, IMainState> {
 	}
 
 	render() {
-		return this.state.loggedin ? this.state.sidebar ? <SideBar /> : <App /> : <Login />
+		return this.state.loggedin ? this.state.sidebar ? <SideBar /> : <App /> : <Login loginHandler={() => this.googleSignIn()} />
 		// return <App />
 		// return <>{ipcRenderer.sendSync('sidebar_open_check') ? <SideBar /> : <App />}</>
 	}
