@@ -12,13 +12,14 @@ class Application {
 	public AppContainer: MainWindowClass
 	public SideBarContainer: SideBarClass
 	private isSideBarOpen: boolean
-
+	private win: BrowserWindow
 	constructor() {
 		this.init()
 	}
 
 	async init() {
 		app.on('ready', async () => {
+			this.win = null
 			this.AppContainer = new MainWindowClass()
 			await this.AppContainer.init()
 			this.handleEvents()
@@ -60,6 +61,9 @@ class Application {
 		this.AppContainer.InnerWindow.on('closed', () => {
 			this.AppContainer = null
 			this.SideBarContainer = null
+			if(this.win)
+				this.win.close()
+			this.win=	null
 		})
 
 		// TODO add a close_sidebar call: should be callable globally
@@ -96,18 +100,17 @@ class Application {
 		}
 	}
 	openTimer() {
-		let win = null
 		let [p, q] = this.AppContainer.InnerWindow.getPosition()
-		win = new BrowserWindow({ width: 330, height: 450 })
+		this.win = new BrowserWindow({ width: 330, height: 450 })
 		p = p - 330
-		win.setPosition(p, q + 50)
-		win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
-		win.setAlwaysOnTop(true, 'floating')
-		win.setFullScreenable(false)
-		win.setMenu(null)
-		win.loadURL(`file://${__static}/timer/index.html`)
-		win.once('ready', () => {
-			win.show()
+		this.win.setPosition(p, q + 50)
+		this.win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
+		this.win.setAlwaysOnTop(true, 'floating')
+		this.win.setFullScreenable(false)
+		this.win.setMenu(null)
+		this.win.loadURL(`file://${__static}/timer/index.html`)
+		this.win.once('ready', () => {
+			this.win.show()
 		})
 	}
 }
