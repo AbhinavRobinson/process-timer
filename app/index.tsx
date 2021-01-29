@@ -1,6 +1,6 @@
 // import firebase from 'firebase'
 
-import React, { Component } from 'react'
+import React, { Component, Fragment, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 import App from './screens/App'
@@ -12,6 +12,7 @@ import './css/index.css'
 import './css/utilities.css'
 import Container from 'typedi'
 
+import { Provider } from 'react-redux'
 // Amplify
 //import Amplify from 'aws-amplify'
 //import config from './aws-exports.js'
@@ -22,6 +23,10 @@ const electron_store = new Store()
 
 import firebase from 'firebase'
 import Login from './screens/Login/Login'
+
+import store, { AppDispatch } from './redux/store'
+
+import { MetaApplicationActions } from './redux/states/MetaApplicationSlice'
 if (firebase.apps.length === 0)
 	firebase.initializeApp({
 		apiKey: 'AIzaSyDCXLT3OhYO1gMndDKAoPWAtRFY1DWZWTM',
@@ -34,9 +39,31 @@ if (firebase.apps.length === 0)
 		databaseURL: 'https://nudge-299511-default-rtdb.firebaseio.com/',
 	})
 const firestore = firebase.firestore()
+
+// const run = () => {
+
+// }
+
+// run()
+
 interface IMainState {
 	sidebar: boolean
 	loggedin: boolean
+}
+
+import { useDispatch } from 'react-redux'
+
+const TestStore = () => {
+	const dispatch: AppDispatch = useDispatch()
+
+	dispatch(MetaApplicationActions.setLogin(true))
+	useEffect(() => {
+		setImmediate(() => {
+			console.log('loggedIn:', store.getState().MetaApplicationReducer.loggedIn)
+		})
+		return () => {}
+	}, [])
+	return <Fragment></Fragment>
 }
 
 class Main extends Component<{}, IMainState> {
@@ -124,7 +151,7 @@ class Main extends Component<{}, IMainState> {
 	}
 
 	componentDidMount() {
-		ipcRenderer.on('redirect', (e) => {
+		ipcRenderer.on('redirect', () => {
 			this.setState({ sidebar: true })
 		})
 		if (electron_store.has('fire_login') && electron_store.get('fire_login') === false) {
@@ -141,7 +168,14 @@ class Main extends Component<{}, IMainState> {
 	}
 
 	render() {
-		return this.state.loggedin ? this.state.sidebar ? <SideBar /> : <App /> : <Login loginHandler={() => this.googleSignIn()} />
+		return (
+			<Fragment>
+				<Provider store={store}>
+					<TestStore />
+					{this.state.loggedin ? this.state.sidebar ? <SideBar /> : <App /> : <Login loginHandler={() => this.googleSignIn()} />}
+				</Provider>
+			</Fragment>
+		)
 		// return <App />
 		// return <>{ipcRenderer.sendSync('sidebar_open_check') ? <SideBar /> : <App />}</>
 	}
