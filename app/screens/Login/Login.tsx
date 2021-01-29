@@ -7,7 +7,7 @@ import DragRegion from '../../components/DragRegion'
 import { Fragment } from 'react'
 import ReactTooltip from 'react-tooltip'
 import './Login.css'
-import App from './screens/App'
+import App from '../App'
 import { ipcRenderer } from 'electron'
 
 import { CloseHandler } from '../../components/CloseHandler'
@@ -33,13 +33,15 @@ import { Prompt } from '../../components/Prompt'
 
  export interface State {
  	closeHandler: boolean,
-	verifying: boolean
+	verifying: boolean,
+  loggedin: boolean,
  }
 
 export class Login extends React.Component<{}, State>{
 	state = {
 		closeHandler: false,
-		verifying: false
+		verifying: false,
+    loggedin: false
 	}
 
 	async initUser(credential) {
@@ -110,45 +112,39 @@ export class Login extends React.Component<{}, State>{
 			}, 1000)
 		)
 	}
+
+  componentDidMount() {
+		if (electron_store.get('auth')) {
+			this.setState({
+				loggedin: true,
+			})
+		}
+	}
+
 	render() {
-		return (
+		return this.state.loggedin? <App/>: (
 			<Fragment>
 				<ReactTooltip />
 				<div className='outer' id='outer'>
 					{/* <p>{this.state.active_app}</p> */}
 					<div className='container'>
 
-						{
-							!this.state.verifying?
-								(<button
-									onClick={() => {
-										this.googleSignIn()
-										this.state.verifying= true
-									}}
-									className='read-button'
-									data-tip='Login to explore'
-								>
-									<FontAwesomeIcon icon={faSignInAlt} />
-								</button>):
-								(<button
-									onClick={() => {
-										this.state.verifying= false
-										if(electron_store.get('auth'))
-										{
-											Prompt("none","Successful!! Enjoy the App, hope it is useful!")
-											ipcRenderer.send('loggedIn')
-										}
-										else
-										{
-											Prompt("error","Oops!! Something went wrong, try again please!")
-										}
-									}}
-									className='read-button'
-									data-tip='Login to explore'
-								>
-									<FontAwesomeIcon icon={faSignInAlt} />
-								</button>)
-							}
+            <button
+              onClick={() => {
+                if (!this.state.verifying) {
+                  this.state.verifying= true
+                  this.googleSignIn()
+                }
+                else {
+                  this.state.verifying= false
+                  Prompt("error","Oops!! A window is already opened or something went wrong, press login again for a fresh start!")
+                }
+              }}
+              className='read-button'
+              data-tip='Login to explore'
+            >
+              <FontAwesomeIcon icon={faSignInAlt} />
+            </button>
 						<button
 							onClick={() => {
 								if (!this.state.closeHandler) {
