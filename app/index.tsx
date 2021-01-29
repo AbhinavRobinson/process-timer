@@ -3,7 +3,7 @@
 import React, { Component, Fragment, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
-import App from './screens/App'
+import Redirect from './screens/Redirect'
 import { SideBar } from './screens/SideBar/SideBar'
 
 import { ipcRenderer } from 'electron'
@@ -13,16 +13,12 @@ import './css/utilities.css'
 import Container from 'typedi'
 
 import { Provider } from 'react-redux'
-// Amplify
-//import Amplify from 'aws-amplify'
-//import config from './aws-exports.js'
-//Amplify.configure(config)
 
 import Store from 'electron-store'
 const electron_store = new Store()
 
+import { useDispatch } from 'react-redux'
 import firebase from 'firebase'
-import Login from './screens/Login/Login'
 import store, { AppDispatch } from './redux/store'
 
 import { MetaApplicationActions } from './redux/states/MetaApplicationSlice'
@@ -41,8 +37,6 @@ interface IMainState {
 	sidebar: boolean
 	loggedin: boolean
 }
-
-import { useDispatch } from 'react-redux'
 
 const TestStore = () => {
 	const dispatch: AppDispatch = useDispatch()
@@ -92,7 +86,7 @@ class Main extends Component<{}, IMainState> {
 			<Fragment>
 				<Provider store={store}>
 					<TestStore />
-					{this.state.loggedin ? this.state.sidebar ? <SideBar /> : <App /> : <Login loginHandler={() => this.googleSignIn()} />}
+					{this.state.sidebar ? <SideBar /> : <Redirect />}
 				</Provider>
 			</Fragment>
 		)
