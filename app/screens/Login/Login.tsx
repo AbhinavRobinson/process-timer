@@ -2,7 +2,7 @@
 import { faTimes, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { remote } from 'electron'
-import React, { useEffect } from 'react'
+import React from 'react'
 import DragRegion from '../../components/DragRegion'
 import { Fragment } from 'react'
 import ReactTooltip from 'react-tooltip'
@@ -137,7 +137,7 @@ export class Login extends React.Component<{}, State>{
                 }
                 else {
                   this.state.verifying= false
-                  Prompt("error","Oops!! A window is already opened or something went wrong, press login again for a fresh start!")
+                  Prompt("info","Oops!! A window is already opened or something went wrong, press login again for a fresh start!")
                 }
               }}
               className='read-button'

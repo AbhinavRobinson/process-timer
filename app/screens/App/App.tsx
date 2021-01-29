@@ -184,7 +184,7 @@ export class App extends React.Component<{}, IAppState> {
 								window.location.reload()
 							}}
 							className='logout-button sm'
-							data-tip='Login Again'
+							data-tip='Logout'
 						>
 							<FontAwesomeIcon icon={faSignOutAlt} className='icon' />
 						</button>

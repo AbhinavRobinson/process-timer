@@ -60,7 +60,9 @@ class Application {
 
 		this.AppContainer.InnerWindow.on('closed', () => {
 			this.AppContainer = null
-			this.SideBarContainer = null
+			/*if(this.SideBarContainer&&this.SideBarContainer.InnerWindow)
+				this.SideBarContainer.InnerWindow.close()
+			this.SideBarContainer = null*/
 			if(this.win)
 				this.win.close()
 			this.win=	null
