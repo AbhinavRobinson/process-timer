@@ -9,6 +9,7 @@ import { SideBarClass } from './windows/SideBarClass'
 import './redux/MainStore'
 
 import activeWin from 'active-win'
+
 let permissions
 if (process.platform === 'darwin') permissions = require('node-mac-permissions')
 
@@ -27,7 +28,10 @@ class Application {
 	active_app = ''
 	monitor_app = ''
 
+	// Local Windows
 	private win: BrowserWindow
+	private backgroundWin: BrowserWindow
+
 	constructor() {
 		this.init()
 	}
@@ -66,6 +70,9 @@ class Application {
 		ipcMain.on('control_state_change', (_, state) => {
 			if (this.isSideBarOpen) this.SideBarContainer?.InnerWindow?.webContents.send('stateUpdate', state)
 		})
+
+		// Background renderer process to execute binary
+		//this.backgroundWin = new BrowserWindow({})
 
 		// App tracking every 2 seconds
 		if (process.platform !== 'win32')
