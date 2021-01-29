@@ -1,7 +1,6 @@
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { isDevelopment } from '..'
-import { format as formatUrl } from 'url'
 
 interface BrowserWindowPosition {
 	x?: number
@@ -33,15 +32,9 @@ export class SideBarClass {
 
 	init() {
 		if (isDevelopment) {
-			this.InnerWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
+			this.InnerWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?game`)
 		} else {
-			this.InnerWindow.loadURL(
-				formatUrl({
-					pathname: path.join(__dirname, 'index.html'),
-					protocol: 'file',
-					slashes: true,
-				})
-			)
+			this.InnerWindow.loadURL(`file://${path.join(__dirname, 'index.html?game')}`)
 		}
 		this.InnerWindow.setBounds({
 			x: screen.getPrimaryDisplay().bounds.width - 150,

@@ -1,5 +1,4 @@
 import { BrowserWindow, screen } from 'electron'
-import { format as formatUrl } from 'url'
 import * as path from 'path'
 import { isDevelopment } from '../index'
 
@@ -35,16 +34,9 @@ export class MainWindowClass {
 	async init() {
 		electron_store.set('socket', false)
 		if (isDevelopment) {
-			this.InnerWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
+			this.InnerWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?default`)
 		} else {
-			this.InnerWindow.loadURL(
-				formatUrl({
-					pathname: path.join(__dirname, 'index.html'),
-					protocol: 'file',
-					slashes: true,
-					query: 'read=true',
-				})
-			)
+			this.InnerWindow.loadURL(`file://${path.join(__dirname, 'index.html?default')}`)
 		}
 
 		this.InnerWindow.on('closed', () => {

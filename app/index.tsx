@@ -1,5 +1,6 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Route, RouteProps } from 'react-router-dom'
 
 import Redirect from './screens/Redirect'
 import { SideBar } from './screens/SideBar/SideBar'
@@ -38,42 +39,56 @@ const TestStore: React.FC = () => {
 	return <></>
 }
 
-const Main: React.FC = () => {
-	const [state, changeState] = React.useState<IMainState>({
+const getViews = () => ({
+	default: <Redirect />,
+	game: <SideBar />,
+})
+
+const HandleRoute: React.FC<RouteProps> = ({ location }) => {
+	const name = location.search.substr(1)
+	const view = getViews()[name]
+	if (!view)
+		throw new Error(
+			`Given view: ${name} is not defined in the map.\nPlease go into app/index.tsx and edit getViews returned object with your path and component added.`
+		)
+	return view
+}
+
+class Main extends React.Component<{}, IMainState> {
+	state = {
 		sidebar: false,
 		loggedin: false,
-	})
-
-	//	const logout = async () => {
-	//		electron_store.clear()
-	//		await firebase.auth().signOut()
-	//	}
-
-	React.useEffect(() => {
+	}
+	constructor(props: any) {
+		super(props)
 		Container.set('url', 'socket.nudge.aniketbiprojit.me')
+	}
+
+	componentDidMount() {
 		ipcRenderer.on('redirect', () => {
-			changeState({ ...state, sidebar: true })
+			this.setState({ sidebar: true })
 		})
 		if (electron_store.has('fire_login') && electron_store.get('fire_login') === false) {
 			electron_store.clear()
 			return
 		}
 		if (electron_store.get('auth')) {
-			changeState({
-				...state,
+			this.setState({
 				loggedin: true,
 			})
 		}
-	}, [])
+	}
 
-	return (
-		<>
+	render() {
+		return (
 			<Provider store={store}>
 				<TestStore />
-				{state.sidebar ? <SideBar /> : <Redirect />}
+				<Router>
+					<Route path='/' component={HandleRoute} />
+				</Router>
 			</Provider>
-		</>
-	)
+		)
+	}
 }
 
 ReactDOM.render(<Main />, document.getElementById('app'))

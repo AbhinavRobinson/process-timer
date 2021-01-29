@@ -29,8 +29,8 @@ class Application {
 	monitor_app = ''
 
 	// Local Windows
-	private win: BrowserWindow
-	private backgroundWin: BrowserWindow
+	private pomoWin: BrowserWindow
+	//private backgroundWin: BrowserWindow
 
 	constructor() {
 		this.init()
@@ -38,7 +38,7 @@ class Application {
 
 	async init() {
 		app.on('ready', async () => {
-			this.win = null
+			this.pomoWin = null
 			this.AppContainer = new MainWindowClass()
 			await this.AppContainer.init()
 			this.handleEvents()
@@ -72,7 +72,11 @@ class Application {
 		})
 
 		// Background renderer process to execute binary
-		//this.backgroundWin = new BrowserWindow({})
+		//this.backgroundWin = new BrowserWindow({
+		//	show: false,
+		//	webPreferences: { nodeIntegration: true, contextIsolation: true },
+		//})
+		//	this.backgroundWin.loadURL('')
 
 		// App tracking every 2 seconds
 		if (process.platform !== 'win32')
@@ -102,8 +106,8 @@ class Application {
 
 			!(process.platform === 'win32') && clearInterval(this.intervalId)
 
-			if (this.win) this.win.close()
-			this.win = null
+			if (this.pomoWin) this.pomoWin.close()
+			this.pomoWin = null
 			/*if(this.SideBarContainer&&this.SideBarContainer.InnerWindow)
 				this.SideBarContainer.InnerWindow.close()
 			this.SideBarContainer = null*/
@@ -144,17 +148,14 @@ class Application {
 	}
 	openTimer() {
 		let [p, q] = this.AppContainer.InnerWindow.getPosition()
-		this.win = new BrowserWindow({ width: 330, height: 450 })
+		this.pomoWin = new BrowserWindow({ width: 330, height: 450 })
 		p = p - 330
-		this.win.setPosition(p, q + 50)
-		this.win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
-		this.win.setAlwaysOnTop(true, 'floating')
-		this.win.setFullScreenable(false)
-		this.win.setMenu(null)
-		this.win.loadURL(`file://${__static}/timer/index.html`)
-		this.win.once('ready', () => {
-			this.win.show()
-		})
+		this.pomoWin.setPosition(p, q + 50)
+		this.pomoWin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
+		this.pomoWin.setAlwaysOnTop(true, 'floating')
+		this.pomoWin.setFullScreenable(false)
+		this.pomoWin.setMenu(null)
+		this.pomoWin.loadURL(`file://${__static}/timer/index.html`)
 	}
 }
 
