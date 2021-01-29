@@ -88,7 +88,7 @@ export class App extends React.Component<{}, IAppState> {
 
 		set_up_window()
 		console.log('resolved')
-		if (process.platform === 'win32') game_loop(this)
+		if (process.platform !== 'darwin') game_loop(this)
 	}
 
 	async componentDidUpdate() {
@@ -192,12 +192,14 @@ export class App extends React.Component<{}, IAppState> {
 	}
 
 	backend_handler = (ref: App) => async () => {
-		const accRes = macPermissionCheck('accessibility')
-		const scrRes = macPermissionCheck('screen')
-		const permissionResponse = `${accRes}${scrRes}`
-		if (permissionResponse) {
-			await MessageHandler(permissionResponse, () => null, !!permissionResponse)
-			return
+		if (process.platform === 'darwin') {
+			const accRes = macPermissionCheck('accessibility')
+			const scrRes = macPermissionCheck('screen')
+			const permissionResponse = `${accRes}${scrRes}`
+			if (permissionResponse) {
+				await MessageHandler(permissionResponse, () => null, !!permissionResponse)
+				return
+			}
 		}
 
 		var confirm = await MessageHandler(
