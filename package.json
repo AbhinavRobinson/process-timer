@@ -103,14 +103,14 @@
 		"publish": [
 			{
 				"provider": "s3",
-				"bucket": "nudge-testing"
+				"bucket": "nudge-desktop-app"
 			}
 		],
 		"snap": {
 			"publish": [
 				{
 					"provider": "s3",
-					"bucket": "nudge-testing"
+					"bucket": "nudge-desktop-app"
 				}
 			]
 		},
