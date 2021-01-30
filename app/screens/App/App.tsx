@@ -214,7 +214,7 @@ export class App extends React.Component<{}, IAppState> {
 		var confirm = await MessageHandler(
 			ref.active_app
 				? `Do you want to start with ${ref.active_app}`
-				: 'Please select an app by cliking anywhere on the desired application once',
+				: 'Please select an app by cliking anywhere on the desired application once. Nudge takes 2 seconds to track the current app after clicking',
 			() => null,
 			!ref.active_app
 		)
