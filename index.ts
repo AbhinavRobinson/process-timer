@@ -90,11 +90,8 @@ class Application {
 
 			!(process.platform === 'win32') && clearInterval(this.intervalId)
 
-			if (this.pomoWin) this.pomoWin.close()
-			this.pomoWin = null
-			/*if(this.SideBarContainer&&this.SideBarContainer.InnerWindow)
-				this.SideBarContainer.InnerWindow.close()
-			this.SideBarContainer = null*/
+			app.quit()//closes all windows 
+
 		})
 
 		// TODO add a close_sidebar call: should be callable globally
