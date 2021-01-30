@@ -80,6 +80,7 @@ class Application {
 		this.AppContainer.InnerWindow.on('closed', () => {
 			this.AppContainer = null
 			this.SideBarContainer = null
+			if (this.WorkerContainer) this.WorkerContainer.InnerWindow.close()
 			this.WorkerContainer = null
 
 			!(process.platform === 'win32') && clearInterval(this.intervalId)
