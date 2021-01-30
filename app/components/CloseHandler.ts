@@ -19,10 +19,7 @@ export function CloseHandler(type: string, textmessage: string, callback?: VoidF
 		})
 		.then((data) => {
 			if (data.response === 0) {
-				Container.get(AppUpdaterContainer).install()
-				setTimeout(() => {
-					if (window) window.close()
-				}, 2000)
+				window.close()
 			}
 			if (data.response) {
 				callback()

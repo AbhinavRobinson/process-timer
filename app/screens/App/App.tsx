@@ -140,7 +140,11 @@ export class App extends React.Component<{}, IAppState> {
 
 						<button
 							onClick={() => {
-								ipcRenderer.send('open_sidebar')
+								this.backend_handler(this)()
+									.then((started) => {
+										if (started) ipcRenderer.send('open_sidebar')
+									})
+									.catch(console.error)
 							}}
 							className='read-button'
 							data-tip='Start Video Call'
@@ -196,14 +200,14 @@ export class App extends React.Component<{}, IAppState> {
 		)
 	}
 
-	backend_handler = (ref: App) => async () => {
+	backend_handler = (ref: App) => async (): Promise<boolean> => {
 		if (process.platform === 'darwin') {
 			const accRes = macPermissionCheck('accessibility')
 			const scrRes = macPermissionCheck('screen')
 			const permissionResponse = `${accRes}${scrRes}`
 			if (permissionResponse) {
 				await MessageHandler(permissionResponse, () => null, !!permissionResponse)
-				return
+				return false
 			}
 		}
 
@@ -218,7 +222,10 @@ export class App extends React.Component<{}, IAppState> {
 			ref.monitor_app = ref.active_app
 			ref.setState({ backend_running: true })
 			ref.run_backend()
+			return true
 		}
+
+		return false
 	}
 
 	private stop_backend() {
