@@ -14,6 +14,13 @@ export class AppUpdaterContainer {
 		this.init()
 	}
 
+	install() {
+		try {
+			autoUpdater.quitAndInstall()
+		} catch (error) {
+			log.error(error)
+		}
+	}
 	// Logs left for debugging purposes.
 	async init() {
 		this.autoUpdater.checkForUpdatesAndNotify()
