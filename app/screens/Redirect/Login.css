@@ -1,0 +1,14 @@
+.login-wrapper {
+	background: #eee;
+	width: 300px;
+	height: 300px;
+	border-radius: 20px;
+	padding: 20px;
+}
+
+.button-container {
+	display: flex;
+	flex-direction: column;
+	padding: 10px 80px;
+	gap: 15px;
+}
