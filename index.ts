@@ -90,7 +90,7 @@ class Application {
 
 			!(process.platform === 'win32') && clearInterval(this.intervalId)
 
-			app.quit()//closes all windows 
+			app.quit()//closes all windows
 
 		})
 
@@ -139,9 +139,11 @@ class Application {
 	}
 	openWhatsapp() {
 		if(!this.whatsappWin) {
-			const { main_width, main_height } = screen.getPrimaryDisplay().workAreaSize
+			let mainScreen = screen.getPrimaryDisplay().workAreaSize
 			let [p, q] = this.AppContainer.InnerWindow.getPosition()
-			this.whatsappWin = new BrowserWindow({ width: main_width, height: main_height })
+			p = p - mainScreen.width*0.6 + 130
+			this.whatsappWin = new BrowserWindow({width:mainScreen.width*0.6, height:mainScreen.height, skipTaskbar: true })
+			this.whatsappWin.setPosition(Math.floor(p), q -20)
 			this.whatsappWin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
 			this.whatsappWin.setAlwaysOnTop(true, 'floating')
 			this.whatsappWin.setFullScreenable(false)
