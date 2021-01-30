@@ -6,7 +6,20 @@
 	padding: 20px;
 }
 
+.text-container {
+	text-align: center;
+	gap: 10px;
+	font-family: 'Poppins', monospace;
+}
+
+h1 {
+}
+
+p {
+}
+
 .button-container {
+	font-family: monospace;
 	display: flex;
 	flex-direction: column;
 	padding: 10px 80px;
