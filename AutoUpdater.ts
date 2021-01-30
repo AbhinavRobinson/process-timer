@@ -11,7 +11,7 @@ export class AppUpdaterContainer {
 		log.transports.file.level = 'debug'
 		this.autoUpdater = autoUpdater
 		autoUpdater.logger = log
-		this.init()
+		autoUpdater.autoDownload = false
 	}
 
 	install() {
@@ -23,7 +23,10 @@ export class AppUpdaterContainer {
 	}
 	// Logs left for debugging purposes.
 	async init() {
-		this.autoUpdater.checkForUpdatesAndNotify()
+		this.autoUpdater.checkForUpdatesAndNotify({
+			body: 'Download Available',
+			title: 'Downloading Updates',
+		})
 		autoUpdater.autoInstallOnAppQuit = true
 
 		autoUpdater.on('checking-for-update', () => {

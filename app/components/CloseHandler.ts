@@ -1,5 +1,6 @@
 import { remote } from 'electron'
 import Container from 'typedi'
+export const isDevelopment = process.env.NODE_ENV !== 'production'
 import { AppUpdaterContainer } from '../../AutoUpdater'
 
 /** Confirms to close the App.
@@ -19,7 +20,11 @@ export function CloseHandler(type: string, textmessage: string, callback?: VoidF
 		})
 		.then((data) => {
 			if (data.response === 0) {
-				window.close()
+				if (isDevelopment) window.close()
+				else {
+					// TODO: Handle exit.
+					Container.get(AppUpdaterContainer).install()
+				}
 			}
 			if (data.response) {
 				callback()
