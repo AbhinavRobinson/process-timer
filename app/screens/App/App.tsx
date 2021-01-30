@@ -181,6 +181,7 @@ export class App extends React.Component<{}, IAppState> {
 								// logout and reset it on that page.
 								electron_store.set('fire_login', false)
 								window.location.reload()
+								window.resizeTo(350, 450)
 							}}
 							className='logout-button sm'
 							data-tip='Logout'
