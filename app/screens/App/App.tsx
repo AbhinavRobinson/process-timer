@@ -5,7 +5,8 @@ import React, { Fragment } from 'react'
  * Font Awesome Imports
  */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faCheck, faTimes, faPhone, faStopwatch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faCheck, faTimes, faPhone, faStopwatch } from '@fortawesome/free-solid-svg-icons'
+import { FaUnlockAlt } from 'react-icons/fa'
 
 import ReactTooltip from 'react-tooltip'
 
@@ -173,7 +174,7 @@ export class App extends React.Component<{}, IAppState> {
 							className='logout-button sm'
 							data-tip='Logout'
 						>
-							<FontAwesomeIcon icon={faSignOutAlt} className='icon' />
+							<FaUnlockAlt />
 						</button>
 
 						<button

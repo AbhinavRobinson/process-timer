@@ -103,11 +103,11 @@
 
 .outer .logout-button {
 	margin-top: 10px;
-	font-size: 20px;
+	font-size: 24px;
 }
 
 .outer .logout-button .icon {
-	transform: translateY(1px) translateX(2px);
+	vertical-align: middle;
 }
 
 .call button:hover,
