@@ -87,6 +87,11 @@
 	font-size: 20px;
 }
 
+.icon {
+	font-size: 28px;
+	vertical-align: middle;
+}
+
 .outer .pause-button {
 	margin-top: 10px;
 }

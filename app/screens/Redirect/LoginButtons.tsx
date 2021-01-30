@@ -1,9 +1,9 @@
 import * as React from 'react'
 import ReactTooltip from 'react-tooltip'
 import { LoginState } from './index'
-import { faTimes, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import './Login.css'
+import { FaUserLock } from 'react-icons/fa'
 
 import Store from 'electron-store'
 import { CloseHandler } from '../../components/CloseHandler'
@@ -39,7 +39,7 @@ const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, elec
 						className='read-button'
 						data-tip='Login'
 					>
-						<FontAwesomeIcon icon={faSignInAlt} />
+						<FaUserLock className='icon' />
 					</button>
 					<button
 						onClick={() => {
