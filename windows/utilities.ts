@@ -7,6 +7,6 @@ export function loadWindow(win: BrowserWindow, route: routes) {
 	if (isDevelopment) {
 		win.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?${route}`)
 	} else {
-		win.loadURL(`file://${path.join(__dirname, 'index.html?worker')}${route}`)
+		win.loadURL(`file://${path.join(__dirname, 'index.html')}?${route}`)
 	}
 }
