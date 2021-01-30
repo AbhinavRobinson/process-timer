@@ -38,8 +38,13 @@ const TestStore: React.FC = () => {
 	return <></>
 }
 
+type ViewMap = {
+	[key in routes]: React.ReactElement
+}
+
 // Define all corresponding views here
-const getViews: () => { [key in routes]: any } = () => ({
+const getViews: () => ViewMap = (defaults?: ViewMap) => ({
+	...defaults,
 	default: <Redirect />,
 	game: <SideBar />,
 	worker: <Worker />,

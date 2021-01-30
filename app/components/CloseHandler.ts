@@ -1,5 +1,6 @@
 import { remote } from 'electron'
 import Container from 'typedi'
+export const isDevelopment = process.env.NODE_ENV !== 'production'
 import { AppUpdaterContainer } from '../../AutoUpdater'
 
 /** Confirms to close the App.
@@ -19,10 +20,24 @@ export function CloseHandler(type: string, textmessage: string, callback?: VoidF
 		})
 		.then((data) => {
 			if (data.response === 0) {
-				Container.get(AppUpdaterContainer).install()
-				setTimeout(() => {
-					if (window) window.close()
-				}, 2000)
+				if (isDevelopment) window.close()
+				else {
+					// TODO: Testing exit.
+					if (process.platform === 'darwin')
+						try {
+							Container.get(AppUpdaterContainer).install()
+							setTimeout(() => {
+								if (window) {
+									window.close()
+								}
+							})
+						} catch (error) {
+							console.log(error)
+						}
+					else {
+						window.close()
+					}
+				}
 			}
 			if (data.response) {
 				callback()

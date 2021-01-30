@@ -47,6 +47,8 @@
 
 /* MONITOR APP WITH BUBBLES */
 .outer {
+	margin-left: 20px;
+	margin-top: 20px;
 	max-width: 50px;
 	background: rgb(246, 246, 246);
 	padding: 15px;

@@ -37,7 +37,7 @@ const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, elec
 							}
 						}}
 						className='read-button'
-						data-tip='Login to explore'
+						data-tip='Login'
 					>
 						<FontAwesomeIcon icon={faSignInAlt} />
 					</button>

@@ -53,7 +53,7 @@ export const googleSignIn: utilityFunction = async ({ firestore, loginState, fir
 				remote.getCurrentWindow().show()
 				remote.getCurrentWindow().focus()
 				remote.getCurrentWindow().setAlwaysOnTop(true)
-				remote.getCurrentWindow().setSize(90, 600)
+				remote.getCurrentWindow().setSize(120, 600)
 
 				let user_data = {
 					name: credential.user.displayName,

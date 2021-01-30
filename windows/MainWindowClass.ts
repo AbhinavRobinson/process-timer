@@ -21,7 +21,8 @@ export class MainWindowClass {
 				webSecurity: false,
 				devTools: isDevelopment,
 			},
-			width: 90,
+			// @important any changes here also need to be made in App/set_up_window.tsx and Redirect/utilities.ts, or it will override this.
+			width: 120,
 			height: 600,
 			x: display.bounds.width - 200,
 			alwaysOnTop: true,

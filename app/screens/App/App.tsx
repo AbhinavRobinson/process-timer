@@ -140,10 +140,14 @@ export class App extends React.Component<{}, IAppState> {
 
 						<button
 							onClick={() => {
-								ipcRenderer.send('open_sidebar')
+								this.backend_handler(this)()
+									.then((started) => {
+										if (started) ipcRenderer.send('open_sidebar')
+									})
+									.catch(console.error)
 							}}
 							className='read-button'
-							data-tip='Start Video Call'
+							data-tip='Video Call'
 						>
 							<FontAwesomeIcon icon={faPhone} />
 						</button>
@@ -153,7 +157,7 @@ export class App extends React.Component<{}, IAppState> {
 								ipcRenderer.send('open_timer')
 							}}
 							className='read-button'
-							data-tip='Pomo Timer'
+							data-tip='Open Timer'
 						>
 							<FontAwesomeIcon icon={faStopwatch} />
 						</button>
@@ -196,21 +200,21 @@ export class App extends React.Component<{}, IAppState> {
 		)
 	}
 
-	backend_handler = (ref: App) => async () => {
+	backend_handler = (ref: App) => async (): Promise<boolean> => {
 		if (process.platform === 'darwin') {
 			const accRes = macPermissionCheck('accessibility')
 			const scrRes = macPermissionCheck('screen')
 			const permissionResponse = `${accRes}${scrRes}`
 			if (permissionResponse) {
 				await MessageHandler(permissionResponse, () => null, !!permissionResponse)
-				return
+				return false
 			}
 		}
 
 		var confirm = await MessageHandler(
 			ref.active_app
 				? `Do you want to start with ${ref.active_app}`
-				: 'Please select an app by cliking anywhere on the desired application once',
+				: 'Please select an app by cliking anywhere on the desired application once. Nudge takes 2 seconds to track the current app after clicking',
 			() => null,
 			!ref.active_app
 		)
@@ -218,7 +222,10 @@ export class App extends React.Component<{}, IAppState> {
 			ref.monitor_app = ref.active_app
 			ref.setState({ backend_running: true })
 			ref.run_backend()
+			return true
 		}
+
+		return false
 	}
 
 	private stop_backend() {
