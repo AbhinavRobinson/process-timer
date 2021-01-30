@@ -2,7 +2,6 @@ node_modules
 .vscode
 __pycache__
 **/node_modules
-**/build
 dist
 yarn-error.log
 
@@ -14,7 +13,6 @@ amplify/mock-data
 amplify/backend/amplify-meta.json
 amplify/backend/awscloudformation
 amplify/backend/.temp
-build/
 dist/
 node_modules/
 aws-exports.js
