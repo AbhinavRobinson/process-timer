@@ -22,8 +22,21 @@ export function CloseHandler(type: string, textmessage: string, callback?: VoidF
 			if (data.response === 0) {
 				if (isDevelopment) window.close()
 				else {
-					// TODO: Handle exit.
-					Container.get(AppUpdaterContainer).install()
+					// TODO: Testing exit.
+					if (process.platform === 'darwin')
+						try {
+							Container.get(AppUpdaterContainer).install()
+							setTimeout(() => {
+								if (window) {
+									window.close()
+								}
+							})
+						} catch (error) {
+							console.log(error)
+						}
+					else {
+						window.close()
+					}
 				}
 			}
 			if (data.response) {
