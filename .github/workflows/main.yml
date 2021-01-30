@@ -22,9 +22,8 @@ jobs:
                   node-version: 14
 
             - name: Build/release Electron app
-              with:
-                  github_token: ${{ secrets.github_token }}
+              env:
                   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
                   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                  run: |
-                      npm run build
+              run: |
+                  npm run build
