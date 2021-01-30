@@ -64,8 +64,9 @@ const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, elec
 						Exit
 					</button>
 				</div>
-
-				<DragRegion />
+				<div className='drag-container'>
+					<DragRegion />
+				</div>
 			</div>
 		</>
 	)
