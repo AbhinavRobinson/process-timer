@@ -6,6 +6,7 @@ import React, { Fragment } from 'react'
  */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faCheck, faTimes, faPhone, faStopwatch } from '@fortawesome/free-solid-svg-icons'
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons/faWhatsapp'
 import { FaUnlockAlt } from 'react-icons/fa'
 
 import ReactTooltip from 'react-tooltip'
@@ -161,6 +162,16 @@ export class App extends React.Component<{}, IAppState> {
 							data-tip='Open Timer'
 						>
 							<FontAwesomeIcon icon={faStopwatch} />
+						</button>
+
+						<button
+							onClick={() => {
+								ipcRenderer.send('open_whatsapp')
+							}}
+							className='read-button'
+							data-tip='Check Whatsapp'
+						>
+							<FontAwesomeIcon icon={faWhatsapp} />
 						</button>
 
 						<button

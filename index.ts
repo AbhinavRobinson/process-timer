@@ -1,4 +1,4 @@
-import { app, ipcMain } from 'electron'
+import { screen, app, ipcMain } from 'electron'
 import { BrowserWindow } from 'electron'
 
 import Container from 'typedi'
@@ -23,6 +23,7 @@ class Application {
 
 	// Local Windows
 	private pomoWin: BrowserWindow
+	private whatsappWin: BrowserWindow
 
 	constructor() {
 		this.init()
@@ -53,6 +54,10 @@ class Application {
 
 		ipcMain.on('open_timer', (_) => {
 			this.openTimer()
+		})
+
+		ipcMain.on('open_whatsapp', (_) => {
+			this.openWhatsapp()
 		})
 
 		ipcMain.on('isDevelopment', (e) => {
@@ -126,7 +131,7 @@ class Application {
 	}
 	openTimer() {
 		let [p, q] = this.AppContainer.InnerWindow.getPosition()
-		this.pomoWin = new BrowserWindow({ width: 330, height: 450 })
+		this.pomoWin = new BrowserWindow({ width: 330, height: 450, skipTaskbar: true })
 		p = p - 330
 		this.pomoWin.setPosition(p, q + 50)
 		this.pomoWin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
@@ -134,6 +139,35 @@ class Application {
 		this.pomoWin.setFullScreenable(false)
 		this.pomoWin.setMenu(null)
 		this.pomoWin.loadURL(`file://${__static}/timer/index.html`)
+	}
+	openWhatsapp() {
+		if(!this.whatsappWin) {
+			const { main_width, main_height } = screen.getPrimaryDisplay().workAreaSize
+			let [p, q] = this.AppContainer.InnerWindow.getPosition()
+			this.whatsappWin = new BrowserWindow({ width: main_width, height: main_height })
+			this.whatsappWin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
+			this.whatsappWin.setAlwaysOnTop(true, 'floating')
+			this.whatsappWin.setFullScreenable(false)
+			this.whatsappWin.setMenu(null)
+			this.whatsappWin.loadURL(`https://web.whatsapp.com/`,{userAgent: 'Chrome'})
+			this.whatsappWin.on('minimize',(event)=> {
+			    event.preventDefault();
+			    this.whatsappWin.hide();
+			})
+
+			this.whatsappWin.on('close', (event)=> {
+			    event.preventDefault();
+			    this.whatsappWin.hide();
+			    return false;
+			})
+		}
+		else
+		{
+			if(this.whatsappWin.isVisible())
+				this.whatsappWin.hide()
+			else
+				this.whatsappWin.show()
+		}
 	}
 }
 
