@@ -43,7 +43,7 @@ class Application {
 		}
 
 		/** Init app updates. */
-		Container.get(AppUpdaterContainer)
+		Container.get(AppUpdaterContainer).init()
 	}
 
 	handleEvents() {

@@ -1,6 +1,6 @@
 {
 	"name": "Nudge",
-	"version": "0.2.0-alpha",
+	"version": "0.2.1",
 	"description": "",
 	"main": "index.js",
 	"author": {
@@ -12,9 +12,9 @@
 		"postinstall": "electron-builder install-app-deps",
 		"rebuild-deps": "electron-builder install-app-deps",
 		"dev": "electron-webpack dev",
-		"build": "electron-webpack && electron-builder",
+		"build": "electron-webpack && electron-builder --publish always",
 		"release": "electron-webpack && electron-builder -m --publish always",
-		"release:win": "electron-webpack && electron-builder -w"
+		"release:win": "electron-webpack && electron-builder -w --publish always"
 	},
 	"repository": {
 		"type": "git",
