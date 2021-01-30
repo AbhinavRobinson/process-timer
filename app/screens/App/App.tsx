@@ -147,7 +147,7 @@ export class App extends React.Component<{}, IAppState> {
 									.catch(console.error)
 							}}
 							className='read-button'
-							data-tip='Start Video Call'
+							data-tip='Video Call'
 						>
 							<FontAwesomeIcon icon={faPhone} />
 						</button>
@@ -157,7 +157,7 @@ export class App extends React.Component<{}, IAppState> {
 								ipcRenderer.send('open_timer')
 							}}
 							className='read-button'
-							data-tip='Pomo Timer'
+							data-tip='Open Timer'
 						>
 							<FontAwesomeIcon icon={faStopwatch} />
 						</button>
