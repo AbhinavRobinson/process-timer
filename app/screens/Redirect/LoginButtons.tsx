@@ -61,7 +61,7 @@ const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, elec
 						data-tip='Exit'
 					>
 						<FontAwesomeIcon icon={faTimes} className='exit-icon' />
-						Exit
+						Close
 					</button>
 				</div>
 				<div className='drag-container'>

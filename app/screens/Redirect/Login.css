@@ -1,5 +1,5 @@
 .login-wrapper {
-	background: #eee;
+	background: #fff;
 	width: 300px;
 	height: 375px;
 	border-radius: 20px;
@@ -43,7 +43,7 @@ p {
 .login-icon,
 .exit-icon {
 	vertical-align: middle;
-	padding-right: 10px;
+	padding-right: 15px;
 }
 
 .login-button:hover,

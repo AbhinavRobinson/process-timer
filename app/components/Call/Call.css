@@ -12,7 +12,7 @@
 	text-align: center;
 	align-items: center;
 	font-size: 50px;
-	background-color: rgb(246, 246, 246);
+	background-color: #fff;
 	border-radius: 25px;
 	color: #87a3ff;
 }
@@ -39,7 +39,7 @@ button {
 }
 
 .call {
-	background: #eee;
+	background: #fff;
 	border-radius: 25px;
 	display: flex;
 	flex-direction: column;
@@ -96,13 +96,13 @@ button {
 }
 
 .call canvas:first-child {
-	border: 3px solid #eee;
+	border: 3px solid #fff;
 	border-radius: 20px 0 0 20px;
 	border-right: 2px solid #777;
 }
 
 .call canvas:last-child {
-	border: 3px solid #eee;
+	border: 3px solid #fff;
 	border-radius: 0 20px 20px 0;
 	border-left: 2px solid #777;
 }
