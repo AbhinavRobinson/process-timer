@@ -100,12 +100,25 @@
 		"files": [
 			"!amplify/"
 		],
+		"publish": [
+			{
+				"provider": "s3",
+				"bucket": "nudge-testing"
+			}
+		],
+		"snap": {
+			"publish": [
+				{
+					"provider": "s3",
+					"bucket": "nudge-testing"
+				}
+			]
+		},
 		"linux": {
 			"artifactName": "${productName}-${os}-${channel}-${version}.${ext}",
 			"category": "Utility",
 			"icon": "build/icons/",
 			"target": [
-				"deb",
 				"snap"
 			]
 		},
@@ -115,11 +128,6 @@
 			"icon": "build/icons/",
 			"target": [
 				"nsis"
-			],
-			"publish": [
-				{
-					"provider": "github"
-				}
 			]
 		},
 		"mac": {
