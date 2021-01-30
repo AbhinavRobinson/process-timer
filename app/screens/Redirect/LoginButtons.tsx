@@ -26,6 +26,10 @@ const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, elec
 		<>
 			<ReactTooltip type='dark' delayShow={750} effect='solid' />
 			<div className='login-wrapper' id='outer'>
+				<div className='text-container'>
+					<h1 className='head'>Welcome to Nudge</h1>
+					<p className='subhead'>Get work done at home.</p>
+				</div>
 				<div className='button-container'>
 					<button
 						onClick={() => {
@@ -40,7 +44,7 @@ const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, elec
 						className='login-button'
 						data-tip='Login'
 					>
-						<FaUserLock className='' />
+						<FaUserLock className='login-icon' />
 						Login
 					</button>
 					<button
