@@ -110,7 +110,7 @@ export class App extends React.Component<{}, IAppState> {
 	render() {
 		return (
 			<Fragment>
-				<ReactTooltip type='info' />
+				<ReactTooltip type='dark' delayShow={750} effect='solid' />
 				<div className='outer' id='outer'>
 					{/* <p>{this.state.active_app}</p> */}
 					<div className='container'>
