@@ -23,7 +23,7 @@ export interface LoginProps {
 const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, electron_store, firebase, firestore }) => {
 	return (
 		<>
-			<ReactTooltip />
+			<ReactTooltip type='dark' delayShow={750} effect='solid' />
 			<div className='outer' id='outer'>
 				<div className='container'>
 					<button
