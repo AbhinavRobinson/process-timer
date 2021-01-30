@@ -19,9 +19,24 @@ p {
 }
 
 .button-container {
-	font-family: monospace;
 	display: flex;
 	flex-direction: column;
 	padding: 10px 80px;
 	gap: 15px;
+}
+
+.login-button,
+.exit-button {
+	border: 0px transparent #000;
+	font-family: monospace;
+	font-size: 16px;
+	color: #eee;
+	border-radius: 10px;
+	height: 50px;
+	background: black;
+}
+
+.login-icon,
+.exit-icon {
+	padding-right: 10px;
 }
