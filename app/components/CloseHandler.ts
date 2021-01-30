@@ -1,7 +1,8 @@
 import { remote } from 'electron'
+import Container from 'typedi'
+import { AppUpdaterContainer } from '../../AutoUpdater'
 
 /** Confirms to close the App.
- * @author Abhianv Robinson
  *
  * @param textMessage give message to be shown
  * @param callback give optional callback
@@ -18,7 +19,10 @@ export function CloseHandler(type: string, textmessage: string, callback?: VoidF
 		})
 		.then((data) => {
 			if (data.response === 0) {
-				window.close()
+				Container.get(AppUpdaterContainer).install()
+				setTimeout(() => {
+					if (window) window.close()
+				}, 2000)
 			}
 			if (data.response) {
 				callback()

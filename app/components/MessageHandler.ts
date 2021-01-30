@@ -1,7 +1,6 @@
 import { remote } from 'electron'
 
 /** Asks user to confirm action.
- * @author Abhianv Robinson
  *
  * @param textMessage give message to be shown
  * @param callback give optional callback
