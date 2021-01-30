@@ -5,13 +5,17 @@ const workers = {
 	appTracker,
 }
 
-const runWorkers = async () => {
-	Object.values(workers).map((worker) => worker())
+const runWorkers = (): Promise<() => any | undefined>[] => {
+	const cleanUps = Object.values(workers).map((worker) => worker())
+	return cleanUps
 }
 
 const Worker: React.FC = () => {
 	React.useEffect(() => {
-		runWorkers()
+		const cleanUps = runWorkers()
+		return () => {
+			cleanUps.forEach((cleanPromise) => cleanPromise.then((cleanFun) => cleanFun()))
+		}
 	}, [])
 	return <></>
 }

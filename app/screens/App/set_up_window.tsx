@@ -6,7 +6,7 @@ export function set_up_window() {
 	// 	x: remote.screen.getPrimaryDisplay().bounds.width - 120,
 	// 	// y: ,
 	// })
-	remote.getCurrentWindow().setSize(90, 600)
+	remote.getCurrentWindow().setSize(120, 600)
 	remote
 		.getCurrentWindow()
 		.setPosition(
