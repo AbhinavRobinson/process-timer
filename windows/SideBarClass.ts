@@ -1,6 +1,7 @@
 import { BrowserWindow, screen } from 'electron'
 import path from 'path'
 import { isDevelopment } from '..'
+import { loadWindow, routes } from './utilities'
 
 interface BrowserWindowPosition {
 	x?: number
@@ -9,7 +10,7 @@ interface BrowserWindowPosition {
 export class SideBarClass {
 	public InnerWindow: BrowserWindow
 
-	constructor(position: BrowserWindowPosition) {
+	constructor(position: BrowserWindowPosition, showing?: boolean) {
 		this.InnerWindow = new BrowserWindow({
 			webPreferences: {
 				nodeIntegration: true,
@@ -17,6 +18,7 @@ export class SideBarClass {
 				enableRemoteModule: true,
 				webSecurity: false,
 			},
+			show: showing ?? true,
 			width: 300,
 			height: 625,
 			...position,
@@ -30,12 +32,9 @@ export class SideBarClass {
 		this.InnerWindow.setFullScreenable(false)
 	}
 
-	init() {
-		if (isDevelopment) {
-			this.InnerWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?game`)
-		} else {
-			this.InnerWindow.loadURL(`file://${path.join(__dirname, 'index.html?game')}`)
-		}
+	init(route: routes) {
+		loadWindow(this.InnerWindow, route)
+
 		this.InnerWindow.setBounds({
 			x: screen.getPrimaryDisplay().bounds.width - 150,
 		})

@@ -90,6 +90,7 @@ export class App extends React.Component<{}, IAppState> {
 		set_up_window()
 		console.log('resolved')
 		if (process.platform !== 'darwin') game_loop(this)
+		if (process.platform === 'darwin') ipcRenderer.send('startAppTracking')
 	}
 
 	async componentDidUpdate() {

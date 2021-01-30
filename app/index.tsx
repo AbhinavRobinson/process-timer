@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Route, RouteProps } from 'react-router-dom'
 import Redirect from './screens/Redirect'
 import { SideBar } from './screens/SideBar/SideBar'
 
-import { ipcRenderer } from 'electron'
-
 import './css/index.css'
 import './css/utilities.css'
 import Container from 'typedi'
@@ -20,9 +18,10 @@ import { useDispatch } from 'react-redux'
 import store, { AppDispatch } from './redux/store'
 
 import { MetaApplicationActions } from './redux/states/MetaApplicationSlice'
+import { routes } from '../windows/utilities'
+import Worker from './screens/Worker'
 
 interface IMainState {
-	sidebar: boolean
 	loggedin: boolean
 }
 
@@ -39,9 +38,11 @@ const TestStore: React.FC = () => {
 	return <></>
 }
 
-const getViews = () => ({
+// Define all corresponding views here
+const getViews: () => { [key in routes]: any } = () => ({
 	default: <Redirect />,
 	game: <SideBar />,
+	worker: <Worker />,
 })
 
 const HandleRoute: React.FC<RouteProps> = ({ location }) => {
@@ -56,7 +57,6 @@ const HandleRoute: React.FC<RouteProps> = ({ location }) => {
 
 class Main extends React.Component<{}, IMainState> {
 	state = {
-		sidebar: false,
 		loggedin: false,
 	}
 	constructor(props: any) {
@@ -65,9 +65,6 @@ class Main extends React.Component<{}, IMainState> {
 	}
 
 	componentDidMount() {
-		ipcRenderer.on('redirect', () => {
-			this.setState({ sidebar: true })
-		})
 		if (electron_store.has('fire_login') && electron_store.get('fire_login') === false) {
 			electron_store.clear()
 			return

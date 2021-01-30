@@ -8,19 +8,12 @@ import { SideBarClass } from './windows/SideBarClass'
 
 import './redux/MainStore'
 
-import activeWin from 'active-win'
-
-let permissions
-if (process.platform === 'darwin') permissions = require('node-mac-permissions')
-
 export const isDevelopment = process.env.NODE_ENV !== 'production'
-
-const ignoreApp = isDevelopment ? 'Electron' : 'Nudge'
-const browsers = ['Safari', 'Chrome', 'Edge', 'Brave ']
 
 class Application {
 	public AppContainer: MainWindowClass
 	public SideBarContainer: SideBarClass
+	public WorkerContainer: SideBarClass
 	private isSideBarOpen: boolean
 
 	private intervalId: NodeJS.Timeout
@@ -30,7 +23,6 @@ class Application {
 
 	// Local Windows
 	private pomoWin: BrowserWindow
-	//private backgroundWin: BrowserWindow
 
 	constructor() {
 		this.init()
@@ -40,7 +32,7 @@ class Application {
 		app.on('ready', async () => {
 			this.pomoWin = null
 			this.AppContainer = new MainWindowClass()
-			await this.AppContainer.init()
+			await this.AppContainer.init('default')
 			this.handleEvents()
 			if (process.platform === 'darwin') app.dock.hide()
 		})
@@ -63,46 +55,32 @@ class Application {
 			this.openTimer()
 		})
 
-		ipcMain.on('sidebar_open_check', (e) => {
-			e.returnValue = this.isSideBarOpen
+		ipcMain.on('isDevelopment', (e) => {
+			e.returnValue = isDevelopment
 		})
 
 		ipcMain.on('control_state_change', (_, state) => {
 			if (this.isSideBarOpen) this.SideBarContainer?.InnerWindow?.webContents.send('stateUpdate', state)
 		})
 
-		// Background renderer process to execute binary
-		//this.backgroundWin = new BrowserWindow({
-		//	show: false,
-		//	webPreferences: { nodeIntegration: true, contextIsolation: true },
-		//})
-		//	this.backgroundWin.loadURL('')
+		ipcMain.on('startAppTracking', () => {
+			console.log('RECEIVED')
+			this.startAppTracking()
+		})
 
-		// App tracking every 2 seconds
-		if (process.platform !== 'win32')
-			this.intervalId = setInterval(async () => {
-				if (process.platform === 'darwin') {
-					if (permissions.getAuthStatus('accessibility') !== 'authorized' || permissions.getAuthStatus('screen') !== 'authorized') {
-						return
-					}
-				}
-				const data = await activeWin()
-				const appName: string = data?.owner?.name
-				let currentActive: string
-				if (!appName || appName.toUpperCase() === ignoreApp.toUpperCase()) return null
-				if (browsers.some((browser) => appName.toUpperCase().includes(browser.toUpperCase()))) {
-					if (this.active_app.toUpperCase() !== data.title.toUpperCase()) currentActive = data.title.toUpperCase()
-				} else if (this.active_app.toUpperCase() !== data.owner?.name.toUpperCase()) currentActive = data.owner?.name.toUpperCase()
+		ipcMain.on('appUpdate', (_, appName) => {
+			console.log({ appName })
+			this.AppContainer?.InnerWindow?.webContents?.send('appUpdate', appName)
+		})
 
-				if (currentActive && currentActive !== this.active_app) {
-					this.active_app = currentActive
-					this.AppContainer?.InnerWindow?.webContents?.send('appUpdate', currentActive)
-				}
-			}, 2000)
+		ipcMain.on('ping', (_, payload) => {
+			console.log({ payload })
+		})
 
 		this.AppContainer.InnerWindow.on('closed', () => {
 			this.AppContainer = null
 			this.SideBarContainer = null
+			this.WorkerContainer = null
 
 			!(process.platform === 'win32') && clearInterval(this.intervalId)
 
@@ -116,6 +94,14 @@ class Application {
 		// TODO add a close_sidebar call: should be callable globally
 	}
 
+	startAppTracking() {
+		// Background renderer process to execute binary
+		if (!this.WorkerContainer) {
+			this.WorkerContainer = new SideBarClass({}, false)
+		}
+		this.WorkerContainer.init('worker')
+	}
+
 	openSideBar() {
 		this.isSideBarOpen = true
 		if (!this.SideBarContainer) {
@@ -125,18 +111,9 @@ class Application {
 			this.AppContainer.InnerWindow.setOpacity(0.5)
 
 			this.SideBarContainer = new SideBarClass({ x, y })
-			this.SideBarContainer.init()
+			this.SideBarContainer.init('game')
 
 			this.SideBarContainer.InnerWindow.setPosition(x - 300, y, true)
-
-			if (isDevelopment) {
-				setInterval(() => this.SideBarContainer?.InnerWindow?.webContents.send('redirect', true), 1000)
-			} else {
-				const interval = setInterval(() => this.SideBarContainer?.InnerWindow?.webContents.send('redirect', true), 1000)
-				setTimeout(() => {
-					clearInterval(interval)
-				}, 60000)
-			}
 
 			this.SideBarContainer.InnerWindow.on('closed', () => {
 				this.AppContainer.InnerWindow.setPosition(x, y, true)

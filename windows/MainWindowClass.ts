@@ -2,7 +2,10 @@ import { BrowserWindow, screen } from 'electron'
 import * as path from 'path'
 import { isDevelopment } from '../index'
 
+import { routes } from './utilities'
+
 import Store from 'electron-store'
+import { loadWindow } from './utilities'
 const electron_store = new Store()
 
 export class MainWindowClass {
@@ -31,13 +34,9 @@ export class MainWindowClass {
 		this.InnerWindow.setFullScreenable(false)
 	}
 
-	async init() {
+	async init(route: routes) {
 		electron_store.set('socket', false)
-		if (isDevelopment) {
-			this.InnerWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}?default`)
-		} else {
-			this.InnerWindow.loadURL(`file://${path.join(__dirname, 'index.html?default')}`)
-		}
+		loadWindow(this.InnerWindow, route)
 
 		this.InnerWindow.on('closed', () => {
 			this.InnerWindow = null
