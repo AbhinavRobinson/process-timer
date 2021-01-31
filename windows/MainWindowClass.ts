@@ -23,7 +23,7 @@ export class MainWindowClass {
 			},
 			// @important any changes here also need to be made in App/set_up_window.tsx and Redirect/utilities.ts, or it will override this.
 			width: 400,
-			height: 400,
+			height: 600,
 			x: display.bounds.width - 500,
 			alwaysOnTop: true,
 			frame: false,

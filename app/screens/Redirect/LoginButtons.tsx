@@ -26,6 +26,7 @@ const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, elec
 		<>
 			<ReactTooltip type='dark' delayShow={750} effect='solid' />
 			<div className='login-wrapper' id='outer'>
+				<div className='logo'></div>
 				<div className='text-container'>
 					<h1 className='head'>Welcome to Nudge</h1>
 					<p className='subhead'>Get work done at home.</p>

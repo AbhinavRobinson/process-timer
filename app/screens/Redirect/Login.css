@@ -1,9 +1,18 @@
 .login-wrapper {
 	background: #fff;
 	width: 300px;
-	height: 375px;
+	height: 500px;
 	border-radius: 20px;
 	padding: 20px;
+}
+
+.logo {
+	background: url('../../logo.png') no-repeat no-repeat;
+	background-position: center;
+	background-size: contain;
+	width: auto;
+	height: 150px;
+	margin: 0 auto;
 }
 
 .text-container {
@@ -13,7 +22,7 @@
 
 h1 {
 	margin-bottom: 30px;
-	margin-top: 30px;
+	/* margin-top: 30px; */
 }
 
 p {
@@ -26,6 +35,8 @@ p {
 	flex-direction: column;
 	padding: 33px 80px;
 	gap: 18px;
+	justify-content: center;
+	/* align-items: center; */
 }
 
 .login-button,
@@ -33,10 +44,12 @@ p {
 	border: 0px solid #000;
 	font-family: 'Poppins', monospace;
 	font-size: 16px;
+	width: 125px;
 	color: #eee;
 	border-radius: 10px;
 	height: 50px;
 	background: black;
+	margin: auto auto;
 	font-weight: 500;
 }
 
