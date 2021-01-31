@@ -20,7 +20,7 @@ const AppList: React.FC<AppListProps> = ({ backend_running, time_spent, isOnMoni
 							key={ind}
 						>
 							<span style={{ zIndex: 4 }} className='app-item'>
-								<div className='text-center'>{`${elem.display_percentage}`}</div>
+								<div className='text-center' id='itemStyle'>{`${elem.display_percentage}`}</div>
 							</span>
 							<div className='fill' style={getStyle(elem)}></div>
 						</li>

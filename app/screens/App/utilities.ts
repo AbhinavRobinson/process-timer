@@ -5,9 +5,24 @@ const getColorForPercentage = (percentage: number) => {
 	let red = 255
 	let green = 255
 	if (percentage >= 0 && percentage <= 0.5) {
+		// decreases green
 		green = 510 * percentage
 	} else if (percentage > 0.5 && percentage <= 1) {
+		// increases red
 		red = -510 * percentage + 510
+	}
+
+	// red below 50%
+	if (percentage < 0.5 && percentage != 0) {
+		green = 0
+		red = 255
+		// document.getElementById('itemStyle').style.color = 'white'
+	}
+
+	// at Zero
+	if (percentage == 0) {
+		green = 0
+		red = 255
 	}
 
 	return 'rgb(' + [red, green, 0].join(',') + ')'
@@ -15,7 +30,7 @@ const getColorForPercentage = (percentage: number) => {
 
 // Get color grad and fill bubble
 export const getStyle = (elem: IHealth) => {
-	let color = getColorForPercentage(elem.health / 100)
+	let color = getColorForPercentage(elem.display_percentage / 100)
 
 	const fillStyle: React.CSSProperties = {
 		backgroundColor: color,
