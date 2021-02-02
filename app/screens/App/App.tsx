@@ -5,7 +5,8 @@ import React, { Fragment } from 'react'
  * Font Awesome Imports
  */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay, faCheck, faTimes, faPhone, faStopwatch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faCheck, faTimes, faPhone, faStopwatch } from '@fortawesome/free-solid-svg-icons'
+import { FaUnlockAlt } from 'react-icons/fa'
 
 import ReactTooltip from 'react-tooltip'
 
@@ -110,7 +111,7 @@ export class App extends React.Component<{}, IAppState> {
 	render() {
 		return (
 			<Fragment>
-				<ReactTooltip type='info' />
+				<ReactTooltip type='dark' delayShow={750} effect='solid' />
 				<div className='outer' id='outer'>
 					{/* <p>{this.state.active_app}</p> */}
 					<div className='container'>
@@ -169,11 +170,12 @@ export class App extends React.Component<{}, IAppState> {
 								// logout and reset it on that page.
 								electron_store.set('fire_login', false)
 								window.location.reload()
+								window.resizeTo(400, 600)
 							}}
 							className='logout-button sm'
 							data-tip='Logout'
 						>
-							<FontAwesomeIcon icon={faSignOutAlt} className='icon' />
+							<FaUnlockAlt />
 						</button>
 
 						<button
@@ -229,14 +231,15 @@ export class App extends React.Component<{}, IAppState> {
 	}
 
 	private stop_backend() {
+		clearTimeout(this.backend_timeout)
 		clearInterval(this.global_interval_timeout)
 		clearInterval(this.active_app_interval_timeout)
-		clearInterval(this.backend_timeout)
 		this.running_time = 0
 		this.active_time = 0
 		this.setState({ time_spent: [], backend_running: false }, () => {
 			this.setState({ time_spent: [], backend_running: false })
 		})
+		this.componentDidMount()
 		// TODO: Handle flickering without reload
 		// window.location.reload()
 	}

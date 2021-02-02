@@ -22,9 +22,9 @@ export class MainWindowClass {
 				devTools: isDevelopment,
 			},
 			// @important any changes here also need to be made in App/set_up_window.tsx and Redirect/utilities.ts, or it will override this.
-			width: 120,
+			width: 400,
 			height: 600,
-			x: display.bounds.width - 200,
+			x: display.bounds.width - 500,
 			alwaysOnTop: true,
 			frame: false,
 			transparent: process.platform === 'linux' ? false : true,
@@ -51,7 +51,7 @@ export class MainWindowClass {
 		})
 
 		this.InnerWindow.setBounds({
-			x: screen.getPrimaryDisplay().bounds.width - 120,
+			x: screen.getPrimaryDisplay().bounds.width - 500,
 		})
 		return this.InnerWindow
 	}

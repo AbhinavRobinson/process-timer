@@ -1,8 +1,9 @@
 import * as React from 'react'
 import ReactTooltip from 'react-tooltip'
 import { LoginState } from './index'
-import { faTimes, faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaUserLock } from 'react-icons/fa'
 import './Login.css'
 
 import Store from 'electron-store'
@@ -23,9 +24,14 @@ export interface LoginProps {
 const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, electron_store, firebase, firestore }) => {
 	return (
 		<>
-			<ReactTooltip />
-			<div className='outer' id='outer'>
-				<div className='container'>
+			<ReactTooltip type='dark' delayShow={750} effect='solid' />
+			<div className='login-wrapper' id='outer'>
+				<div className='logo'></div>
+				<div className='text-container'>
+					<h1 className='head'>Welcome to Nudge</h1>
+					<p className='subhead'>Get work done at home.</p>
+				</div>
+				<div className='button-container'>
 					<button
 						onClick={() => {
 							if (!loginState.verifying) {
@@ -36,10 +42,11 @@ const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, elec
 								Prompt('info', 'Oops!! A window is already opened or something went wrong, press login again for a fresh start!')
 							}
 						}}
-						className='read-button'
+						className='login-button'
 						data-tip='Login'
 					>
-						<FontAwesomeIcon icon={faSignInAlt} />
+						<FaUserLock className='login-icon' />
+						Login
 					</button>
 					<button
 						onClick={() => {
@@ -51,15 +58,16 @@ const LoginButtons: React.FC<LoginProps> = ({ loginState, changeLoginState, elec
 								})
 							}
 						}}
-						className='read-button sm'
+						className='exit-button'
 						data-tip='Exit'
 					>
-						<FontAwesomeIcon icon={faTimes} />
+						<FontAwesomeIcon icon={faTimes} className='exit-icon' />
+						Close
 					</button>
 				</div>
-
-				<div className='my-1'></div>
-				<DragRegion />
+				<div className='drag-container'>
+					<DragRegion />
+				</div>
 			</div>
 		</>
 	)

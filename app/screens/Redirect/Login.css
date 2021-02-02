@@ -1,42 +1,66 @@
-.login-container {
-	background-color: #eee;
-	width: 200px;
-	height: 150px;
-	padding: 10px;
-	border-radius: 25px;
-	font-family: monospace;
-	font-size: 10px;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	flex-direction: row-reverse;
-	justify-content: center;
-}
-
-.login h2 {
-	margin: 10px 0;
-}
-
-.login .icon {
-	font-size: 50px;
-}
-
-.login-container button {
-	position: absolute;
-	border: 1px solid #333;
+.login-wrapper {
 	background: #fff;
-	font-size: 12px;
-	border-radius: 9999px;
-	padding: 7.5px;
-	margin: 0 0 10px 0;
-	height: 30px;
-	width: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transform: translateX(130px) translateY(-25px);
+	width: 300px;
+	height: 500px;
+	border-radius: 20px;
+	padding: 20px;
 }
 
-.login-container .dragregion {
-	transform: translateY(10px);
+.logo {
+	background: url('../../logo.png') no-repeat no-repeat;
+	background-position: center;
+	background-size: contain;
+	width: auto;
+	height: 150px;
+	margin: 0 auto;
+}
+
+.text-container {
+	text-align: center;
+	font-family: 'Poppins', monospace;
+}
+
+h1 {
+	margin-bottom: 30px;
+	/* margin-top: 30px; */
+}
+
+p {
+	color: #333;
+	font-weight: 500;
+}
+
+.button-container {
+	display: flex;
+	flex-direction: column;
+	padding: 33px 80px;
+	gap: 18px;
+	justify-content: center;
+	/* align-items: center; */
+}
+
+.login-button,
+.exit-button {
+	border: 0px solid #000;
+	font-family: 'Poppins', monospace;
+	font-size: 16px;
+	width: 125px;
+	color: #eee;
+	border-radius: 10px;
+	height: 50px;
+	background: black;
+	margin: auto auto;
+	font-weight: 500;
+}
+
+.login-icon,
+.exit-icon {
+	vertical-align: middle;
+	padding-right: 15px;
+}
+
+.login-button:hover,
+.exit-button:hover {
+	background: #333;
+	cursor: pointer;
 }
