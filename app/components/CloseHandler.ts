@@ -23,18 +23,18 @@ export function CloseHandler(type: string, textmessage: string, callback?: VoidF
 				if (isDevelopment) window.close()
 				else {
 					// TODO: Testing exit.
-					if (process.platform === 'darwin')
+					if (process.platform === 'darwin') {
 						try {
 							Container.get(AppUpdaterContainer).install()
-							setTimeout(() => {
-								if (window) {
-									window.close()
-								}
-							})
 						} catch (error) {
 							console.log(error)
 						}
-					else {
+						setTimeout(() => {
+							if (window) {
+								window.close()
+							}
+						}, 2000)
+					} else {
 						window.close()
 					}
 				}
