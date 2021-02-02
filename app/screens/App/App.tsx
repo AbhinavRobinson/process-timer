@@ -230,9 +230,14 @@ export class App extends React.Component<{}, IAppState> {
 
 	private stop_backend() {
 		clearInterval(this.global_interval_timeout)
+		clearInterval(this.active_app_interval_timeout)
+		clearInterval(this.backend_timeout)
 		this.running_time = 0
 		this.active_time = 0
-		this.setState({ time_spent: [], backend_running: false })
-		//window.location.reload()
+		this.setState({ time_spent: [], backend_running: false }, () => {
+			this.setState({ time_spent: [], backend_running: false })
+		})
+		// TODO: Handle flickering without reload
+		// window.location.reload()
 	}
 }
