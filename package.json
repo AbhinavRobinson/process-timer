@@ -121,7 +121,8 @@
 			"icon": "build/icons/",
 			"target": [
 				"snap",
-				"deb"
+				"deb",
+        "AppImage"
 			]
 		},
 		"win": {
@@ -136,7 +137,8 @@
 			"artifactName": "${productName}-${os}-${channel}-${version}.${ext}",
 			"category": "public.app-category.developer-tools",
 			"target": [
-				"dmg"
+				"dmg",
+				"zip"
 			],
 			"icon": "build/icons/"
 		}
