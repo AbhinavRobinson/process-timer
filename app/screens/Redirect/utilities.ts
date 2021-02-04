@@ -1,4 +1,5 @@
 import { ipcRenderer, remote } from 'electron'
+import Container from 'typedi'
 import { LoginProps } from './LoginButtons'
 
 type utilityFunction = (obj: LoginProps, credential?: any) => Promise<void>
@@ -30,10 +31,11 @@ export const initUser: utilityFunction = async ({ electron_store, changeLoginSta
 
 export const googleSignIn: utilityFunction = async ({ firestore, loginState, firebase, changeLoginState, electron_store }) => {
 	const id = require('uuid').v4()
-
+	const data = await firestore.collection('admin').doc('urls').get()
+	const login_url = data.data()['login'] || 'nudge.aniketbiprojit.me'
 	const oneTimeCodeRef = firebase.database().ref(`ot-auth-codes/${id}`)
 
-	remote.shell.openExternal(`https://nudge.aniketbiprojit.me/?ot-auth-code=${id}`)
+	remote.shell.openExternal(`https://${login_url}/?ot-auth-code=${id}`)
 
 	const userDetails = (resolve: any) =>
 		oneTimeCodeRef.on('value', async (snapshot) => {

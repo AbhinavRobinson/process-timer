@@ -3,16 +3,38 @@ import socket from 'socket.io-client'
 
 import Store from 'electron-store'
 
+import firebase from 'firebase'
+
+if (firebase.apps.length === 0)
+	firebase.initializeApp({
+		apiKey: 'AIzaSyDCXLT3OhYO1gMndDKAoPWAtRFY1DWZWTM',
+		authDomain: 'nudge-299511.firebaseapp.com',
+		projectId: 'nudge-299511',
+		storageBucket: 'nudge-299511.appspot.com',
+		messagingSenderId: '637558220392',
+		appId: '1:637558220392:web:1097b5ef12e6c0ec75fddd',
+		serviceAccountId: 'firebase-adminsdk-1extw@nudge-299511.iam.gserviceaccount.com',
+		databaseURL: 'https://nudge-299511-default-rtdb.firebaseio.com/',
+	})
+
+const firestore = firebase.firestore()
+
 const electron_store = new Store()
 
 @Service()
 export class SocketContainerClass {
 	public io: SocketIOClient.Socket
-	private url = `wss://${Container.get('url')}/`
+	private url = `wss://socket.nudge.aniketbiprojit.me/`
 
-	// constructor() {
-	// 	this.init()
-	// }
+	constructor() {
+		let runner = async () => {
+			const data = await firestore.collection('admin').doc('urls').get()
+			const data_url = data.data()['socket'] || 'socket.nudge.aniketbiprojit.me'
+			this.url = `wss://${data_url}`
+		}
+		runner()
+	}
+
 	on_receive_update(callback) {
 		try {
 			this.io.on('receive_state', (state) => {
@@ -30,7 +52,7 @@ export class SocketContainerClass {
 		}
 	}
 
-	init(develop: boolean = false) {
+	async init(develop: boolean = false) {
 		if (develop) {
 			this.url = 'ws://localhost:8080'
 		}

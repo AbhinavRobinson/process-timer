@@ -20,7 +20,6 @@ import store, { AppDispatch } from './redux/store'
 import { MetaApplicationActions } from './redux/states/MetaApplicationSlice'
 import { routes } from '../windows/utilities'
 import Worker from './screens/Worker'
-
 interface IMainState {
 	loggedin: boolean
 }
@@ -66,10 +65,9 @@ class Main extends React.Component<{}, IMainState> {
 	}
 	constructor(props: any) {
 		super(props)
-		Container.set('url', 'socket.nudge.aniketbiprojit.me')
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		if (electron_store.has('fire_login') && electron_store.get('fire_login') === false) {
 			electron_store.clear()
 			return
