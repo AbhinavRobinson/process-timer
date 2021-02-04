@@ -13,9 +13,25 @@ import { Container } from 'typedi'
 // 		trackAllPureComponents: true,
 // 	})
 // }
+import firebase from 'firebase'
+
+if (firebase.apps.length === 0)
+	firebase.initializeApp({
+		apiKey: 'AIzaSyDCXLT3OhYO1gMndDKAoPWAtRFY1DWZWTM',
+		authDomain: 'nudge-299511.firebaseapp.com',
+		projectId: 'nudge-299511',
+		storageBucket: 'nudge-299511.appspot.com',
+		messagingSenderId: '637558220392',
+		appId: '1:637558220392:web:1097b5ef12e6c0ec75fddd',
+		serviceAccountId: 'firebase-adminsdk-1extw@nudge-299511.iam.gserviceaccount.com',
+		databaseURL: 'https://nudge-299511-default-rtdb.firebaseio.com/',
+	})
+
+const firestore = firebase.firestore()
 
 import Call from '../../components/Call/Call'
 import { SocketContainerClass } from '../../SocketContainer'
+import { log } from 'electron-log'
 
 interface ISideBarProps {}
 
@@ -54,7 +70,8 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	async componentDidMount() {
 		const socket_container = Container.get(SocketContainerClass)
 		const develop = false
-		this.initSocket(socket_container, develop)
+		const url = `wss://socket.nudge.aniketbiprojit.me`
+		this.initSocket(socket_container, url, develop)
 		remote.getCurrentWindow().setSize(220, 625)
 		remote.getCurrentWindow().setBounds({
 			x: remote.screen.getPrimaryDisplay().bounds.width - 315,
@@ -69,8 +86,8 @@ export class SideBar extends Component<ISideBarProps, ISideBarState> {
 	/**
 	 * Initialize socket and call update channels.
 	 */
-	private initSocket(socket_container: SocketContainerClass, develop: boolean = false) {
-		socket_container.init(develop)
+	private initSocket(socket_container: SocketContainerClass, url: string, develop: boolean = false) {
+		socket_container.init(url)
 		this.update_channel(socket_container)
 	}
 
